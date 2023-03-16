@@ -1,0 +1,1 @@
+This is where stock images will be held.. needed file to push formatting to branch
