@@ -1,0 +1,24 @@
+[
+  {
+    "_id": "1",
+    "name": "Sonsie",
+    "city": "Boston",
+    "state": "MA",
+    "country": "USA",
+    "cuisine": "eclectic",
+    "expense-level": 2,
+    "time-open": "8:00 AM",
+    "time-closed": "10:00 PM"
+  },
+  {
+    "_id": "2",
+    "name": "Pokeworks",
+    "city": "Boston",
+    "state": "MA",
+    "country": "USA",
+    "cuisine": "hawaiian",
+    "expense-level": 1,
+    "time-open": "8:30 AM",
+    "time-closed": "9:00 PM"
+  }
+]
