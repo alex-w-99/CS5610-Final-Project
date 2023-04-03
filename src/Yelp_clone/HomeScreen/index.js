@@ -1,3 +1,5 @@
+import HomeComponent from "./HomeComponent";
+
 /**
  * *******POST LOGIN*******
  * Most likely needing conditional statements to determine who logged in -
@@ -17,18 +19,7 @@
 function HomeScreen() {
     return (
 
-        <div>
-
-            <div>
-                Similar to landing page
-                <p>
-                    *** NAV BAR HERE ***
-                </p>
-            </div>
-            <div>
-                <p>CONTAINER FOR MAIN CONTENT ETC. ABOVE IN MORE DETAIL</p>
-            </div>
-        </div>
+       <HomeComponent/>
     )
 }
 
