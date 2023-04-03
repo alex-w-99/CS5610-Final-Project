@@ -6,6 +6,7 @@ const HomeComponent = () => {
     return (
         <div>
             <NavigationBar />
+
             <CarouselImage/>
             <CategoryActivitiesSelection/>
         </div>

@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import Yelp_clone from "./Yelp_clone"
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
