@@ -1,0 +1,13 @@
+- We have restaurant owner as a user type. How does that work for restaurants who haven't registered?
+Should we have a default page for restaurants until someone from the restaurant claims it?
+	- Business profiles 
+		- Have a default page for business - 
+			name, location, reviews, hours
+	- 
+
+
+For search algorithm
+	- Critic reviews are rated more highly
+	- Need to weigh between prioritizing distance and prioritizing reviews
+
+Get google maps API on the search page
