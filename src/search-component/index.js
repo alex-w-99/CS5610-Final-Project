@@ -1,12 +1,14 @@
 import React from 'react';
-import YelpRequest from 'external-apis/yelp';
-import SearchBar from 'search-bar';
+import SearchBar from '../search-bar';
+import {useParams} from 'react-router-dom';
 
-const SearchComponent = (searchQuery) => {
+const SearchComponent = () => {
+ const {query} = useParams();
  return(
-    <SearchBar/>
-    /* filters */
-    /* results */
+    <>
+        {console.log("In search component query is " + query)}
+        {query}
+    </>
  )
 };
 
