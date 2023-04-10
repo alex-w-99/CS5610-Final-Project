@@ -17,7 +17,7 @@ const SearchBar = () => {
    const newSearch = makeQuery(search);
    setSearch(newSearch);
    console.log("Before navigate, search is " + newSearch);
-   navigate(newSearch, true);
+   navigate('search/' + newSearch, true);
    console.log("Made it back from the navigate");
    setSearch('');
    console.log("Reset search");

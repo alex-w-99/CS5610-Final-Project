@@ -1,13 +1,18 @@
 import React from 'react';
 import SearchBar from '../search-bar';
 import {useParams} from 'react-router-dom';
+import {getBusinesses} from '../services/yelp-service.js';
 
 const SearchComponent = () => {
  const {query} = useParams();
+ const businesses = getBusinesses(query);
+ console.log(businesses);
  return(
     <>
-        {console.log("In search component query is " + query)}
+    <h1>Yelp Search</h1>
         {query}
+
+        <pre>{/*JSON.stringify(results, null, 2)*/}</pre>
     </>
  )
 };
