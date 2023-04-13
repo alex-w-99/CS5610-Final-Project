@@ -3,24 +3,33 @@
 import React from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {findBusinessesThunk} from '../services/business-thunks';
 import makeQuery from "./makeQuery";
 
 const SearchBar = () => {
  const [search, setSearch] = useState('');
- const [location, setLocation] = useState('');
+ const [location, setLocation] = useState('null');
  const navigate = useNavigate();
+ const dispatch = useDispatch();
 
  const handleSubmit = (event) => {
    if (search === '') {
        return;
    }
    event.preventDefault();
-   const newSearch = makeQuery(search, location);
-   setSearch(newSearch);
-   console.log("Before navigate, search is " + newSearch);
-   navigate('search/' + newSearch, true);
-   console.log("Made it back from the navigate");
-   setSearch('');
+   var newSearch;
+   if (location.length === 0) {
+        newSearch = makeQuery(search, "null");
+   } else {
+        newSearch = makeQuery(search, location);
+   }
+   console.log("SEARCH BAR: LOCATION IS " + location);
+   navigate('search/' + newSearch.query + '/' + newSearch.location, true);
+//    useEffect(() => {
+    console.log("Calling the thunk with location " + location);
+       dispatch(findBusinessesThunk(newSearch))
+//    }, [])
    console.log("Reset search");
  }
 

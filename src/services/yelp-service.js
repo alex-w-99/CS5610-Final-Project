@@ -15,7 +15,7 @@ export const getByLocation = async (query, location) => {
 
 /* Get restaurants by longitude and latitude */
 export const getByCoordinates = async (query, longitude, latitude) => {
-    console.log("LONGITUDE IS " + longitude);
+    console.log("SERVICE: LONGITUDE IS " + longitude);
     const response = await axios.get
         (`${YELP_API}/${query}&longitude=${longitude}&latitude=${latitude}`);
     const businesses = response.data;
