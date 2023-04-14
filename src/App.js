@@ -17,7 +17,7 @@ function App() {
        <div className="container">
        <SearchBar/>
          <Routes>
-           <Route path="/search/:query/:location"
+           <Route path="/search/*"
                   element={<SearchComponent/>}/>
          </Routes>
        </div>

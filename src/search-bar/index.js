@@ -4,34 +4,46 @@ import React from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import { findBusinessesThunk, initializeLocation} from '../services/business-thunks';
+import {findBusinessesThunk} from '../services/business-thunks';
 import makeQuery from "./makeQuery";
 
 const SearchBar = () => {
  const [search, setSearch] = useState('');
- const [location, setLocation] = useState('null');
+ const [location, setLocation] = useState('');
  const navigate = useNavigate();
  const dispatch = useDispatch();
- initializeLocation();
+// initializeLocation();
 
  const handleSubmit = (event) => {
-   if (search === '') {
-       return;
-   }
    event.preventDefault();
    var newSearch;
+   console.log("SEARCH: LOCATION IS " + location);
    if (location.length === 0) {
+        console.log("SEARCH: location length is 0")
         newSearch = makeQuery(search, "null");
+        if (search.length === 0) {
+            console.log("And so is search");
+            navigate('search/', true);
+            return;
+        } else {
+            navigate('search/' + newSearch.query, true);
+        }
    } else {
-        newSearch = makeQuery(search, location);
+        if (search.length === 0) {
+            console.log("Search length is 0");
+            newSearch = makeQuery("restaurants", location);
+            navigate('search/restaurants/' + newSearch.location, true);
+        } else {
+            newSearch = makeQuery(search, location);
+            navigate('search/' + newSearch.query + '/' + newSearch.location, true);
+        }
    }
-   console.log("SEARCH BAR: LOCATION IS " + location);
-   navigate('search/' + newSearch.query + '/' + newSearch.location, true);
+//   console.log("SEARCH BAR: LOCATION IS " + location);
 //    useEffect(() => {
-    console.log("Calling the thunk with location " + location);
-       dispatch(findBusinessesThunk(newSearch))
+//    console.log("Calling the thunk with location " + location);
+   dispatch(findBusinessesThunk(newSearch))
 //    }, [])
-   console.log("Reset search");
+//   console.log("Reset search");
  }
 
  return(
