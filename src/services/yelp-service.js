@@ -6,7 +6,7 @@ const YELP_API = `${API_BASE}/yelp`
 
 /* Get restaurants by city / state name */
 export const getByLocation = async (query, location) => {
-    const response = await axios.get(`${YELP_API}/${query}&location=${location}`);
+    const response = await axios.get(`${YELP_API}/term=${query}&location=${location}`);
     console.log("This is the request: " + `${YELP_API}/${query}`);
     const businesses = response.data;
     console.log('got businesses,' + businesses);
@@ -17,7 +17,7 @@ export const getByLocation = async (query, location) => {
 export const getByCoordinates = async (query, longitude, latitude) => {
     console.log("SERVICE: LONGITUDE IS " + longitude);
     const response = await axios.get
-        (`${YELP_API}/${query}&longitude=${longitude}&latitude=${latitude}`);
+        (`${YELP_API}/term=${query}&longitude=${longitude}&latitude=${latitude}`);
     const businesses = response.data;
     console.log('got businesses,' + businesses);
     return businesses;

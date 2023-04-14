@@ -21,9 +21,10 @@ const SearchComponent = () => {
       </li>
     }
     {
-      businesses.map(business =>
-        <li key={business.id} className="list-group-item">
-          <ResultItem restaurant={business}/>
+      businesses.map(restaurant =>
+        <li key={restaurant.id} className="list-group-item">
+          {console.log("Here's what we're passing to function: " + restaurant.id)}
+          <ResultItem restaurant={restaurant}/>
         </li>
       )
     }

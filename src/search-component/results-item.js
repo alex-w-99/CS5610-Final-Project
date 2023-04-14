@@ -1,14 +1,17 @@
 import React from "react";
 
 const ResultItem = (
+  {
     restaurant = {
      "name": "Template",
      "image_url": "",
      "is_closed": false,
     }
+  }
  ) => {
  return(
     <div className="row">
+    {console.log("This restaurant's is " + JSON.stringify(restaurant))}
       <div className="col-auto">
         <img width={50}
              height={50}

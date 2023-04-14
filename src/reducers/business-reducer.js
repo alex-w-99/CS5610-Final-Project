@@ -6,6 +6,8 @@ const initialState = {
     loading: false,
 }
 
+console.log("INITIAL STATE FOR JSON PURPOSES:" + JSON.stringify(initialState));
+
 const businessesSlice = createSlice({
  name: 'queryResults',
  initialState,
@@ -13,11 +15,10 @@ const businessesSlice = createSlice({
     [findBusinessesThunk.fulfilled]:
       (state, action) => {
         state.loading = false;
-        console.log("action IS " + JSON.stringify(action));
         var payload = JSON.parse(JSON.parse(JSON.stringify(action)).payload);
 //        const businesses = payload.businesses;
 //        console.log("BUSINESSES ARE: " + JSON.stringify(businesses));
-////        console.log("PAYLOAD BUSINESSES:" + payload.businesses);
+        console.log("PAYLOAD BUSINESSES:" + JSON.stringify(payload.businesses));
 //        console.log("STATE IS " + JSON.stringify(state));
         state.businesses = payload.businesses;
       },
