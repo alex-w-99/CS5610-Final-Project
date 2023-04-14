@@ -24,12 +24,12 @@ const CarouselImage = ( ) => {
                          src="https://via.placeholder.com/800x400?text=Image+3" alt="Third slide"/>
                 </div>
             </div>
-            <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+            <a className="carousel-control-prev" href={"#carouselExampleIndicators"} role="button"
                data-slide="prev">
                 <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span className="sr-only">Previous</span>
             </a>
-            <a className="carousel-control-next" href="#carouselExampleIndicators" role="button"
+            <a className="carousel-control-next" href={"#carouselExampleIndicators"} role="button"
                data-slide="next">
                 <span className="carousel-control-next-icon" aria-hidden="true"></span>
                 <span className="sr-only">Next</span>
