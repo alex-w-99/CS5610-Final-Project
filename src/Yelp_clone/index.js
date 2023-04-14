@@ -15,7 +15,6 @@ function Yelp_clone() {
          * Landing page should be a separate component
          * */
         <Provider store={store}>
-
             <div>
                 <Routes>
                     <Route path="home" element={<HomeScreen/>} index/>
