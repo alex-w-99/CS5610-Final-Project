@@ -3,6 +3,7 @@ import SearchBar from '../search-bar';
 import {useSelector} from 'react-redux';
 import {findBusinessesThunk}
   from "../services/business-thunks"
+import ResultItem from "./results-item";
 
 const SearchComponent = () => {
 //     const {query, location} = useParams();
@@ -12,7 +13,21 @@ const SearchComponent = () => {
  return(
     <>
     <h1>Yelp Search</h1>
-        <pre>{/*JSON.stringify(results, null, 2)*/}</pre>
+    <ul>
+    {
+      loading &&
+      <li className="list-group-item">
+        Loading...
+      </li>
+    }
+    {
+      businesses.map(business =>
+        <li key={business.id} className="list-group-item">
+          <ResultItem restaurant={business}/>
+        </li>
+      )
+    }
+    </ul>
     </>
  )
 };

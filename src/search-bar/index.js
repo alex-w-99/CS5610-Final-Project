@@ -4,7 +4,7 @@ import React from 'react';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {findBusinessesThunk} from '../services/business-thunks';
+import { findBusinessesThunk, initializeLocation} from '../services/business-thunks';
 import makeQuery from "./makeQuery";
 
 const SearchBar = () => {
@@ -12,6 +12,7 @@ const SearchBar = () => {
  const [location, setLocation] = useState('null');
  const navigate = useNavigate();
  const dispatch = useDispatch();
+ initializeLocation();
 
  const handleSubmit = (event) => {
    if (search === '') {

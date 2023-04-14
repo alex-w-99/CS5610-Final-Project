@@ -11,9 +11,15 @@ const businessesSlice = createSlice({
  initialState,
  extraReducers: {
     [findBusinessesThunk.fulfilled]:
-      (state, { payload }) => {
+      (state, action) => {
         state.loading = false;
-        state.businesses = payload;
+        console.log("action IS " + JSON.stringify(action));
+        var payload = JSON.parse(JSON.parse(JSON.stringify(action)).payload);
+//        const businesses = payload.businesses;
+//        console.log("BUSINESSES ARE: " + JSON.stringify(businesses));
+////        console.log("PAYLOAD BUSINESSES:" + payload.businesses);
+//        console.log("STATE IS " + JSON.stringify(state));
+        state.businesses = payload.businesses;
       },
     [findBusinessesThunk.pending]:
        (state) => {
