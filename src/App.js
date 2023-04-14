@@ -9,7 +9,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route index element={<Yelp_clone/>}/>
+                <Route path="/yelp/*" element={<Yelp_clone/>}/>
             </Routes>
         </BrowserRouter>
     );
