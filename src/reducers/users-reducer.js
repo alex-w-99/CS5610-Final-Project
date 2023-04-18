@@ -1,8 +1,11 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {profileThunk} from "../services/users-thunks";
 
+
+
+import * as defaultUser from "../reducers/currentUser.json";
 const initialState = {
-    currentUser: null,
+    currentUser: defaultUser,  // currentUser: null,  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     loading: false,
     error: ""
 }

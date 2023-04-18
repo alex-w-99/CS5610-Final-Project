@@ -7,6 +7,8 @@ import Profile from "./Profile";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
+import * as PropTypes from "prop-types";
+import EditProfile from "./edit-profile";
 //import CurrentUser from "./users/current-user";
 //import React from "@types/react";
 
@@ -19,6 +21,12 @@ const store = configureStore(
     }
 );
 
+function ProtectedRoute(props) {
+    return null;
+}
+
+ProtectedRoute.propTypes = {children: PropTypes.node};
+
 function App() {
     return (
         <Provider store={store}>
@@ -30,11 +38,32 @@ function App() {
                         </div>
 
                         <Routes>
-                            <Route path="/" element={<LandingPage/>} />
-                            <Route path="/landingpage" element={<LandingPage/>} />
-                            <Route path="/home" element={<HomeScreen/>} />
-                            <Route path="/profile" element={<Profile/>} />
+                            <Route
+                                index
+                                element={<LandingPage/>}
+                            />
+                            <Route
+                                path="/landingpage"
+                                element={<LandingPage/>}
+                            />
+                            <Route
+                                path="/home"
+                                element={<HomeScreen/>}
+                            />
+                            <Route
+                                path="/profile"
+                                element={
+                                    <Profile/>
+                                }
+                            />
+                            <Route
+                                path="/profile/edit-profile"
+                                element={
+                                    <EditProfile/>
+                                }
+                            />
                             { /* <Route path="/about" element={<About/>} /> */ }
+
                         </Routes>
                     </div>
                 </BrowserRouter>

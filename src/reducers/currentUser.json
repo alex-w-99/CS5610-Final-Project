@@ -1,0 +1,16 @@
+{
+  "_id": {
+    "$oid": "643ef7c6a74ebfe121345d7d"
+  },
+  "username": "alex-w-99",
+  "firstName": "Alex",
+  "lastName": "Wilcox",
+  "location": "Brookline",
+  "aboutMe": "This is my bio section...",
+  "email": "wilcox.al@northeastern.edu",
+  "password:": "pw123",
+  "userType": "PERSONAL",
+  "profilePicture": "https://media.bizj.us/view/img/10381926/gettyimages-citgo*1200xx3104-1748-0-189.jpg",
+  "bannerPicture": "https://visitingnewengland.com/blog-cheap-travel/wp-content/uploads/2016/08/boston-common-historic.jpg",
+  "website": "https://github.com/alex-w-99"
+}
