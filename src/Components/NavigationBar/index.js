@@ -5,7 +5,7 @@ const NavigationBar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-                <Link to="/yelp/landingpage" className="navbar-brand">Yelp Clone</Link>
+                <Link to="/landingpage" className="navbar-brand">Yelp Clone</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                         aria-label="Toggle navigation">
@@ -17,7 +17,7 @@ const NavigationBar = () => {
                             <a className="nav-link" href="#">Restaurants</a>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/yelp/home">Home</Link>
+                            <Link className="nav-link" to="/home">Home</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Auto Services</a>
@@ -33,7 +33,7 @@ const NavigationBar = () => {
                             <a className="nav-link" href="#">Business</a>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/yelp/profile">Profile</Link>
+                            <Link className="nav-link" to="/profile">Profile</Link>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Log In</a>

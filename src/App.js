@@ -1,16 +1,25 @@
-import Yelp_clone from "./Yelp_clone"
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
+import NavigationBar from "./Components/NavigationBar";
+import LandingPage from "./LandingPage";
+import HomeScreen from "./HomeScreen";
+import Profile from "./Profile";
+//import React from "@types/react";
 
-/**
- * Driver calls the Yelp Clone -- starts at landing page
- * */
 function App() {
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/yelp/*" element={<Yelp_clone/>}/>
-            </Routes>
+            <div className="container">
+                <div>
+                    <NavigationBar/>
+                </div>
+
+                <Routes>
+                    <Route path="/landingpage" element={<LandingPage/>} />
+                    <Route path="/home" element={<HomeScreen/>} />
+                    <Route path="/profile" element={<Profile/>} />
+                </Routes>
+            </div>
         </BrowserRouter>
     );
 }
