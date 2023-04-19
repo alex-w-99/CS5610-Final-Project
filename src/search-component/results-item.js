@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/index.css';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,24 +18,32 @@ const ResultItem = (
     navigate(`/details/${restaurant.id}`);
  }
  return(
-    <div className="row" onClick={toDetails}    >
-      <div className="col-auto">
-        <img width={50}
-             height={50}
-             className="float-start"
+  <div>
+    <div className="row mb-2 p-2"
+        onClick={toDetails}
+        id="result-item-box">
+      <div className="col-4">
+        <img width={100}
+             height={100}
              src={restaurant.image_url}/>
-        <div className="fw-Bold">
+      </div>
+      <div className="col-8">
+        <div className="fw-bold cw-restaurant-name ps-5 pt-3">
                      {restaurant.name}
         </div>
-      </div>
-        <div className="col-10">
             { restaurant.is_closed ?
-                <div className="text-danger fw-bold"> Closed</div>
+                <div className="text-danger
+                     fw-bold"> <i className= "bi bi-x me-2 ps-5"/>
+                     Closed </div>
                 :
-                <div className="text-success fw-bold"> Open now</div>
+                <div className="text-success
+                     fw-bold pt-3"> <i className= "bi bi-circle-fill me-2 ps-5"/>
+                     Open now</div>
             }
+            </div>
         </div>
     </div>
+
  );
 };
 export default ResultItem;

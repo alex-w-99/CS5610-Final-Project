@@ -1,6 +1,7 @@
 /* this is where I should add the filters as an object */
 
 import React from 'react';
+import './styles/index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -12,7 +13,6 @@ const SearchBar = () => {
  const [location, setLocation] = useState('');
  const navigate = useNavigate();
  const dispatch = useDispatch();
-// initializeLocation();
 
  const handleSubmit = (event) => {
    event.preventDefault();
@@ -38,30 +38,37 @@ const SearchBar = () => {
             navigate('search/' + newSearch.query + '/' + newSearch.location, true);
         }
    }
-//   console.log("SEARCH BAR: LOCATION IS " + location);
-//    useEffect(() => {
-//    console.log("Calling the thunk with location " + location);
    dispatch(findBusinessesThunk(newSearch))
-//    }, [])
-//   console.log("Reset search");
  }
 
  return(
-    <form onSubmit={(event) => handleSubmit(event)} className="mb-2">
+  <>
+    <form onSubmit={(event) => handleSubmit(event)} className="form-group mb-2 row">
+            <div className="col-4 ps-0 pe-0">
                 <input type="text"
                        id="restaurant-search"
                        placeholder="Search Restaurants"
+                       className="form-control"
                        onChange={(event) => setSearch(event.target.value)}/>
+            </div>
+            <div className="col-4 mb-0 ps-0 pe-0">
                <input type="text"
                       id="location-search"
                       placeholder="Location"
+                      className="form-control"
                       onChange={(event) => setLocation(event.target.value)}/>
+              </div>
+              <div className="col-4">
                <button type="submit"
-                       className="btn btn-primary"
+                       className="btn btn-danger m"
                        onClick={(event) => handleSubmit(event)}>
-                    <i className="bi bi-search me-1"/>
+                    <i className="bi bi-search"/>
                </button>
+               <img src="../../images/yelp-icon.jpg"
+                        width={70}/>
+              </div>
     </form>
+  </>
  )
 };
 

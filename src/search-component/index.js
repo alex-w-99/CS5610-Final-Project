@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/index.css'
 import SearchBar from '../search-bar';
 import ResultItem from './results-item';
 import { useSelector } from 'react-redux';
@@ -12,8 +13,9 @@ const SearchComponent = () => {
 
  return(
     <>
-    <h1>Yelp Search</h1>
-    <ul>
+    <h1>Results</h1>
+    <ul className="ps-0"
+        id="result-item-list">
     {
       loading &&
       <li className="list-group-item">
