@@ -8,5 +8,5 @@ export const profileThunk = createAsyncThunk(
 
 export const updateUserThunk = createAsyncThunk(
     "users/updateUser",
-    async (user) => await service.updateUser(user)
+    async user => await service.updateUser(user)
 );

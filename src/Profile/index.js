@@ -10,7 +10,7 @@ const Profile = () => {
     const dispatch = useDispatch();
     // useEffect( ... );
 
-    if (currentUser) {console.log("currentuser")} else {console.log("no current user!")}
+    if (currentUser) {console.log("there is a currentUser")} else {console.log("no currentUser!")}
 
     return (
         <div className="profile">
