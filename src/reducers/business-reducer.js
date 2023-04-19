@@ -1,12 +1,10 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {findBusinessesThunk} from "../services/business-thunks";
+import { createSlice } from "@reduxjs/toolkit";
+import { findBusinessesThunk } from "../services/yelp/business-thunks";
 
 const initialState = {
     businesses: [],
     loading: false,
 }
-
-console.log("INITIAL STATE FOR JSON PURPOSES:" + JSON.stringify(initialState));
 
 const businessesSlice = createSlice({
  name: 'queryResults',

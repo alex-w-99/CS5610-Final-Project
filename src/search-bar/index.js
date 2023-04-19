@@ -1,10 +1,10 @@
 /* this is where I should add the filters as an object */
 
 import React from 'react';
-import {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {findBusinessesThunk} from '../services/business-thunks';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { findBusinessesThunk } from '../services/yelp/business-thunks';
 import makeQuery from "./makeQuery";
 
 const SearchBar = () => {
