@@ -1,23 +1,27 @@
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
-import NavigationBar from "./Components/NavigationBar";
+import NavigationBar from "./NavigationBar";
 import LandingPage from "./LandingPage";
 import HomeScreen from "./HomeScreen";
 import Profile from "./profile";
+import ProfileOverview from "./profile-overview";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import EditProfile from "./edit-profile";
 import CurrentUser from "./users/current-user";
 import React from "react";
-//import profileReducer from "./reducers/profile-reducer";
+import profileReducer from "./reducers/profile-reducer";
+import About from "./about";
+import Login from "./login";
+import Register from "./register";
 
 const store = configureStore(
     {
         reducer:
             {
                 users: usersReducer,
-                //profile: profileReducer,
+                profile: profileReducer,
             }
     }
 );
@@ -52,12 +56,27 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/profile/:uid"
+                                element={<ProfileOverview/>}
+                            />
+                            <Route
                                 path="/profile/edit-profile"
                                 element={
                                     <EditProfile/>
                                 }
                             />
-                            { /* <Route path="/about" element={<About/>} /> */ }
+                            <Route
+                                path="/login"
+                                element={<Login/>}
+                            />
+                            <Route
+                                path="/register"
+                                element={<Register/>}
+                            />
+                            <Route
+                                path="/about"
+                                element={<About/>}
+                            />
 
                         </Routes>
                     </div>

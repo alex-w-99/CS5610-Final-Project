@@ -1,34 +1,40 @@
-import React from "react";
-import { Container, Row, Col, Image, Card, ListGroup } from "react-bootstrap";
-import "./Profile.css";
+import React, {useEffect} from 'react'
+import { Container, Row, Col, Image, Card, ListGroup } from 'react-bootstrap';
+import '../profile/Profile.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
+import {useNavigate, useParams} from "react-router";
 
-// Profile page
-const Profile = () => {
+// Public profile page
+const ProfileOverview = () => {
+    const { uid } = useParams();
     const { currentUser } = useSelector(state => state.users);
-    //const dispatch = useDispatch();
-    //useEffect( () => { ??? }, [ ??? ] );
+    const { publicUser } = useSelector(state => state.users);
 
-    if (currentUser) { console.log("/Profile/index.js -> there is a currentUser") }
-    else { console.log("/Profile/index.js -> there is no currentUser!") }
+    console.log("profile-overview/index.js")
+    console.log(uid)
 
-    console.log(currentUser)
+    const nav = useNavigate();
+    //useEffect(
+    //    () => {
+    //        if (currentUser && currentUser._id === uid) { nav("/profile") }
+    //    }
+    //);
 
-    return (
+    return(
         <div className="profile">
             <Container className="my-2">
 
                 { /* Banner */ }
                 {
-                    currentUser
+                    publicUser
                     &&
-                    currentUser.bannerPicture
+                    publicUser.bannerPicture
                     &&
                     <Row>
                         <Image
-                            src={`${currentUser && currentUser.bannerPicture}`}
+                            src={`${currentUser && publicUser.bannerPicture}`}
                             height="225px" width="100%"
                             style={ {
                                 borderRadius: "20px",
@@ -43,7 +49,7 @@ const Profile = () => {
                 <Row className="mx-auto"
                      style={ {
                          width: "97.5%",
-                         marginTop: currentUser.bannerPicture ? "-20px" : "0px"
+                         marginTop: publicUser.bannerPicture ? "-20px" : "0px"
                      } }
                 >
                     { /* First column */ }
@@ -52,47 +58,24 @@ const Profile = () => {
                             <Card.Body className="text-center">
 
                                 <Image
-                                    src={`${currentUser && currentUser.profilePicture}`}
+                                    src={`${currentUser && publicUser.profilePicture}`}
                                     roundedCircle
                                     height="150px" width="150px"
                                     className="mb-3"
                                 />
 
                                 <Card.Title className="profile-title">
-                                    {currentUser && currentUser.firstName}
+                                    {currentUser && publicUser.firstName}
                                     &nbsp;
-                                    {currentUser && currentUser.lastName}
+                                    {currentUser && publicUser.lastName}
                                 </Card.Title>
 
                                 <div className="text-muted profile-subtitle">
                                     <div>
-                                        {currentUser && currentUser.username}
+                                        {publicUser && publicUser.username}
                                     </div>
                                     <div>
-                                        {currentUser && currentUser.location}
-                                    </div>
-                                </div>
-
-                                <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
-
-                                <div className="mt-3 mb-2 text-muted">
-
-                                    <div>
-                                        {currentUser && currentUser.email}
-                                    </div>
-
-                                    <div>
-                                        {
-                                            currentUser
-                                            &&
-                                            <Link to={currentUser.website}>
-                                                {currentUser.website}
-                                            </Link>
-                                        }
-                                    </div>
-
-                                    <div>
-                                        {currentUser && formatPhoneNumber(currentUser.phone)}
+                                        {publicUser && publicUser.location}
                                     </div>
                                 </div>
 
@@ -116,15 +99,26 @@ const Profile = () => {
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
                                           style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Following
+                                        Follow
                                     </Link>
                                 </ListGroup.Item>
 
                                 <ListGroup.Item className="profile-nav-item text-center">
-                                    <Link to={"/profile/#"}
-                                          style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Followers
-                                    </Link>
+
+                                    <div className="col-6">
+                                        <Link to={"/profile/#"}
+                                              style={ { color: 'inherit', textDecoration: 'none' } }>
+                                            Following
+                                        </Link>
+                                    </div>
+
+                                    <div className="col-6">
+                                        <Link to={"/profile/#"}
+                                              style={ { color: 'inherit', textDecoration: 'none' } }>
+                                            Followers
+                                        </Link>
+                                    </div>
+
                                 </ListGroup.Item>
 
                                 <ListGroup.Item className="profile-nav-item text-center">
@@ -159,10 +153,10 @@ const Profile = () => {
                                 </Card.Title>
                                 <Card.Text>
                                     {
-                                        currentUser && currentUser.aboutMe
+                                        publicUser && publicUser.aboutMe
                                         ?
                                         <span>
-                                            {currentUser.aboutMe}
+                                            {publicUser.aboutMe}
                                         </span>
                                         :
                                         <span className="text-muted">
@@ -188,6 +182,6 @@ const Profile = () => {
             </Container>
         </div>
     );
-};
+}
 
-export default Profile;
+export default ProfileOverview;

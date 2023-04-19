@@ -1,15 +1,12 @@
-import {useDispatch} from "react-redux";
-import {useEffect} from "react";
-import {profileThunk} from "../services/users-thunks";
+import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { profileThunk } from "../services/users-thunks";
 
-const CurrentUser = ({content}) => {
+const CurrentUser = ( { content } ) => {
     const dispatch = useDispatch();
     useEffect(
-        () => {
-            dispatch(profileThunk());
-        }, []
+        () => { dispatch(profileThunk()) }, []
     );
-
     return(
         content
     );

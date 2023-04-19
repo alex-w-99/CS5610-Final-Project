@@ -4,22 +4,19 @@ import { Link } from 'react-router-dom';
 const NavigationBar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid ms-3">
+            <div className="container-fluid ms-3 mt-2">
+
                 <Link to="/landingpage" className="navbar-brand fw-bold">
                     Chews Wisely
                 </Link>
+
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                         aria-label="Toggle navigation">
                 </button>
+
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav ms-auto justify-content-evenly w-100">
-
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Restaurants
-                            </a>
-                        </li>
 
                         <li className="nav-item">
                             <Link className="nav-link" to="/home">
@@ -28,21 +25,21 @@ const NavigationBar = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Auto Services
-                            </a>
+                            <Link className="nav-link" to="/about">
+                                About
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                More
-                            </a>
+                            <Link className="nav-link" href="#">
+                                Restaurants
+                            </Link>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Business
-                            </a>
+                            <Link className="nav-link" href="#">
+                                Search
+                            </Link>
                         </li>
 
                         <li className="nav-item">
@@ -52,15 +49,9 @@ const NavigationBar = () => {
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link" href="#">
-                                Sign Up
-                            </a>
-                        </li>
-
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
+                            <Link className="nav-link" href="/login">
                                 Log In
-                            </a>
+                            </Link>
                         </li>
 
                         <li className="nav-item">
