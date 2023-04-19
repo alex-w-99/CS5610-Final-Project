@@ -3,29 +3,24 @@ import {Routes, Route} from "react-router";
 import NavigationBar from "./Components/NavigationBar";
 import LandingPage from "./LandingPage";
 import HomeScreen from "./HomeScreen";
-import Profile from "./Profile";
+import Profile from "./profile";
 import {Provider} from "react-redux";
 import {configureStore} from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
-import * as PropTypes from "prop-types";
 import EditProfile from "./edit-profile";
-//import CurrentUser from "./users/current-user";
-//import React from "@types/react";
+import CurrentUser from "./users/current-user";
+import React from "react";
+//import profileReducer from "./reducers/profile-reducer";
 
 const store = configureStore(
     {
         reducer:
             {
                 users: usersReducer,
+                //profile: profileReducer,
             }
     }
 );
-
-function ProtectedRoute(props) {
-    return null;
-}
-
-ProtectedRoute.propTypes = {children: PropTypes.node};
 
 function App() {
     return (
@@ -69,7 +64,6 @@ function App() {
                 </BrowserRouter>
 
         </Provider>
-
     );
 }
 

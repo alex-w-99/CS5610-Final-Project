@@ -3,7 +3,7 @@ import {profileThunk} from "../services/users-thunks";
 
 
 
-import * as defaultUser from "../reducers/currentUser.json";
+import * as defaultUser from "./currentUser.json";
 const initialState = {
     currentUser: defaultUser,  // currentUser: null,  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     loading: false,

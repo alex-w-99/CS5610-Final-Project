@@ -41,12 +41,6 @@ const NavigationBar = () => {
 
                         <li className="nav-item">
                             <a className="nav-link" href="#">
-                                Sign Up
-                            </a>
-                        </li>
-
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">
                                 Business
                             </a>
                         </li>
@@ -55,6 +49,12 @@ const NavigationBar = () => {
                             <Link className="nav-link" to="/profile">
                                 Profile
                             </Link>
+                        </li>
+
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">
+                                Sign Up
+                            </a>
                         </li>
 
                         <li className="nav-item">

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { updateUserThunk } from "../services/users-thunks";
 import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import formatPhoneNumber from "../utils/format-phone-number";
 
 const EditProfile = () => {
     const {currentUser} = useSelector(state => state.users);
@@ -14,6 +15,7 @@ const EditProfile = () => {
     const [lastName, setLastName] = useState(currentUser.lastName);
     const [location, setLocation] = useState(currentUser.location);
     const [email, setEmail] = useState(currentUser.email);
+    const [phone, setPhone] = useState(currentUser.phone);
     const [website, setWebsite] = useState(currentUser.website);
     const [profilePicture, setProfilePicture] = useState(currentUser.profilePicture);
     const [bannerPicture, setBannerPicture] = useState(currentUser.bannerPicture);
@@ -23,26 +25,14 @@ const EditProfile = () => {
     const changeLastName = (event) => { setLastName(event.target.value); }
     const changeLocation = (event) => { setLocation(event.target.value); }
     const changeEmail = (event) => { setEmail(event.target.value); }
+    const changePhone = (event) => { setPhone(event.target.value); }
     const changeWebsite = (event) => { setWebsite(event.target.value); }
     const changeProfilePicture = (event) => { setProfilePicture(event.target.value); }
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
 
     const saveUpdateHandler = () => {
-        dispatch(updateUserThunk(
-            {
-                ...currentUser,
-                firstName,
-                lastName,
-                location,
-                email,
-                website,
-                profilePicture,
-                bannerPicture,
-                aboutMe
-            }
-        ))
-        const newUser = {
+        const updatedUser = {
             ...currentUser,
             firstName,
             lastName,
@@ -53,7 +43,8 @@ const EditProfile = () => {
             bannerPicture,
             aboutMe
         }
-        console.log("newUser.firstName: " + newUser.firstName);
+        dispatch(updateUserThunk(updatedUser));
+        console.log("newUser.firstName: " + updatedUser.firstName);
         nav("/profile")
     };
 
@@ -91,32 +82,37 @@ const EditProfile = () => {
                     <Col md={3}>
                         <Card className="profile-card">
                             <Card.Body className="text-center">
+
                                 <Image
                                     src={`${currentUser && currentUser.profilePicture}`}
                                     roundedCircle
                                     height="150px" width="150px"
                                     className="mb-3"
                                 />
+
                                 <Card.Title className="profile-title">
                                     {currentUser && currentUser.firstName}
                                     &nbsp;
                                     {currentUser && currentUser.lastName}
                                 </Card.Title>
-                                <Card.Text className="text-muted profile-subtitle">
+
+                                <div className="text-muted profile-subtitle">
                                     <div>
                                         {currentUser && currentUser.username}
                                     </div>
                                     <div>
                                         {currentUser && currentUser.location}
                                     </div>
-                                </Card.Text>
+                                </div>
 
                                 <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
 
-                                <Card.Text className="mt-3 mb-2 text-muted">
+                                <div className="mt-3 mb-2 text-muted">
+
                                     <div>
                                         {currentUser && currentUser.email}
                                     </div>
+
                                     <div>
                                         {
                                             currentUser
@@ -126,7 +122,13 @@ const EditProfile = () => {
                                             </Link>
                                         }
                                     </div>
-                                </Card.Text>
+
+                                    <div>
+                                        {currentUser && formatPhoneNumber(currentUser.phone)}
+                                    </div>
+
+                                </div>
+
                             </Card.Body>
                             <ListGroup variant="flush">
 
@@ -147,7 +149,14 @@ const EditProfile = () => {
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
                                           style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Friends
+                                        Following
+                                    </Link>
+                                </ListGroup.Item>
+
+                                <ListGroup.Item className="profile-nav-item text-center">
+                                    <Link to={"/profile/#"}
+                                          style={ { color: 'inherit', textDecoration: 'none' } }>
+                                        Followers
                                     </Link>
                                 </ListGroup.Item>
 
@@ -239,6 +248,20 @@ const EditProfile = () => {
                                     />
                                     <label className="text-secondary" htmlFor="email">
                                         Email
+                                    </label>
+                                </form>
+
+                                { /* Edit phone */ }
+                                <form className="form-floating mt-4">
+                                    <input id="phone"
+                                           type="text"
+                                           className="form-control"
+                                           placeholder="Enter your phone number (10 digits)"
+                                           value={phone}
+                                           onChange={changePhone}
+                                    />
+                                    <label className="text-secondary" htmlFor="phone">
+                                        Phone
                                     </label>
                                 </form>
 
