@@ -23,9 +23,11 @@ const ResultItem = (
         onClick={toDetails}
         id="result-item-box">
       <div className="col-4">
-        <img width={100}
-             height={100}
-             src={restaurant.image_url}/>
+        <img width={150}
+             height={150}
+             height={150}
+             src={restaurant.image_url}
+             id="result-image"/>
       </div>
       <div className="col-8">
         <div className="fw-bold cw-restaurant-name ps-5 pt-3">

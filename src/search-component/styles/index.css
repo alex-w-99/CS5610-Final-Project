@@ -1,11 +1,13 @@
 #result-item-list {
-   border: 1px solid rgb(210, 210, 210);
-   border-radius: 5px;
    width: 80%;
 }
 
-#result-item-box {
+#result-item {
     border-bottom: 1px solid rgb(210, 210, 210);
+}
+
+#result-image {
+    border-radius: 5px;
 }
 
 .cw-restaurant-name {

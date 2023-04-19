@@ -13,7 +13,7 @@ const SearchComponent = () => {
 
  return(
     <>
-    <h1>Results</h1>
+    <h1>Your Results</h1>
     <ul className="ps-0"
         id="result-item-list">
     {

@@ -42,7 +42,7 @@ const SearchBar = () => {
  }
 
  return(
-  <>
+  <div className="mt-1">
     <form onSubmit={(event) => handleSubmit(event)} className="form-group mb-2 row">
             <div className="col-4 ps-0 pe-0">
                 <input type="text"
@@ -68,7 +68,7 @@ const SearchBar = () => {
                         width={70}/>
               </div>
     </form>
-  </>
+  </div>
  )
 };
 
