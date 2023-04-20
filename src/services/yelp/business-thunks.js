@@ -2,12 +2,15 @@ import { createAsyncThunk }
   from "@reduxjs/toolkit"
 import * as service
   from "./yelp-service.js"
+import { createRestaurantThunk } from
+    '../site-db-restaurants/site-restaurants-thunks';
 
 var longitude = null;
 var latitude = null;
 
 export const findBusinessesThunk = createAsyncThunk(
     'yelp/findBusinesses', async ({ query, location }) => {
+    console.log("TIME TO FIND SOME BUSINESSES");
     var businesses;
     if (location == "null") {
         /* default location */
@@ -31,6 +34,25 @@ export const findBusinessesThunk = createAsyncThunk(
             }
         }
     }
+    console.log("Going to call get by location now");
     businesses = await service.getByLocation(query, location)
     return businesses;
+})
+
+export const findBusinessThunk = createAsyncThunk(
+    /* async function params:
+     *  create:     a boolean for whether this function should create a new
+     *              ChewsWisely restaurant entry for the business it finds
+     *  dispatch:   dispatch function to allow it to call createRestaurant
+     *              thunk
+     *  businessId: ID of target business
+     */
+    'yelp/findBusinesses', async ({ dispatch, businessId, create }) => {
+    console.log("Going to get business");
+    const response = await service.getById(businessId);
+    if (create) {
+      const business = JSON.parse(JSON.parse(JSON.stringify(response)));
+      dispatch(createRestaurantThunk({dispatch, business}));
+    }
+    return response;
 })

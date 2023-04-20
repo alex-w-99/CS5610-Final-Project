@@ -1,21 +1,23 @@
-/* this is where I should add the filters as an object */
-
 import React from 'react';
 import './styles/index.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { findBusinessesThunk } from '../services/yelp/business-thunks';
-import makeQuery from "./makeQuery";
+import { findBusinessesThunk } from '../services/yelp/business-thunks.js';
+import makeQuery from './helpers/make-query';
 
 const SearchBar = () => {
  const [search, setSearch] = useState('');
  const [location, setLocation] = useState('');
  const navigate = useNavigate();
  const dispatch = useDispatch();
-
  const handleSubmit = (event) => {
    event.preventDefault();
+   if (search.length === 0) {
+     navigate('search/' + location);
+   } else {
+     navigate('search/' + search + '/' + location, true)
+   }
    var newSearch;
    console.log("SEARCH: LOCATION IS " + location);
    if (location.length === 0) {
@@ -38,7 +40,7 @@ const SearchBar = () => {
             navigate('search/' + newSearch.query + '/' + newSearch.location, true);
         }
    }
-   dispatch(findBusinessesThunk(newSearch))
+   dispatch(findBusinessesThunk(newSearch));
  }
 
  return(
@@ -47,7 +49,7 @@ const SearchBar = () => {
             <div className="col-4 ps-0 pe-0">
                 <input type="text"
                        id="restaurant-search"
-                       placeholder="Search Restaurants"
+                       placeholder="Restaurant"
                        className="form-control"
                        onChange={(event) => setSearch(event.target.value)}/>
             </div>

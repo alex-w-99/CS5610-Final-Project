@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteReviewThunk, updateReviewThunk }
     from '../../services/site-db-restaurants/site-restaurants-thunks.js';
+import Datify from './helpers/datify';
 
 const ReviewItem = (
   {
@@ -21,8 +22,8 @@ const ReviewItem = (
  const dispatch = useDispatch();
  const navigate = useNavigate();
  const midDot = '\u00B7';
- const deleteReviewHandler = (id) => {
-    dispatch(deleteReviewThunk(id));
+ const deleteReviewHandler = (review) => {
+    dispatch(deleteReviewThunk(review));
   }
  const toProfile = () => {
     navigate(`/profile/${review.userId}`);
@@ -33,16 +34,17 @@ const ReviewItem = (
            <img width={50}
                 height={50}
                 className="float-end rounded-circle"
+                onClick={toProfile}
                 src={`../../../images/${review.userImage}`}/>
      </div>
      <div className="col-10">
        <i className="bi bi-x-lg float-end"
                    onClick={() => deleteReviewHandler(review._id)}></i>
+        <i className="bi bi-pencil float-end"/>
        <div>
            <span className="fw-bold">{review.userName}</span> <span className="me-1"> {midDot}
            </span>
-           {review
-           .createdAt}
+           <Datify review={review}/>
        </div>
        <div>
         {review.text}

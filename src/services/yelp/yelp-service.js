@@ -22,3 +22,11 @@ export const getByCoordinates = async (query, longitude, latitude) => {
     console.log('got businesses,' + businesses);
     return businesses;
 }
+
+/* Only gets one business */
+export const getById = async (id) => {
+    const response = await axios.get
+          (`${YELP_API}/one/${id}`);
+    const business = response.data;
+    return business;
+}

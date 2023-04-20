@@ -3,14 +3,9 @@ import './styles/index.css'
 import SearchBar from '../search-bar';
 import ResultItem from './results-item';
 import { useSelector } from 'react-redux';
-import { findBusinessesThunk } from '../services/yelp/business-thunks'
 
 const SearchComponent = () => {
-//     const {query, location} = useParams();
-     const { businesses, loading } = useSelector(state => state.businesses);
-
- console.log("SEARCH COMPONENT: Businesses are ")
-
+ const { businesses, loading } = useSelector(state => state.businesses);
  return(
     <>
     <h1>Your Results</h1>

@@ -32,11 +32,11 @@ const ReviewStats = (
            }));
     }
  }
- 
+
  const onDislike = () => {
     if (review.disliked) {
         dispatch(updateReviewThunk({...review,
-           likes: review.likes - 1,
+           dislikes: review.dislikes - 1,
            disliked: false}));
     } else {
         let newLikes = review.likes;
@@ -44,7 +44,7 @@ const ReviewStats = (
           newLikes -= 1;
         }
         dispatch(updateReviewThunk({...review,
-           likes: review.likes + 1,
+           dislikes: review.dislikes + 1,
            disliked: true,
            liked: false,
            likes: newLikes}));
@@ -53,8 +53,8 @@ const ReviewStats = (
 
  return(
     <div className="row">
-        <div className="col-2"></div>
-        <div className="col-10 wd-flex-container wd-flex-center-vertical wd-flex-sb p-3 wd-icons">
+        <div className="col-9"></div>
+        <div className="col-3 p-3 ">
             <div>
                  <i onClick={onLike}
                  className={review.liked ? "bi bi-hand-thumbs-up me-2 text-success"
@@ -69,7 +69,7 @@ const ReviewStats = (
                   "bi bi-hand-thumbs-down ms-3 me-2"
                   }>
                   </i>
-                  {review.likes}
+                  {review.dislikes}
            </div>
         </div>
     </div>

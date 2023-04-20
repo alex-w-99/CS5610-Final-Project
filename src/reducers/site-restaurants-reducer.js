@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateRestaurantThunk, createRestaurantThunk, findRestaurantThunk,
-        findReviewsThunk, createReviewThunk, deleteReviewThunk, updateReviewThunk }
+import { updateRestaurantThunk, createRestaurantThunk, findRestaurantThunk, }
     from '../services/site-db-restaurants/site-restaurants-thunks.js';
 
 const initialState = {
-  restaurant: null,
-  reviews: [],
+  restaurant: {},
   loading: true
 }
 
@@ -47,41 +45,6 @@ const restaurantSlice = createSlice({
         state.reviews = [];
         state.loading = false;
       },
-    [updateReviewThunk.fulfilled]:
-       (state, {meta}) => {
-          const payload = meta.arg;
-          state.loading = false;
-          state.review = {
-           ...state.review,
-           ...payload
-          }
-    },
-    [findReviewsThunk.pending]:
-      (state) => {
-        state.loading = true;
-        state.review = [];
-    },
-    [findReviewsThunk.fulfilled]:
-      (state, { payload }) => {
-        state.loading = false;
-        state.review = payload;
-      },
-    [findReviewsThunk.rejected]:
-       (state, action) => {
-          state.loading = false
-          state.error = action.error
-      },
-    [createReviewThunk.fulfilled]:
-      (state, { payload }) => {
-        state.review = payload;
-        state.loading = false;
-      },
-    [deleteReviewThunk.fulfilled]:
-      (state, { payload }) => {
-        state.loading = false;
-        state.reviews = state.reviews
-            .filter(r => r._id !== payload);
-      },
-  }
+    }
 });
 export default restaurantSlice.reducer

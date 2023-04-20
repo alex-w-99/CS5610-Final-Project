@@ -1,23 +1,31 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createReviewThunk }
+import { createReviewThunk, findReviewsThunk }
     from '../../services/site-db-restaurants/site-restaurants-thunks';
 import ReviewItem from './review-item';
 import ReviewStats from './review-stats';
 
 const Reviews = () => {
-   const { restaurant, reviews, loading } =
+   const { restaurant } =
             useSelector(state => state.siteRestaurant);
+    const { reviews, loading } =
+            useSelector(state => state.reviews);
    const [review, setReview] = useState('');
    const dispatch = useDispatch();
+   useEffect(() => {
+      dispatch(findReviewsThunk(restaurant));
+      }, []);
    const handleSubmit = (event) => {
       event.preventDefault();
       const newReview = {
         restaurantId: restaurant._id,
-        text: review
+        text: review,
+        userName: "Fake person",
+        userImage: "default-profile-pic.jpg",
+        userId: "123"
       }
-      dispatch(createReviewThunk(review));
+      dispatch(createReviewThunk(newReview));
    }
    const reviewString = `Write a review for ${restaurant.name}...`
    return(
@@ -31,6 +39,7 @@ const Reviews = () => {
        </div>
         <button onClick={(event) => handleSubmit(event)}> Review </button>
     </form>
+       <ul className="mt-3">
         {
           loading &&
           <li className="list-group-item">
@@ -45,6 +54,7 @@ const Reviews = () => {
             </li>
           )
         }
+        </ul>
    </>
    )
 };

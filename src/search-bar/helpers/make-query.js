@@ -12,5 +12,4 @@ const makeQuery = (query, location) => {
         "location": location,
    });
 }
-
 export default makeQuery;
