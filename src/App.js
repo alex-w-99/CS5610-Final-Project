@@ -1,7 +1,7 @@
 import {BrowserRouter} from "react-router-dom";
 import {Routes, Route} from "react-router";
-import NavigationBar from "./NavigationBar";
-import LandingPage from "./LandingPage";
+import NavigationBar from "./navigation-bar";
+import LandingPage from "./landing-page";
 import HomeScreen from "./HomeScreen";
 import Profile from "./profile";
 import ProfileOverview from "./profile-overview";
@@ -39,10 +39,6 @@ function App() {
                         <Routes>
                             <Route
                                 index
-                                element={<LandingPage/>}
-                            />
-                            <Route
-                                path="/landingpage"
                                 element={<LandingPage/>}
                             />
                             <Route

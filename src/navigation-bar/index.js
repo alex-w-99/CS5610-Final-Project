@@ -1,12 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { logoutThunk } from "../services/users-thunks";
 
 const NavigationBar = () => {
+    const { currentUser } = useSelector((state) => state.users);
+
+    const dispatch = useDispatch();
+    const nav = useNavigate();
+    const logoutHandler = () => {
+        dispatch(logoutThunk());
+        nav("/login");
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid ms-3 mt-2">
 
-                <Link to="/landingpage" className="navbar-brand fw-bold">
+                <Link to="/" className="navbar-brand fw-bold">
                     Chews Wisely
                 </Link>
 
@@ -48,10 +59,22 @@ const NavigationBar = () => {
                             </Link>
                         </li>
 
+                        { /* If logged in, must display "logout"; else, display "login" */ }
                         <li className="nav-item">
-                            <Link className="nav-link" href="/login">
-                                Log In
-                            </Link>
+                            {
+                                currentUser
+                                ?
+                                <Link className="nav-link"
+                                      to="/"
+                                      onClick={logoutHandler}>
+                                    Log Out
+                                </Link>
+                                :
+                                <Link className="nav-link"
+                                      to="/login">
+                                    Log In
+                                </Link>
+                            }
                         </li>
 
                         <li className="nav-item">

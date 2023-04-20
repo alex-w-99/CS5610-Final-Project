@@ -13,14 +13,15 @@ const ProfileOverview = () => {
     const { publicUser } = useSelector(state => state.users);
 
     console.log("profile-overview/index.js")
-    console.log(uid)
+    console.log("currentUser: " + currentUser)
+    console.log("publicUser: " + publicUser)
 
     const nav = useNavigate();
-    //useEffect(
-    //    () => {
-    //        if (currentUser && currentUser._id === uid) { nav("/profile") }
-    //    }
-    //);
+    useEffect(
+        () => {
+            if (currentUser && currentUser._id === uid) { nav("/profile") }
+        }
+    );
 
     return(
         <div className="profile">
@@ -34,7 +35,7 @@ const ProfileOverview = () => {
                     &&
                     <Row>
                         <Image
-                            src={`${currentUser && publicUser.bannerPicture}`}
+                            src={`${publicUser && publicUser.bannerPicture}`}
                             height="225px" width="100%"
                             style={ {
                                 borderRadius: "20px",
@@ -57,25 +58,67 @@ const ProfileOverview = () => {
                         <Card className="profile-card">
                             <Card.Body className="text-center">
 
+                                { /* Public information */ }
                                 <Image
-                                    src={`${currentUser && publicUser.profilePicture}`}
+                                    src={`${publicUser && publicUser.profilePicture}`}
                                     roundedCircle
                                     height="150px" width="150px"
                                     className="mb-3"
                                 />
 
                                 <Card.Title className="profile-title">
-                                    {currentUser && publicUser.firstName}
+                                    {publicUser && publicUser.firstName}
                                     &nbsp;
-                                    {currentUser && publicUser.lastName}
+                                    {publicUser && publicUser.lastName}
                                 </Card.Title>
 
                                 <div className="text-muted profile-subtitle">
+
+                                    { /* Printing if user is CRITIC */ }
+                                    <div>
+                                        {
+                                            publicUser.userType === "CRITIC"
+                                            &&
+                                            <div className="text-primary mb-1"
+                                                 title="This user is a trusted Chews Wisely critic.">
+                                                Critic&nbsp;
+                                                <i className="bi bi-patch-check-fill"/>
+                                            </div>
+                                        }
+                                    </div>
+
                                     <div>
                                         {publicUser && publicUser.username}
                                     </div>
+
                                     <div>
                                         {publicUser && publicUser.location}
+                                    </div>
+
+                                </div>
+
+                                <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
+
+                                { /* Private information */ }
+                                <div className="mt-3 mb-2 text-muted"
+                                     style={ { fontSize: "0.925rem" } }>
+
+                                    <div>
+                                        {publicUser && publicUser.email}
+                                    </div>
+
+                                    <div>
+                                        {
+                                            publicUser
+                                            &&
+                                            <Link to={publicUser.website}>
+                                                {publicUser.website}
+                                            </Link>
+                                        }
+                                    </div>
+
+                                    <div>
+                                        {publicUser && formatPhoneNumber(publicUser.phone)}
                                     </div>
                                 </div>
 
@@ -99,26 +142,15 @@ const ProfileOverview = () => {
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
                                           style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Follow
+                                        Following
                                     </Link>
                                 </ListGroup.Item>
 
                                 <ListGroup.Item className="profile-nav-item text-center">
-
-                                    <div className="col-6">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Following
-                                        </Link>
-                                    </div>
-
-                                    <div className="col-6">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Followers
-                                        </Link>
-                                    </div>
-
+                                    <Link to={"/profile/#"}
+                                          style={ { color: 'inherit', textDecoration: 'none' } }>
+                                        Followers
+                                    </Link>
                                 </ListGroup.Item>
 
                                 <ListGroup.Item className="profile-nav-item text-center">

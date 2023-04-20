@@ -97,17 +97,34 @@ const EditProfile = () => {
                                 </Card.Title>
 
                                 <div className="text-muted profile-subtitle">
+
+                                    { /* Printing if user is CRITIC */ }
+                                    <div>
+                                        {
+                                            currentUser.userType === "CRITIC"
+                                            &&
+                                            <div className="text-primary mb-1"
+                                                 title="This user is a trusted Chews Wisely critic.">
+                                                Critic&nbsp;
+                                                <i className="bi bi-patch-check-fill"/>
+                                            </div>
+                                        }
+                                    </div>
+
                                     <div>
                                         {currentUser && currentUser.username}
                                     </div>
+
                                     <div>
                                         {currentUser && currentUser.location}
                                     </div>
+
                                 </div>
 
                                 <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
 
-                                <div className="mt-3 mb-2 text-muted">
+                                <div className="mt-3 mb-2 text-muted"
+                                     style={ { fontSize: "0.925rem" } }>
 
                                     <div>
                                         {currentUser && currentUser.email}
