@@ -2,7 +2,7 @@ import { BrowserRouter, Navigate } from "react-router-dom";
 import { Routes, Route } from "react-router";
 import NavigationBar from "./navigation-bar";
 import LandingPage from "./landing-page";
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "./home-component";
 import Profile from "./profile";
 import ProfileOverview from "./profile-overview";
 import { Provider } from "react-redux";

@@ -1,4 +1,4 @@
-import HomeComponent from "./HomeComponent";
+import HomeComponent from "./home-component";
 
 /**
  * *******POST LOGIN*******
