@@ -4,6 +4,8 @@
  *  All users start here not logged in
  */
 
+import {Link} from "react-router-dom";
+
 function LandingPage() {
     return (
         <div>
@@ -26,6 +28,38 @@ function LandingPage() {
 
                 </p>
             </div>
+
+            <div>
+                Profiles:
+                <ul>
+
+                    <li>
+                        <Link to="/profile/643ef7c6a74ebfe121345d7d">
+                            alex-w-99
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="/profile/64403131a74ebfe121345d85">
+                            beckerMel
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="/profile/64402fdba74ebfe121345d83">
+                            mjamilamer
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link to="/profile/asdf1234">
+                            Bad user link/id
+                        </Link>
+                    </li>
+
+                </ul>
+            </div>
+
         </div>
     )
 }

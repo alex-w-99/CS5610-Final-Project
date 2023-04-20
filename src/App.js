@@ -1,12 +1,12 @@
-import {BrowserRouter} from "react-router-dom";
-import {Routes, Route} from "react-router";
+import { BrowserRouter, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import NavigationBar from "./navigation-bar";
 import LandingPage from "./landing-page";
 import HomeScreen from "./HomeScreen";
 import Profile from "./profile";
 import ProfileOverview from "./profile-overview";
-import {Provider} from "react-redux";
-import {configureStore} from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import EditProfile from "./edit-profile";
 import CurrentUser from "./users/current-user";
@@ -15,6 +15,7 @@ import profileReducer from "./reducers/profile-reducer";
 import About from "./about";
 import Login from "./login";
 import Register from "./register";
+import PageNotFound from "./page-not-found";
 
 const store = configureStore(
     {
@@ -72,6 +73,15 @@ function App() {
                             <Route
                                 path="/about"
                                 element={<About/>}
+                            />
+
+                            { /* Route for all other non-defined routes */ }
+                            <Route
+                                path="*"
+                                element={<Navigate to="/404"/>}
+                            />
+                            <Route path="/404"
+                                element={<PageNotFound/>}
                             />
 
                         </Routes>

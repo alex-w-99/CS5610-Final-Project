@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../services/users-thunks";
+import {Image} from "react-bootstrap";
 
 const NavigationBar = () => {
     const { currentUser } = useSelector((state) => state.users);
@@ -53,29 +54,41 @@ const NavigationBar = () => {
                             </Link>
                         </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/profile">
-                                Profile
-                            </Link>
-                        </li>
-
                         { /* If logged in, must display "logout"; else, display "login" */ }
-                        <li className="nav-item">
-                            {
-                                currentUser
-                                ?
-                                <Link className="nav-link"
-                                      to="/"
-                                      onClick={logoutHandler}>
-                                    Log Out
-                                </Link>
-                                :
+                        {
+                            currentUser
+                            ?
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link"
+                                          to="/profile">
+                                        <img
+                                            src={currentUser.profilePicture}
+                                            alt="profile"
+                                            height="25px" width="25px"
+                                            style={ { borderRadius: "50%" } }
+                                        />
+                                        &nbsp;
+                                        {currentUser.username}
+                                    </Link>
+                                </li>
+
+                                <li className="nav-item">
+                                    <Link className="nav-link"
+                                          to="/"
+                                          onClick={logoutHandler}>
+                                        Log Out
+                                    </Link>
+                                </li>
+                            </>
+                            :
+                            <li>
                                 <Link className="nav-link"
                                       to="/login">
                                     Log In
                                 </Link>
-                            }
-                        </li>
+                            </li>
+                        }
 
                         <li className="nav-item">
                             <button className="btn btn-dark btn-sm mt-1" type="submit">

@@ -1,0 +1,12 @@
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+}
+.spinner {
+    margin: auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    border-right: 5px solid transparent;
+    animation: spin 1s ease-in-out infinite;
+}
