@@ -203,109 +203,114 @@ const Profile = () => {
 
                         { /* Second column */ }
                         <Col md={9}>
-
-                            { /* Following info card (initially hidden) */ }
                             {
-                                showFollowingInfo &&
-                                <div className="mb-4">
-                                    <Card className="profile-card">
-                                        <div className="close-button" onClick={toggleShowFollowingInfo}>
-                                            <i className="bi-x-lg"/>
-                                        </div>
-                                        <Card.Body>
-                                            <Card.Title>
-                                                Following:
-                                            </Card.Title>
-                                            <ul className="list-group">
-                                                {
-                                                    following &&
-                                                    following.filter(f => f.followee !== null)
-                                                        .map(
-                                                            follow => (
-                                                                listFollower(follow)
-                                                            )
-                                                        )
-                                                }
-                                            </ul>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            }
-
-                            { /* Follower info card (initially hidden) */ }
-                            {
-                                showFollowerInfo &&
-                                <div className="mb-4">
-                                    <Card className="profile-card">
-                                        <div className="close-button" onClick={toggleShowFollowerInfo}>
-                                            <i className="bi-x-lg"/>
-                                        </div>
-                                        <Card.Body>
-                                            <Card.Title>
-                                                Followers:
-                                            </Card.Title>
-                                            <ul className="list-group">
-                                                {
-                                                    followers &&
-                                                    followers.filter(f => f.follower !== null)
-                                                        .map(
-                                                            follow => (
-                                                                listFollowing(follow)
-                                                            )
-                                                        )
-                                                }
-                                            </ul>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            }
-
-                            { /* About Me card */ }
-                            <Card className="profile-card">
-                                <Card.Body>
-                                    <Card.Title>
-                                        About Me
-                                    </Card.Title>
-                                    <Card.Text>
-                                        {
-                                            currentUser && currentUser.aboutMe
-                                            ?
-                                            <span>
+                                !showFollowingInfo && !showFollowerInfo &&
+                                (
+                                    <div>
+                                        { /* About Me card */ }
+                                        <Card className="profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    About Me
+                                                </Card.Title>
+                                                <Card.Text>
+                                                    {
+                                                        currentUser && currentUser.aboutMe
+                                                        ?
+                                                        <span>
                                             {currentUser.aboutMe}
                                         </span>
-                                            :
-                                            <span className="text-muted">
+                                                        :
+                                                        <span className="text-muted">
                                             This section is empty
                                         </span>
-                                        }
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
+                                                    }
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                            { /* Recent Activity card */ }
-                            <Card className="mt-4 profile-card">
-                                <Card.Body>
-                                    <Card.Title className="profile-title">
-                                        Recent Activity
-                                    </Card.Title>
-                                    <Card.Text className="profile-text text-muted">
-                                        No recent activity to show
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
+                                        { /* Recent Activity card */ }
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title className="profile-title">
+                                                    Recent Activity
+                                                </Card.Title>
+                                                <Card.Text className="profile-text text-muted">
+                                                    No recent activity to show
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                            { /* Photos card */ }
-                            <Card className="mt-4 profile-card">
-                                <Card.Body>
-                                    <Card.Title>
-                                        Photos
-                                    </Card.Title>
-                                    <Card.Text className="text-muted">
-                                        No photos to show
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
-
+                                        { /* Photos card */ }
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    Photos
+                                                </Card.Title>
+                                                <Card.Text className="text-muted">
+                                                    No photos to show
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                )
+                            }
+                            {
+                                showFollowingInfo &&
+                                (
+                                    <div className="mb-4">
+                                        <Card className="profile-card">
+                                            <div className="close-button" onClick={toggleShowFollowingInfo}>
+                                                <i className="bi-x-lg"/>
+                                            </div>
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    Following:
+                                                </Card.Title>
+                                                <ul className="list-group">
+                                                    {
+                                                        following &&
+                                                        following.filter(f => f.followee !== null)
+                                                            .map(
+                                                                follow => (
+                                                                    listFollower(follow)
+                                                                )
+                                                            )
+                                                    }
+                                                </ul>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                )
+                            }
+                            {
+                                showFollowerInfo &&
+                                (
+                                    <div className="mb-4">
+                                        <Card className="profile-card">
+                                            <div className="close-button" onClick={toggleShowFollowerInfo}>
+                                                <i className="bi-x-lg"/>
+                                            </div>
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    Followers:
+                                                </Card.Title>
+                                                <ul className="list-group">
+                                                    {
+                                                        followers &&
+                                                        followers.filter(f => f.follower !== null)
+                                                            .map(
+                                                                follow => (
+                                                                    listFollowing(follow)
+                                                                )
+                                                            )
+                                                    }
+                                                </ul>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                )
+                            }
                         </Col>
                     </Row>
                 </Container>

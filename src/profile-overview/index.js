@@ -7,41 +7,27 @@ import { useNavigate, useParams } from "react-router";
 import { findAllUsersThunk } from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
-import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunks";
 
 // Public profile page
 const ProfileOverview = () => {
     const { uid } = useParams();
-    const { currentUser } = useSelector((state) => state.users);
-
-    const { publicUser } = useSelector((state) => state.users);
-
-    const { following, followers } = useSelector((state) => state.follow);
-
-    const { loading } = useSelector((state) => state.users);
-    //const { users, loading } = useSelector((state) => state.users);
-    //const publicUser = users.find( (u) => u._id === uid );
-
-    console.log("PROFILE OVERVIEW: ");
-    console.log("\t" + currentUser);
+    const { currentUser } = useSelector(state => state.users);
+    const { users, loading } = useSelector((state) => state.users);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
     useEffect(
         () => {
-            if (currentUser !== null && uid === currentUser._id) {
+            if (currentUser && currentUser._id === uid) {
                 nav("/profile");
             }
-            else {
-                dispatch(findFollowersThunk(publicUser._id))
-                dispatch(findFollowingThunk(publicUser._id))
-            }
+            dispatch(findAllUsersThunk())
         },
-        [dispatch, currentUser, uid, nav]
+        [currentUser, uid, nav]
     );
 
-    dispatch(findFollowersThunk(publicUser._id))
-    dispatch(findFollowingThunk(publicUser._id))
+    const publicUser = users.find( (u) => u._id === uid );
+
 
     //if (currentUser && currentUser._id === uid) { nav("/profile"); }
 
@@ -77,8 +63,7 @@ const ProfileOverview = () => {
                              style={ {
                                  width: "97.5%",
                                  marginTop: publicUser.bannerPicture ? "-20px" : "0px"
-                             } }
-                        >
+                             } }>
                             { /* First column */ }
                             <Col md={3}>
                                 <Card className="profile-card">
@@ -125,29 +110,55 @@ const ProfileOverview = () => {
 
                                         <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
-                                        x
+                                        <div className="mt-3 mb-1">
+
+                                            { /* Following */ }
+                                            <div style={{ cursor: 'pointer', border: 'none' }}>
+                                                <span className="fw-bold">
+                                                    5
+                                                </span>
+                                                &nbsp;
+                                                <span className="text-muted">
+                                                    Following
+                                                </span>
+                                            </div>
+
+                                            { /* Followers */ }
+                                            <div style={ { cursor: 'pointer', border: 'none' } }
+                                                 className="mt-1">
+                                                <span className="fw-bold">
+                                                    6
+                                                </span>
+                                                &nbsp;
+                                                <span className="text-muted">
+                                                    Followers
+                                                </span>
+                                            </div>
+
+                                            { /* Follow button */ }
+                                            <button type="button"
+                                                    className="btn btn-primary rounded-pill mt-2"
+                                                    style={ { width: "175px" } }>
+                                                Follow
+                                            </button>
+
+                                        </div>
 
                                     </Card.Body>
+
                                     <ListGroup variant="flush">
 
                                         <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
+                                            <Link to={window.location.pathname}
                                                   style={ { color: 'inherit', textDecoration: 'none' } }>
                                                 Bookmarks
                                             </Link>
                                         </ListGroup.Item>
 
                                         <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
+                                            <Link to={window.location.pathname}
                                                   style={ { color: 'inherit', textDecoration: 'none' } }>
                                                 Reviews
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Follow
                                             </Link>
                                         </ListGroup.Item>
 
@@ -158,18 +169,8 @@ const ProfileOverview = () => {
                             { /* Second column */ }
                             <Col md={9}>
 
+                                { /* About Me card */ }
                                 <Card className="profile-card">
-                                    <Card.Body>
-                                        <Card.Title className="profile-title">
-                                            Recent Activity
-                                        </Card.Title>
-                                        <Card.Text className="profile-text text-muted">
-                                            No recent activity to show
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-
-                                <Card className="my-4">
                                     <Card.Body>
                                         <Card.Title>
                                             About Me
@@ -190,7 +191,19 @@ const ProfileOverview = () => {
                                     </Card.Body>
                                 </Card>
 
-                                <Card>
+                                { /* Recent Activity card */ }
+                                <Card className="profile-card mt-4">
+                                    <Card.Body>
+                                        <Card.Title className="profile-title">
+                                            Recent Activity
+                                        </Card.Title>
+                                        <Card.Text className="profile-text text-muted">
+                                            No recent activity to show
+                                        </Card.Text>
+                                    </Card.Body>
+                                </Card>
+
+                                <Card className="profile-card mt-4">
                                     <Card.Body>
                                         <Card.Title>
                                             Photos
@@ -200,6 +213,7 @@ const ProfileOverview = () => {
                                         </Card.Text>
                                     </Card.Body>
                                 </Card>
+
                             </Col>
                         </Row>
                     </div>
@@ -213,8 +227,6 @@ const ProfileOverview = () => {
                         <PageNotFound/>
                     )
                 }
-
-
 
             </Container>
         </div>

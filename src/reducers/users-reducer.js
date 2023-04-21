@@ -10,7 +10,6 @@ const usersReducer = createSlice({
         publicProfile: {},
         error: null
     },
-    reducers: {},
     extraReducers: {
         [usersThunks.createUserThunk.fulfilled]:
             (state, action) => {
