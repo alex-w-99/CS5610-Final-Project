@@ -1,16 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import * as usersThunks from "../services/users-thunks";
 
-import * as defaultUser from "./currentUser.json";
-//const initialState = {
-//    currentUser: defaultUser,  // currentUser: null,  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//    loading: false,
-//    error: ""
-//}
-
 const usersReducer = createSlice({
     name: "users",
-    initialState: { loading: false, users: [], currentUser: null, publicProfile: {}, error: null },
+    initialState: {
+        loading: false,
+        users: [],
+        currentUser: null,
+        publicProfile: {},
+        error: null
+    },
     reducers: {},
     extraReducers: {
         [usersThunks.createUserThunk.fulfilled]:

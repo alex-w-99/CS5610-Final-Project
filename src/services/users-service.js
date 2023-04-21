@@ -2,9 +2,13 @@ import axios from "axios";
 
 //const API_BASE = "http://localhost:4000/api";
 const API_BASE = process.env.REACT_APP_API_BASE;
-const USERS_API = `${API_BASE}/users`;  // location of HTTP services
+const USERS_API = `${API_BASE}/users`;  // location of HTTP services for users collections
 
-const api = axios.create( { withCredentials: true } );
+const api = axios.create(
+    {
+        withCredentials : true
+    }
+);
 
 export const createUser = async (user) => {
     const response = await api.post(`${USERS_API}`, user);
