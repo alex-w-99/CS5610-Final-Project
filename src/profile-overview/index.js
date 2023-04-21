@@ -8,7 +8,12 @@ import {findAllUsersThunk, findUserByIdThunk} from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
 import { useState } from "react";
-import {findFollowersThunk, findFollowIdThunk, findFollowingThunk} from "../services/follow-thunks";
+import {
+    findFollowersThunk,
+    findFollowIdThunk,
+    findFollowingThunk,
+    followThunk, unfollowThunk
+} from "../services/follow-thunks";
 import { listFollowing, listFollower } from "../utils/list-follow";
 
 
@@ -19,7 +24,7 @@ const ProfileOverview = () => {
     const { users, loading } = useSelector((state) => state.users);
     const publicUser = users.find( (u) => u._id === uid );
 
-    const { following, followers } = useSelector((state) => state.follow);
+    const { following, followers, followId } = useSelector((state) => state.follow);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -33,13 +38,31 @@ const ProfileOverview = () => {
                 await dispatch(findFollowersThunk(uid))
                 await dispatch(findFollowingThunk(uid))
                 //await dispatch(findFollowIdThunk(uid))
+                //await setFollowsUser(followId) ????????????????????????????????????????????????????
             })()
             dispatch(findAllUsersThunk())
         },
-        [dispatch, currentUser, nav, uid]
+        [dispatch, currentUser, nav, uid, followsUser, followId]
     );
 
 
+    // Figuring out if currentUser follows publicUser or not (for "follow"/"unfollow" button):
+    const [followsUser, setFollowsUser] = useState();
+    const followButtonHandler = async () => {
+        if (!currentUser) {  // i.e., if not already logged in
+            alert("Please log in to follow!");
+        }
+        else {  // i.e., if already logged in
+            if (followsUser) {  // i.e., if currentUser already publicUser
+                await dispatch(unfollowThunk(followId));
+                await setFollowsUser(false);
+            }
+            else {    // i.e., if currentUser does not already publicUser
+                await dispatch(followThunk( { followee: uid } ));
+                await setFollowsUser(true);
+            }
+        }
+    }
 
     //if (currentUser && currentUser._id === uid) { nav("/profile"); }
 
@@ -55,8 +78,17 @@ const ProfileOverview = () => {
             <Container className="my-2">
 
                 {
-                    publicUser
+                    !publicUser
                     ?
+                    (
+                        loading
+                        ?
+                        <div className="spinner">
+                        </div>
+                        :
+                        <PageNotFound/>
+                    )
+                    :
                     <div>
                         { /* Banner */ }
                         {
@@ -331,15 +363,6 @@ const ProfileOverview = () => {
 
                         </Row>
                     </div>
-                    :
-                    (
-                        loading
-                        ?
-                        <div className="spinner">
-                        </div>
-                        :
-                        <PageNotFound/>
-                    )
                 }
 
             </Container>
