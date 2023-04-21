@@ -28,8 +28,6 @@ const Profile = () => {
     const [showFollowerInfo, setShowFollowerInfo] = useState(false);
     const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
 
-
-
     // Determining return value:
     if (!currentUser) {  // i.e., if not logged in
         return(
@@ -65,8 +63,7 @@ const Profile = () => {
                          style={ {
                              width: "97.5%",
                              marginTop: currentUser.bannerPicture ? "-20px" : "0px"
-                         } }
-                    >
+                         } }>
                         { /* First column */ }
                         <Col md={3}>
                             <Card className="profile-card">
@@ -269,13 +266,24 @@ const Profile = () => {
                                                 </Card.Title>
                                                 <ul className="list-group">
                                                     {
-                                                        following &&
-                                                        following.filter(f => f.followee !== null)
-                                                            .map(
-                                                                follow => (
-                                                                    listFollower(follow)
+                                                        following
+                                                        &&
+                                                        following.filter(f => f.followee !== null).length > 0
+                                                        ?
+                                                        (
+                                                            following.filter(f => f.followee !== null)
+                                                                .map(
+                                                                    follow => (
+                                                                        listFollower(follow)
+                                                                    )
                                                                 )
-                                                            )
+                                                        )
+                                                        :
+                                                        (
+                                                            <li className="list-group-item">
+                                                                Not following anyone yet!
+                                                            </li>
+                                                        )
                                                     }
                                                 </ul>
                                             </Card.Body>
@@ -297,13 +305,23 @@ const Profile = () => {
                                                 </Card.Title>
                                                 <ul className="list-group">
                                                     {
-                                                        followers &&
-                                                        followers.filter(f => f.follower !== null)
-                                                            .map(
-                                                                follow => (
-                                                                    listFollowing(follow)
+                                                        followers
+                                                        &&
+                                                        followers.filter(f => f.follower !== null).length > 0
+                                                        ?
+                                                        (
+                                                            followers
+                                                                .filter(f => f.follower !== null)
+                                                                .map(
+                                                                    follow => listFollowing(follow)
                                                                 )
-                                                            )
+                                                        )
+                                                        :
+                                                        (
+                                                            <li className="list-group-item">
+                                                                No followers yet!
+                                                            </li>
+                                                        )
                                                     }
                                                 </ul>
                                             </Card.Body>

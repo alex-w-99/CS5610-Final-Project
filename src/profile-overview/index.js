@@ -4,15 +4,22 @@ import '../profile/Profile.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router";
-import { findAllUsersThunk } from "../services/users-thunks";
+import {findAllUsersThunk, findUserByIdThunk} from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
+import { useState } from "react";
+import {findFollowersThunk, findFollowIdThunk, findFollowingThunk} from "../services/follow-thunks";
+import { listFollowing, listFollower } from "../utils/list-follow";
+
 
 // Public profile page
 const ProfileOverview = () => {
     const { uid } = useParams();
-    const { currentUser } = useSelector(state => state.users);
+    const { currentUser } = useSelector((state) => state.users);
     const { users, loading } = useSelector((state) => state.users);
+    const publicUser = users.find( (u) => u._id === uid );
+
+    const { following, followers } = useSelector((state) => state.follow);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -21,15 +28,27 @@ const ProfileOverview = () => {
             if (currentUser && currentUser._id === uid) {
                 nav("/profile");
             }
+            (async function() {
+                await dispatch(findUserByIdThunk(uid))
+                await dispatch(findFollowersThunk(uid))
+                await dispatch(findFollowingThunk(uid))
+                //await dispatch(findFollowIdThunk(uid))
+            })()
             dispatch(findAllUsersThunk())
         },
-        [currentUser, uid, nav]
+        [dispatch, currentUser, nav, uid]
     );
 
-    const publicUser = users.find( (u) => u._id === uid );
 
 
     //if (currentUser && currentUser._id === uid) { nav("/profile"); }
+
+
+    // Setting up for showing and hiding following/follower information:
+    const [showFollowingInfo, setShowFollowingInfo] = useState(false);
+    const toggleShowFollowingInfo = () => { setShowFollowingInfo(prevValue => !prevValue); }
+    const [showFollowerInfo, setShowFollowerInfo] = useState(false);
+    const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
 
     return(
         <div className="profile">
@@ -113,10 +132,14 @@ const ProfileOverview = () => {
                                         <div className="mt-3 mb-1">
 
                                             { /* Following */ }
-                                            <div style={{ cursor: 'pointer', border: 'none' }}>
-                                                <span className="fw-bold">
-                                                    5
-                                                </span>
+                                            <div style={{ cursor: 'pointer', border: 'none' }}
+                                                 onClick={toggleShowFollowingInfo}>
+
+                                            <span className="fw-bold">
+                                                {
+                                                    following && following.length
+                                                }
+                                            </span>
                                                 &nbsp;
                                                 <span className="text-muted">
                                                     Following
@@ -125,10 +148,14 @@ const ProfileOverview = () => {
 
                                             { /* Followers */ }
                                             <div style={ { cursor: 'pointer', border: 'none' } }
-                                                 className="mt-1">
-                                                <span className="fw-bold">
-                                                    6
-                                                </span>
+                                                 className="mt-1"
+                                                 onClick={toggleShowFollowerInfo}>
+
+                                            <span className="fw-bold">
+                                                {
+                                                    followers && followers.length
+                                                }
+                                            </span>
                                                 &nbsp;
                                                 <span className="text-muted">
                                                     Followers
@@ -168,53 +195,140 @@ const ProfileOverview = () => {
 
                             { /* Second column */ }
                             <Col md={9}>
+                                {
+                                    !showFollowingInfo && !showFollowerInfo &&
+                                    (
+                                        <div>
+                                            { /* About Me card */ }
+                                            <Card className="profile-card">
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        About Me
+                                                    </Card.Title>
+                                                    <Card.Text>
+                                                        {
+                                                            publicUser && publicUser.aboutMe
+                                                            ?
+                                                            <span>
+                                                                {publicUser.aboutMe}
+                                                            </span>
+                                                            :
+                                                            <span className="text-muted">
+                                                                This section is empty
+                                                            </span>
+                                                        }
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
 
-                                { /* About Me card */ }
-                                <Card className="profile-card">
-                                    <Card.Body>
-                                        <Card.Title>
-                                            About Me
-                                        </Card.Title>
-                                        <Card.Text>
-                                            {
-                                                publicUser && publicUser.aboutMe
-                                                ?
-                                                <span>
-                                            {publicUser.aboutMe}
-                                        </span>
-                                                :
-                                                <span className="text-muted">
-                                            This section is empty
-                                        </span>
-                                            }
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                            { /* Recent Activity card */ }
+                                            <Card className="mt-4 profile-card">
+                                                <Card.Body>
+                                                    <Card.Title className="profile-title">
+                                                        Recent Activity
+                                                    </Card.Title>
+                                                    <Card.Text className="profile-text text-muted">
+                                                        No recent activity to show
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
 
-                                { /* Recent Activity card */ }
-                                <Card className="profile-card mt-4">
-                                    <Card.Body>
-                                        <Card.Title className="profile-title">
-                                            Recent Activity
-                                        </Card.Title>
-                                        <Card.Text className="profile-text text-muted">
-                                            No recent activity to show
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-
-                                <Card className="profile-card mt-4">
-                                    <Card.Body>
-                                        <Card.Title>
-                                            Photos
-                                        </Card.Title>
-                                        <Card.Text className="text-muted">
-                                            No photos to show
-                                        </Card.Text>
-                                    </Card.Body>
-                                </Card>
-
+                                            { /* Photos card */ }
+                                            <Card className="mt-4 profile-card">
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        Photos
+                                                    </Card.Title>
+                                                    <Card.Text className="text-muted">
+                                                        No photos to show
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    showFollowingInfo &&
+                                    (
+                                        <div className="mb-4">
+                                            <Card className="profile-card">
+                                                <div className="close-button" onClick={toggleShowFollowingInfo}>
+                                                    <i className="bi-x-lg"/>
+                                                </div>
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        Following:
+                                                    </Card.Title>
+                                                    <ul className="list-group">
+                                                        {
+                                                            following &&
+                                                            following
+                                                                .filter(f => f.followee !== null).length > 0
+                                                            ?
+                                                            (
+                                                                following.
+                                                                filter(f => f.followee !== null)
+                                                                    .map(
+                                                                        follow => (
+                                                                            listFollower(follow)
+                                                                        )
+                                                                    )
+                                                            )
+                                                            :
+                                                            (
+                                                                <li className="list-group-item">
+                                                                    Not following anyone yet!
+                                                                </li>
+                                                            )
+                                                        }
+                                                    </ul>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    )
+                                }
+                                {
+                                    showFollowerInfo &&
+                                    (
+                                        <div className="mb-4">
+                                            <Card className="profile-card">
+                                                <div className="close-button" onClick={toggleShowFollowerInfo}>
+                                                    <i className="bi-x-lg"/>
+                                                </div>
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        Followers:
+                                                    </Card.Title>
+                                                    <ul className="list-group">
+                                                        {
+                                                            followers &&
+                                                            followers
+                                                                .filter(f => f.follower !== null).length > 0
+                                                            ?
+                                                            (
+                                                                followers.
+                                                                filter(f => f.follower !== null)
+                                                                    .map(
+                                                                        follow => (
+                                                                            listFollowing(follow)
+                                                                        )
+                                                                    )
+                                                            )
+                                                            :
+                                                            (
+                                                                <li className="list-group-item">
+                                                                    No followers yet!
+                                                                </li>
+                                                            )
+                                                        }
+                                                    </ul>
+                                                </Card.Body>
+                                            </Card>
+                                        </div>
+                                    )
+                                }
                             </Col>
+
                         </Row>
                     </div>
                     :

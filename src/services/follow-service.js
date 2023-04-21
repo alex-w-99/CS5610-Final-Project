@@ -28,5 +28,6 @@ export const findFollowers = async (uid) => {
 };
 export const findFollowing = async (uid) => {
     const followingResponse = await api.get(`${USERS_API}/${uid}/following`);
+    console.log("***follow-service - followingResponse.data="+followingResponse.data)
     return followingResponse.data;
 };

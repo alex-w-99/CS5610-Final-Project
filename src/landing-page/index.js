@@ -30,7 +30,7 @@ function LandingPage() {
             </div>
 
             <div>
-                Profiles:
+                Profiles (links are dependent on MongoDB "users" collection object IDs):
                 <ul>
 
                     <li>

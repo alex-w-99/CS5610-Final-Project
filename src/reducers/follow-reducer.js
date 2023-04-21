@@ -9,7 +9,6 @@ const followReducer = createSlice(
             followers: [],
             followId: null
         },
-        reducers: {},
         extraReducers: {
             [followThunks.followThunk.fulfilled]:
                 (state, action) => {

@@ -11,7 +11,16 @@ export const unfollowThunk = createAsyncThunk(
 );
 export const findFollowIdThunk = createAsyncThunk(
     "findFollowId",
-    async (uid2) => await followService.findFollowId(uid2)
+    // async (uid2) => await followService.findFollowId(uid2)
+    async (uid2) => {
+        try {
+            const response = await followService.findFollowId(uid2);
+            return response;
+        } catch (error) {
+            console.log("ERROR:\n" + error);
+            throw error;
+        }
+    }
 );
 export const findFollowersThunk = createAsyncThunk(
     "findFollowers",
