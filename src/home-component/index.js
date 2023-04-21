@@ -14,7 +14,7 @@ import HomeComponent from "./home-component";
  *          * MAIN CONTENT
  *              containing gps info etc. DEPENDENT ON LOGIN
  *      - 2 column right
- *          * unsure however we can imp a design
+ *          * unsure however we can implement a design
  */
 function HomeScreen() {
     return (

@@ -7,32 +7,42 @@ import { useNavigate, useParams } from "react-router";
 import { findAllUsersThunk } from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
+import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunks";
 
 // Public profile page
 const ProfileOverview = () => {
     const { uid } = useParams();
-    const { currentUser } = useSelector(state => state.users);
-    const { users, loading } = useSelector((state) => state.users);
+    const { currentUser } = useSelector((state) => state.users);
+
+    const { publicUser } = useSelector((state) => state.users);
+
+    const { following, followers } = useSelector((state) => state.follow);
+
+    const { loading } = useSelector((state) => state.users);
+    //const { users, loading } = useSelector((state) => state.users);
+    //const publicUser = users.find( (u) => u._id === uid );
+
+    console.log("PROFILE OVERVIEW: ");
+    console.log("\t" + currentUser);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
     useEffect(
         () => {
-            dispatch(findAllUsersThunk())
-        },
-        []
-    );
-
-    const publicUser = users.find( (u) => u._id === uid );
-
-    useEffect(
-        () => {
-            if (currentUser && currentUser._id === uid) {
+            if (currentUser !== null && uid === currentUser._id) {
                 nav("/profile");
             }
+            else {
+                dispatch(findFollowersThunk(publicUser._id))
+                dispatch(findFollowingThunk(publicUser._id))
+            }
         },
-        [currentUser, uid, nav]
+        [dispatch, currentUser, uid, nav]
     );
+
+    dispatch(findFollowersThunk(publicUser._id))
+    dispatch(findFollowingThunk(publicUser._id))
+
     //if (currentUser && currentUser._id === uid) { nav("/profile"); }
 
     return(
@@ -113,15 +123,12 @@ const ProfileOverview = () => {
 
                                         </div>
 
+                                        <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                        x
+
                                     </Card.Body>
                                     <ListGroup variant="flush">
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Reviews
-                                            </Link>
-                                        </ListGroup.Item>
 
                                         <ListGroup.Item className="profile-nav-item text-center">
                                             <Link to={"/profile/#"}
@@ -133,21 +140,14 @@ const ProfileOverview = () => {
                                         <ListGroup.Item className="profile-nav-item text-center">
                                             <Link to={"/profile/#"}
                                                   style={ { color: 'inherit', textDecoration: 'none' } }>
+                                                Reviews
+                                            </Link>
+                                        </ListGroup.Item>
+
+                                        <ListGroup.Item className="profile-nav-item text-center">
+                                            <Link to={"/profile/#"}
+                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
                                                 Follow
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Following
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={"/profile/#"}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Followers
                                             </Link>
                                         </ListGroup.Item>
 

@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Card, ListGroup } from "react-bootstrap";
 import "./Profile.css";
+import "../utils/close-button.css";
 import { useDispatch, useSelector } from "react-redux";
-import {Link, Navigate} from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
+import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunks";
+import { listFollowing, listFollower } from "../utils/list-follow";
 
 // Profile page
 const Profile = () => {
     const { currentUser } = useSelector(state => state.users);
-    //const dispatch = useDispatch();
-    //useEffect( () => { ??? }, [ ??? ] );
+    const { following, followers } = useSelector(state => state.follow);
 
-    if (currentUser) { console.log("/Profile/index.js -> there is a currentUser") }
-    else { console.log("/Profile/index.js -> there is no currentUser!") }
+    const dispatch = useDispatch();
+    useEffect(
+        () => {
+            dispatch(findFollowersThunk(currentUser._id))
+            dispatch(findFollowingThunk(currentUser._id))
+        },
+        [dispatch, currentUser]
+    );
 
-    console.log(currentUser)
+    // Setting up for showing and hiding following/follower information:
+    const [showFollowingInfo, setShowFollowingInfo] = useState(false);
+    const toggleShowFollowingInfo = () => { setShowFollowingInfo(prevValue => !prevValue); }
+    const [showFollowerInfo, setShowFollowerInfo] = useState(false);
+    const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
 
-    // DETERMINING RETURN VALUE:
+
+
+    // Determining return value:
     if (!currentUser) {  // i.e., if not logged in
         return(
             <Navigate to={"/login"}/>
@@ -97,7 +111,44 @@ const Profile = () => {
 
                                     </div>
 
-                                    <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
+                                    <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                    <div className="mt-3 mb-3">
+
+                                        { /* Following */ }
+                                        <div style={{ cursor: 'pointer', border: 'none' }}
+                                             onClick={toggleShowFollowingInfo}>
+
+                                            <span className="fw-bold">
+                                                {
+                                                    following && following.length
+                                                }
+                                            </span>
+                                            &nbsp;
+                                            <span className="text-muted">
+                                                Following
+                                            </span>
+                                        </div>
+
+                                        { /* Followers */ }
+                                        <div style={ { cursor: 'pointer', border: 'none' } }
+                                             className="mt-1"
+                                             onClick={toggleShowFollowerInfo}>
+
+                                            <span className="fw-bold">
+                                                {
+                                                    followers && followers.length
+                                                }
+                                            </span>
+                                            &nbsp;
+                                            <span className="text-muted">
+                                                Followers
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                    <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
                                     { /* Private information */ }
                                     <div className="mt-3 mb-2 text-muted"
@@ -128,13 +179,6 @@ const Profile = () => {
                                     <ListGroup.Item className="profile-nav-item text-center">
                                         <Link to={"/profile/#"}
                                               style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Reviews
-                                        </Link>
-                                    </ListGroup.Item>
-
-                                    <ListGroup.Item className="profile-nav-item text-center">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
                                             Bookmarks
                                         </Link>
                                     </ListGroup.Item>
@@ -142,14 +186,7 @@ const Profile = () => {
                                     <ListGroup.Item className="profile-nav-item text-center">
                                         <Link to={"/profile/#"}
                                               style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Following
-                                        </Link>
-                                    </ListGroup.Item>
-
-                                    <ListGroup.Item className="profile-nav-item text-center">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Followers
+                                            Reviews
                                         </Link>
                                     </ListGroup.Item>
 
@@ -167,18 +204,64 @@ const Profile = () => {
                         { /* Second column */ }
                         <Col md={9}>
 
-                            <Card className="profile-card">
-                                <Card.Body>
-                                    <Card.Title className="profile-title">
-                                        Recent Activity
-                                    </Card.Title>
-                                    <Card.Text className="profile-text text-muted">
-                                        No recent activity to show
-                                    </Card.Text>
-                                </Card.Body>
-                            </Card>
+                            { /* Following info card (initially hidden) */ }
+                            {
+                                showFollowingInfo &&
+                                <div className="mb-4">
+                                    <Card className="profile-card">
+                                        <div className="close-button" onClick={toggleShowFollowingInfo}>
+                                            <i className="bi-x-lg"/>
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                Following:
+                                            </Card.Title>
+                                            <ul className="list-group">
+                                                {
+                                                    following &&
+                                                    following.filter(f => f.followee !== null)
+                                                        .map(
+                                                            follow => (
+                                                                listFollower(follow)
+                                                            )
+                                                        )
+                                                }
+                                            </ul>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            }
 
-                            <Card className="my-4">
+                            { /* Follower info card (initially hidden) */ }
+                            {
+                                showFollowerInfo &&
+                                <div className="mb-4">
+                                    <Card className="profile-card">
+                                        <div className="close-button" onClick={toggleShowFollowerInfo}>
+                                            <i className="bi-x-lg"/>
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Title>
+                                                Followers:
+                                            </Card.Title>
+                                            <ul className="list-group">
+                                                {
+                                                    followers &&
+                                                    followers.filter(f => f.follower !== null)
+                                                        .map(
+                                                            follow => (
+                                                                listFollowing(follow)
+                                                            )
+                                                        )
+                                                }
+                                            </ul>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            }
+
+                            { /* About Me card */ }
+                            <Card className="profile-card">
                                 <Card.Body>
                                     <Card.Title>
                                         About Me
@@ -199,7 +282,20 @@ const Profile = () => {
                                 </Card.Body>
                             </Card>
 
-                            <Card>
+                            { /* Recent Activity card */ }
+                            <Card className="mt-4 profile-card">
+                                <Card.Body>
+                                    <Card.Title className="profile-title">
+                                        Recent Activity
+                                    </Card.Title>
+                                    <Card.Text className="profile-text text-muted">
+                                        No recent activity to show
+                                    </Card.Text>
+                                </Card.Body>
+                            </Card>
+
+                            { /* Photos card */ }
+                            <Card className="mt-4 profile-card">
                                 <Card.Body>
                                     <Card.Title>
                                         Photos
@@ -209,6 +305,7 @@ const Profile = () => {
                                     </Card.Text>
                                 </Card.Body>
                             </Card>
+
                         </Col>
                     </Row>
                 </Container>

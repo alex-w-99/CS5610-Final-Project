@@ -24,7 +24,7 @@ const CategoryActivitiesSelection = () => {
                     {activities.map((activity) => (
                         <div className="col-md-4" key={activity.title}>
                             <div className="card mb-4 shadow-sm">
-                                <img className="card-img-top" src={activity.imageUrl} alt="Card image cap"/>
+                                <img className="card-img-top" src={activity.imageUrl} alt="Card cap"/>
                                 <div className="card-body">
                                     <p className="card-text">{activity.description}</p>
                                     <div className="d-flex justify-content-between align-items-center">
@@ -46,7 +46,7 @@ const CategoryActivitiesSelection = () => {
                     {categories.map((category) => (
                         <div className="col-md-4" key={category.title}>
                             <div className="card mb-4 shadow-sm">
-                                <img className="card-img-top" src={category.imageUrl} alt="Card image cap"/>
+                                <img className="card-img-top" src={category.imageUrl} alt="Card cap"/>
                                 <div className="card-body">
                                     <p className="card-text">{category.description}</p>
                                     <div className="d-flex justify-content-between align-items-center">

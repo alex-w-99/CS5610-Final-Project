@@ -8,6 +8,7 @@ import formatPhoneNumber from "../utils/format-phone-number";
 
 const EditProfile = () => {
     const {currentUser} = useSelector(state => state.users);
+    const { following, followers } = useSelector(state => state.follow);
     const dispatch = useDispatch();
     const nav = useNavigate();
 
@@ -44,9 +45,13 @@ const EditProfile = () => {
             aboutMe
         }
         dispatch(updateUserThunk(updatedUser));
-        console.log("newUser.firstName: " + updatedUser.firstName);
         nav("/profile")
     };
+
+    // In case "Following"/"Followers" is clicked, just navigate back to "/profile":
+    const handleEditPageFollowClick = () => {
+        nav("/profile")
+    }
 
     return(
         <div className="profile">
@@ -76,8 +81,7 @@ const EditProfile = () => {
                      style={ {
                          width: "97.5%",
                          marginTop: currentUser.bannerPicture ? "-20px" : "0px"
-                     } }
-                >
+                     } }>
                     { /* First column */ }
                     <Col md={3}>
                         <Card className="profile-card">
@@ -121,7 +125,42 @@ const EditProfile = () => {
 
                                 </div>
 
-                                <hr style={{ borderTop: '1px solid grey', width: '80%', margin: '0 auto' }} />
+                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                <div className="mt-3 mb-3">
+
+                                    { /* Following */ }
+                                    <div onClick={handleEditPageFollowClick}
+                                         style={{ cursor: 'pointer', border: 'none' }}>
+                                            <span className="fw-bold">
+                                                {
+                                                    following && following.length
+                                                }
+                                            </span>
+                                        &nbsp;
+                                        <span className="text-muted">
+                                                Following
+                                            </span>
+                                    </div>
+
+                                    { /* Followers */ }
+                                    <div onClick={handleEditPageFollowClick}
+                                        style={ { cursor: 'pointer', border: 'none' } }
+                                         className="mt-1">
+                                            <span className="fw-bold">
+                                                {
+                                                    followers && followers.length
+                                                }
+                                            </span>
+                                        &nbsp;
+                                        <span className="text-muted">
+                                                Followers
+                                            </span>
+                                    </div>
+
+                                </div>
+
+                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
                                 <div className="mt-3 mb-2 text-muted"
                                      style={ { fontSize: "0.925rem" } }>
@@ -152,13 +191,6 @@ const EditProfile = () => {
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
                                           style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Reviews
-                                    </Link>
-                                </ListGroup.Item>
-
-                                <ListGroup.Item className="profile-nav-item text-center">
-                                    <Link to={"/profile/#"}
-                                          style={ { color: 'inherit', textDecoration: 'none' } }>
                                         Bookmarks
                                     </Link>
                                 </ListGroup.Item>
@@ -166,14 +198,7 @@ const EditProfile = () => {
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
                                           style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Following
-                                    </Link>
-                                </ListGroup.Item>
-
-                                <ListGroup.Item className="profile-nav-item text-center">
-                                    <Link to={"/profile/#"}
-                                          style={ { color: 'inherit', textDecoration: 'none' } }>
-                                        Followers
+                                        Reviews
                                     </Link>
                                 </ListGroup.Item>
 
