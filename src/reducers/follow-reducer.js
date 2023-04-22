@@ -22,8 +22,7 @@ const followReducer = createSlice(
                         }
                     );
                 },
-            [followThunks.findFollowIdThunk.fulfilled]:
-                (state, action) => {
+            [followThunks.findFollowIdThunk.fulfilled]: (state, action) => {
                     state.followId = action.payload._id;
                 },
             [followThunks.findFollowersThunk.fulfilled]:

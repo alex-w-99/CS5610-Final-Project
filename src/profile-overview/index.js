@@ -46,21 +46,31 @@ const ProfileOverview = () => {
 
     useEffect(
         () => {
-            if (currentUser && currentUser._id === uid) {
+            if (currentUser && currentUser._id === uid) {  // i.e., if viewing own profile
                 nav("/profile");
             }
-            (async function() {
-                await dispatch(findUserByIdThunk(uid))
-                await dispatch(findFollowersThunk(uid))
-                await dispatch(findFollowingThunk(uid))
-                await dispatch(findFollowIdThunk(uid))
-                await setFollowsUser(followId !== null)
-            })()
-            //dispatch(findAllUsersThunk())
+            else if (currentUser === null) {  // i.e., if viewing public profile while not signed in
+                (async function() {
+                    await dispatch(findUserByIdThunk(uid))
+                    await dispatch(findFollowersThunk(uid))
+                    await dispatch(findFollowingThunk(uid))
+                    await setFollowsUser(followId !== null)
+                })()
+                //dispatch(findAllUsersThunk())
+            }
+            else {  // i.e., if viewing public profile while signed in
+                (async function() {
+                    await dispatch(findUserByIdThunk(uid))
+                    await dispatch(findFollowersThunk(uid))
+                    await dispatch(findFollowingThunk(uid))
+                    await dispatch(findFollowIdThunk(uid))
+                    await setFollowsUser(followId !== null)
+                })()
+                //dispatch(findAllUsersThunk())
+            }
         },
         [dispatch, currentUser, nav, uid, followsUser, followId]
     );
-    //if (currentUser && currentUser._id === uid) { nav("/profile"); }
 
     // Setting up for showing and hiding following/follower information:
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
