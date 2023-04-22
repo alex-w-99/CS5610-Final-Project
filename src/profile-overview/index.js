@@ -4,18 +4,14 @@ import '../profile/Profile.css';
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router";
-import {findAllUsersThunk, findUserByIdThunk} from "../services/users-thunks";
+import { findAllUsersThunk, findUserByIdThunk } from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
 import { useState } from "react";
 import {
-    findFollowersThunk,
-    findFollowIdThunk,
-    findFollowingThunk,
-    followThunk, unfollowThunk
-} from "../services/follow-thunks";
+    findFollowersThunk, findFollowIdThunk, findFollowingThunk, followThunk, unfollowThunk }
+    from "../services/follow-thunks";
 import { listFollowing, listFollower } from "../utils/list-follow";
-
 
 // Public profile page
 const ProfileOverview = () => {
@@ -25,6 +21,7 @@ const ProfileOverview = () => {
     const { following, followers, followId } = useSelector((state) => state.follow);
 
     const [followsUser, setFollowsUser] = useState();
+    const [userNotFound, setUserNotFound] = useState(false);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -54,7 +51,7 @@ const ProfileOverview = () => {
                     await dispatch(findUserByIdThunk(uid))
                     await dispatch(findFollowersThunk(uid))
                     await dispatch(findFollowingThunk(uid))
-                    await setFollowsUser(followId !== null)
+                    await setFollowsUser(false)  // not logged in -> not following
                 })()
                 //dispatch(findAllUsersThunk())
             }
