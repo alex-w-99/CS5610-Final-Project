@@ -72,6 +72,7 @@ function App() {
                                 path="/register"
                                 element={<Register/>}
                             />
+
                             <Route
                                 path="/about"
                                 element={<About/>}
