@@ -20,14 +20,30 @@ import { listFollowing, listFollower } from "../utils/list-follow";
 // Public profile page
 const ProfileOverview = () => {
     const { uid } = useParams();
-    const { currentUser } = useSelector((state) => state.users);
-    const { users, loading } = useSelector((state) => state.users);
-    const publicUser = users.find( (u) => u._id === uid );
-
+    const { currentUser, publicProfile, users, loading } = useSelector((state) => state.users);
+    //const publicUser = users.find( (u) => u._id === uid );
     const { following, followers, followId } = useSelector((state) => state.follow);
+
+    const [followsUser, setFollowsUser] = useState();
 
     const nav = useNavigate();
     const dispatch = useDispatch();
+
+    // Follow/Unfollow button handlers:
+    const followButtonHandler = async () => {
+        if (!currentUser) {  // i.e., if not already logged in
+            nav("/login");  //alert("Please log in to follow!");
+        }
+        else {  // i.e., if already logged in
+            await dispatch(followThunk( { followee: uid } ));
+            await setFollowsUser(true);
+        }
+    }
+    const unfollowButtonHandler = async () => {
+        await dispatch(unfollowThunk(followId));
+        await setFollowsUser(false);
+    }
+
     useEffect(
         () => {
             if (currentUser && currentUser._id === uid) {
@@ -37,35 +53,14 @@ const ProfileOverview = () => {
                 await dispatch(findUserByIdThunk(uid))
                 await dispatch(findFollowersThunk(uid))
                 await dispatch(findFollowingThunk(uid))
-                //await dispatch(findFollowIdThunk(uid))
-                //await setFollowsUser(followId) ????????????????????????????????????????????????????
+                await dispatch(findFollowIdThunk(uid))
+                await setFollowsUser(followId !== null)
             })()
-            dispatch(findAllUsersThunk())
+            //dispatch(findAllUsersThunk())
         },
         [dispatch, currentUser, nav, uid, followsUser, followId]
     );
-
-
-    // Figuring out if currentUser follows publicUser or not (for "follow"/"unfollow" button):
-    const [followsUser, setFollowsUser] = useState();
-    const followButtonHandler = async () => {
-        if (!currentUser) {  // i.e., if not already logged in
-            alert("Please log in to follow!");
-        }
-        else {  // i.e., if already logged in
-            if (followsUser) {  // i.e., if currentUser already publicUser
-                await dispatch(unfollowThunk(followId));
-                await setFollowsUser(false);
-            }
-            else {    // i.e., if currentUser does not already publicUser
-                await dispatch(followThunk( { followee: uid } ));
-                await setFollowsUser(true);
-            }
-        }
-    }
-
     //if (currentUser && currentUser._id === uid) { nav("/profile"); }
-
 
     // Setting up for showing and hiding following/follower information:
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
@@ -78,7 +73,7 @@ const ProfileOverview = () => {
             <Container className="my-2">
 
                 {
-                    !publicUser
+                    !publicProfile
                     ?
                     (
                         loading
@@ -92,13 +87,13 @@ const ProfileOverview = () => {
                     <div>
                         { /* Banner */ }
                         {
-                            publicUser
+                            publicProfile
                             &&
-                            publicUser.bannerPicture
+                            publicProfile.bannerPicture
                             &&
                             <Row>
                                 <Image
-                                    src={`${publicUser && publicUser.bannerPicture}`}
+                                    src={`${publicProfile && publicProfile.bannerPicture}`}
                                     height="225px" width="100%"
                                     style={ {
                                         borderRadius: "20px",
@@ -113,7 +108,7 @@ const ProfileOverview = () => {
                         <Row className="mx-auto"
                              style={ {
                                  width: "97.5%",
-                                 marginTop: publicUser.bannerPicture ? "-20px" : "0px"
+                                 marginTop: publicProfile.bannerPicture ? "-20px" : "0px"
                              } }>
                             { /* First column */ }
                             <Col md={3}>
@@ -122,16 +117,16 @@ const ProfileOverview = () => {
 
                                         { /* Public information */ }
                                         <Image
-                                            src={`${publicUser && publicUser.profilePicture}`}
+                                            src={`${publicProfile && publicProfile.profilePicture}`}
                                             roundedCircle
                                             height="150px" width="150px"
                                             className="mb-3"
                                         />
 
                                         <Card.Title className="profile-title">
-                                            {publicUser && publicUser.firstName}
+                                            {publicProfile && publicProfile.firstName}
                                             &nbsp;
-                                            {publicUser && publicUser.lastName}
+                                            {publicProfile && publicProfile.lastName}
                                         </Card.Title>
 
                                         <div className="text-muted profile-subtitle">
@@ -139,7 +134,7 @@ const ProfileOverview = () => {
                                             { /* Printing if user is CRITIC */ }
                                             <div>
                                                 {
-                                                    publicUser.userType === "CRITIC"
+                                                    publicProfile.userType === "CRITIC"
                                                     &&
                                                     <div className="text-primary mb-1"
                                                          title="This user is a trusted Chews Wisely critic.">
@@ -150,11 +145,11 @@ const ProfileOverview = () => {
                                             </div>
 
                                             <div>
-                                                {publicUser && publicUser.username}
+                                                {publicProfile && publicProfile.username}
                                             </div>
 
                                             <div>
-                                                {publicUser && publicUser.location}
+                                                {publicProfile && publicProfile.location}
                                             </div>
 
                                         </div>
@@ -194,12 +189,24 @@ const ProfileOverview = () => {
                                                 </span>
                                             </div>
 
-                                            { /* Follow button */ }
-                                            <button type="button"
-                                                    className="btn btn-primary rounded-pill mt-2"
-                                                    style={ { width: "175px" } }>
-                                                Follow
-                                            </button>
+                                            { /* Follow/Unfollow button */ }
+                                            {
+                                                followsUser
+                                                ?
+                                                <button type="button"
+                                                        className="btn rounded-pill mt-2 btn-danger"
+                                                        onClick={unfollowButtonHandler}
+                                                        style={ { width: "175px" } }>
+                                                    Unfollow
+                                                </button>
+                                                :
+                                                <button type="button"
+                                                        className="btn rounded-pill mt-2 btn-primary"
+                                                        onClick={followButtonHandler}
+                                                        style={ { width: "175px" } }>
+                                                    Follow
+                                                </button>
+                                            }
 
                                         </div>
 
@@ -239,10 +246,10 @@ const ProfileOverview = () => {
                                                     </Card.Title>
                                                     <Card.Text>
                                                         {
-                                                            publicUser && publicUser.aboutMe
+                                                            publicProfile && publicProfile.aboutMe
                                                             ?
                                                             <span>
-                                                                {publicUser.aboutMe}
+                                                                {publicProfile.aboutMe}
                                                             </span>
                                                             :
                                                             <span className="text-muted">
