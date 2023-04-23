@@ -82,12 +82,14 @@ const NavigationBar = () => {
                                 </li>
                             </>
                             :
-                            <li>
-                                <Link className="nav-link"
-                                      to="/login">
-                                    Log In
-                                </Link>
-                            </li>
+                            <>
+                                <li>
+                                    <Link className="nav-link"
+                                          to="/login">
+                                        Log In
+                                    </Link>
+                                </li>
+                            </>
                         }
 
                         <li className="nav-item">
