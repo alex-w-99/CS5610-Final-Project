@@ -44,33 +44,33 @@ const SearchBar = () => {
  }
 
  return(
-  <div className="mt-1">
-    <form onSubmit={(event) => handleSubmit(event)} className="form-group mb-2 row">
-            <div className="col-4 ps-0 pe-0">
-                <input type="text"
-                       id="restaurant-search"
-                       placeholder="Restaurant"
-                       className="form-control"
-                       onChange={(event) => setSearch(event.target.value)}/>
-            </div>
-            <div className="col-4 mb-0 ps-0 pe-0">
-               <input type="text"
-                      id="location-search"
-                      placeholder="Location"
-                      className="form-control"
-                      onChange={(event) => setLocation(event.target.value)}/>
-              </div>
-              <div className="col-4">
-               <button type="submit"
-                       className="btn btn-danger m"
-                       onClick={(event) => handleSubmit(event)}>
-                    <i className="bi bi-search"/>
-               </button>
-               <img src="../../images/yelp-icon.jpg"
-                        width={70}/>
-              </div>
-    </form>
-  </div>
+     <div className="mt-1">
+         <form onSubmit={(event) => handleSubmit(event)} className="form-group mb-2 row">
+             <div className="col-4 ps-0 pe-0">
+                 <input type="text"
+                        id="restaurant-search"
+                        placeholder="Restaurant"
+                        className="form-control"
+                        onChange={(event) => setSearch(event.target.value)}/>
+             </div>
+             <div className="col-4 mb-0 ps-0 pe-0">
+                 <input type="text"
+                        id="location-search"
+                        placeholder="Location"
+                        className="form-control"
+                        onChange={(event) => setLocation(event.target.value)}/>
+             </div>
+             <div className="col-4">
+                 <button type="submit"
+                         className="btn btn-danger m"
+                         onClick={(event) => handleSubmit(event)}>
+                     <i className="bi bi-search"/>
+                 </button>
+                 <img src="../../images/yelp-icon.jpg"
+                      width={70}/>
+             </div>
+         </form>
+     </div>
  )
 };
 

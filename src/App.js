@@ -51,7 +51,9 @@ function App() {
                             <NavigationBar/>
                         </div>
                         
-                        <SearchBar/>
+                        <div>
+                            <SearchBar/>
+                        </div>
                         
                         <Routes>
                             <Route

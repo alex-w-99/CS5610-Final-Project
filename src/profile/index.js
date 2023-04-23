@@ -37,7 +37,7 @@ const Profile = () => {
     else {  // i.e., if logged in
         return (
             <div className="profile">
-                <Container className="my-2">
+                <Container className="my-1">
 
                     { /* Banner */ }
                     {
