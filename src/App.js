@@ -17,6 +17,14 @@ import Register from "./register";
 import PageNotFound from "./page-not-found";
 import followReducer from "./reducers/follow-reducer";
 //import CurrentUser from "./users/current-user";
+import SearchComponent from "./search-component";
+import DetailsComponent from "./details-component";
+import SearchBar from "./search-bar";
+import restaurantReducer from "./reducers/site-restaurants-reducer.js";
+import singleBusinessReducer from "./reducers/single-business-reducer.js"
+import businessReducer from "./reducers/business-reducer.js";
+import reviewsReducer from "./reducers/reviews-reducer.js";
+import './App.css';
 
 const store = configureStore(
     {
@@ -25,6 +33,10 @@ const store = configureStore(
                 users: usersReducer,
                 profile: profileReducer,
                 follow: followReducer,
+                businesses: businessReducer,
+                siteRestaurant: restaurantReducer,
+                reviews: reviewsReducer,
+                oneBusiness: singleBusinessReducer
             }
     }
 );
@@ -38,7 +50,9 @@ function App() {
                         <div>
                             <NavigationBar/>
                         </div>
-
+                        
+                        <SearchBar/>
+                        
                         <Routes>
                             <Route
                                 index
@@ -63,6 +77,30 @@ function App() {
                                 element={
                                     <EditProfile/>
                                 }
+                            />
+                             <Route 
+                                 path="/search/"
+                                 element={
+                                      <SearchComponent/>
+                                 }
+                             />
+                             <Route 
+                                 path="/search/:query"
+                                element={
+                                     <SearchComponent/>
+                                 }
+                             />
+                            <Route 
+                                 path="/search/:query/:location"
+                                 element={
+                                      <SearchComponent/>
+                                 }
+                            />
+                            <Route
+                                  path="/details/:businessId"
+                                  element={
+                                      <DetailsComponent/>
+                                  }
                             />
                             <Route
                                 path="/login"
