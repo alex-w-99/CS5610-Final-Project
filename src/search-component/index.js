@@ -17,6 +17,13 @@ const SearchComponent = () => {
   }, [query, location]);
  const apostrophe = '\u0027';
 
+ if (query == undefined && location == undefined) {
+  return (
+    <>
+    </>
+  )
+ }
+
  return(
     <>
     {

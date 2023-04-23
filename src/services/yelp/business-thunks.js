@@ -13,6 +13,11 @@ export const findBusinessesThunk = createAsyncThunk(
     console.log("TIME TO FIND SOME BUSINESSES");
     var businesses;
     if (location == undefined) {
+        if (query == undefined) {
+          console.log("Made it in here")
+          return [];
+        }
+        console.log("Made it out of here?");
         /* default location */
         location = "Boston";
         if (longitude != null) {
