@@ -4,6 +4,7 @@ import { findBusinessThunk } from "../services/yelp/business-thunks";
 const initialState = {
     business: {},
     loading: false,
+    status: 200
 }
 
 const businessSlice = createSlice({
@@ -16,16 +17,19 @@ const businessSlice = createSlice({
            console.log("REDUCER: Business is now " + JSON.stringify(payload));
            state.business = payload.business;
            state.loading = false;
+           state.status = 200;
          },
        [findBusinessThunk.pending]:
           (state) => {
             state.loading = true;
             state.business = {};
+            state.status = 201;
           },
        [findBusinessThunk.rejected]:
           (state, action) => {
              state.loading = false;
              state.error = action.error;
+             state.status = 404;
         },
     }
 })

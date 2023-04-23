@@ -1,7 +1,8 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteReviewThunk, updateReviewThunk }
+import { deleteReviewThunk }
     from '../../services/site-db-restaurants/site-restaurants-thunks.js';
 import Datify from './helpers/datify';
 
@@ -16,15 +17,20 @@ const ReviewItem = (
      "isCritic": false,
      "text": "mid at best",
      "createdAt": "a time",
+     "editing": "false"
     }
   }
 ) => {
  const dispatch = useDispatch();
+ const [currReview, setReview] = useState(review);
+ const [reviewText, setReviewText] = useState(review.text);
+// const [editing, setEditing] = useState(false);
  const navigate = useNavigate();
  const midDot = '\u00B7';
  const deleteReviewHandler = (review) => {
     dispatch(deleteReviewThunk(review));
   }
+
  const toProfile = () => {
     navigate(`/profile/${review.userId}`);
  }
@@ -40,15 +46,14 @@ const ReviewItem = (
      <div className="col-10">
        <i className="bi bi-x-lg float-end"
                    onClick={() => deleteReviewHandler(review._id)}></i>
-        <i className="bi bi-pencil float-end"/>
        <div>
            <span className="fw-bold">{review.userName}</span> <span className="me-1"> {midDot}
            </span>
            <Datify review={review}/>
        </div>
-       <div>
-        {review.text}
-      </div>
+          <div>
+            {review.text}
+          </div>
      </div>
    </div>
  )

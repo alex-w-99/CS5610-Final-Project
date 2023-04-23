@@ -7,6 +7,7 @@ import { findBusinessThunk } from "../yelp/business-thunks.js";
 
 export const findRestaurantThunk = createAsyncThunk(
   'restaurants/findRestaurants', async ({dispatch, businessId}) => {
+    console.log("Find restaurant thunk was called with " + businessId);
     const restaurant =  await service.findSiteRestaurant(businessId);
     if (JSON.stringify(restaurant) == '[]') {
       const create = true;
@@ -20,7 +21,8 @@ export const findRestaurantThunk = createAsyncThunk(
 export const createRestaurantThunk = createAsyncThunk(
   'restaurants/createRestaurant', async ({ dispatch, business}) => {
      const newRestaurant = await service.createSiteRestaurant(matchSchema({business}));
-     dispatch(findRestaurantThunk({dispatch, business}));
+     const businessId = business.id;
+     dispatch(findRestaurantThunk({dispatch, businessId}));
      return newRestaurant;
    }
 )

@@ -12,7 +12,7 @@ export const findBusinessesThunk = createAsyncThunk(
     'yelp/findBusinesses', async ({ query, location }) => {
     console.log("TIME TO FIND SOME BUSINESSES");
     var businesses;
-    if (location == "null") {
+    if (location == undefined) {
         /* default location */
         location = "Boston";
         if (longitude != null) {
@@ -48,7 +48,7 @@ export const findBusinessThunk = createAsyncThunk(
      *  businessId: ID of target business
      */
     'yelp/findBusinesses', async ({ dispatch, businessId, create }) => {
-    console.log("Going to get business");
+    console.log("Going to get business with id " + businessId);
     const response = await service.getById(businessId);
     if (create) {
       const business = JSON.parse(JSON.parse(JSON.stringify(response)));

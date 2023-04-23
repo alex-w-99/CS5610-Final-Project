@@ -22,12 +22,12 @@ const SearchBar = () => {
    console.log("SEARCH: LOCATION IS " + location);
    if (location.length === 0) {
         console.log("SEARCH: location length is 0")
-        newSearch = makeQuery(search, "null");
         if (search.length === 0) {
             console.log("And so is search");
             navigate('search/', true);
             return;
         } else {
+            newSearch = makeQuery(search, "null");
             navigate('search/' + newSearch.query, true);
         }
    } else {
@@ -40,7 +40,7 @@ const SearchBar = () => {
             navigate('search/' + newSearch.query + '/' + newSearch.location, true);
         }
    }
-   dispatch(findBusinessesThunk(newSearch));
+//   dispatch(findBusinessesThunk(newSearch));
  }
 
  return(

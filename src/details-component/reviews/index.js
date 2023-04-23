@@ -26,6 +26,7 @@ const Reviews = () => {
         userId: "123"
       }
       dispatch(createReviewThunk(newReview));
+      setReview('');
    }
    const reviewString = `Write a review for ${restaurant.name}...`
    return(

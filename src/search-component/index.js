@@ -2,29 +2,51 @@ import React from 'react';
 import './styles/index.css'
 import SearchBar from '../search-bar';
 import ResultItem from './results-item';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { findBusinessesThunk } from '../services/yelp/business-thunks.js';
+
 
 const SearchComponent = () => {
- const { businesses, loading } = useSelector(state => state.businesses);
+ const { businesses, loading, status } = useSelector(state => state.businesses);
+ const {query, location} = useParams();
+ const dispatch = useDispatch();
+ useEffect(() => {
+   dispatch(findBusinessesThunk({query, location}));
+  }, [query, location]);
+ const apostrophe = '\u0027';
+
  return(
     <>
-    <h1>Your Results</h1>
-    <ul className="ps-0"
-        id="result-item-list">
     {
-      loading &&
-      <li className="list-group-item">
-        Loading...
-      </li>
+      status == 404 &&
+      <h1 className = 'cw-error-box'>
+                Yelp couldn{apostrophe}t find a location to match your search.
+      </h1>
     }
     {
-      businesses.map(restaurant =>
-        <li key={restaurant.id} className="list-group-item">
-          <ResultItem restaurant={restaurant}/>
-        </li>
-      )
+      status != 404 &&
+      <>
+        <h1>Your Results</h1>
+        <ul className="ps-0"
+            id="result-item-list">
+        {
+          loading &&
+          <li className="list-group-item">
+            Loading...
+          </li>
+        }
+        {
+          businesses.map(restaurant =>
+            <li key={restaurant.id} className="list-group-item">
+              <ResultItem restaurant={restaurant}/>
+            </li>
+          )
+        }
+        </ul>
+      </>
     }
-    </ul>
     </>
  )
 };

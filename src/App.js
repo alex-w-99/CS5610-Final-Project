@@ -22,8 +22,12 @@ function App() {
        <div className="container">
        <SearchBar/>
          <Routes>
-           <Route path="/search/*"
+           <Route path="/search/"
                   element={<SearchComponent/>}/>
+           <Route path="/search/:query"
+                            element={<SearchComponent/>}/>
+            <Route path="/search/:query/:location"
+                                        element={<SearchComponent/>}/>
            <Route path="/details/:businessId"
                   element={<DetailsComponent/>}/>
          </Routes>

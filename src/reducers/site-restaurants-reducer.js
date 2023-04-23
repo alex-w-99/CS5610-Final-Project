@@ -4,7 +4,8 @@ import { updateRestaurantThunk, createRestaurantThunk, findRestaurantThunk, }
 
 const initialState = {
   restaurant: {},
-  loading: true
+  loading: true,
+  status: 200
 }
 
 const restaurantSlice = createSlice({
@@ -24,6 +25,7 @@ const restaurantSlice = createSlice({
       (state) => {
         state.loading = true;
         state.restaurant = null;
+        state.status = 201;
     },
     [findRestaurantThunk.fulfilled]:
       (state, { payload }) => {
@@ -32,12 +34,14 @@ const restaurantSlice = createSlice({
             console.log("Wasn't undefined")
             state.loading = false;
             state.restaurant = payload;
+            state.status = 200;
         }
       },
     [findRestaurantThunk.rejected]:
        (state, action) => {
           state.loading = false
           state.error = action.error
+          state.status = 404;
       },
     [createRestaurantThunk.fulfilled]:
       (state, { payload }) => {
