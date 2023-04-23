@@ -57,17 +57,15 @@ const usersReducer = createSlice({
             },
         [usersThunks.profileThunk.rejected]:
             (state, action) => {
-                console.log("*users-reducer.js -> profileThunk.rejected")
                 state.loading = false;
                 state.currentUser = null;
                 state.error = action.payload;
             },
         [usersThunks.profileThunk.fulfilled]:
             (state, action) => {
-                console.log("*users-reducer.js -> profileThunk.fulfilled")
                 state.loading = false;
                 state.currentUser = action.payload;
-                state.error = null;  // state.error = "";
+                state.error = null;
             },
         [usersThunks.findAllUsersThunk.pending]:
             (state) => {

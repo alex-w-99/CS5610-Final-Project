@@ -24,7 +24,6 @@ export const logout = async () => {
 };
 export const profile = async () => {
     const response = await api.post(`${USERS_API}/profile`);
-    console.log("%users-service.js -> response="+response)
     return response.data;
 };
 export const findAllUsers = async () => {

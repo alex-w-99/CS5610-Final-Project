@@ -16,8 +16,10 @@ const Profile = () => {
     const dispatch = useDispatch();
     useEffect(
         () => {
-            dispatch(findFollowersThunk(currentUser._id))
-            dispatch(findFollowingThunk(currentUser._id))
+            if (currentUser) {  // defensive coding, in case currentUser is nul
+                dispatch(findFollowersThunk(currentUser._id))
+                dispatch(findFollowingThunk(currentUser._id))
+            }
         },
         [dispatch, currentUser]
     );
