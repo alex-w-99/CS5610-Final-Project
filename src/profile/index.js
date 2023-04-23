@@ -168,7 +168,13 @@ const Profile = () => {
                                         </div>
 
                                         <div>
-                                            {currentUser && formatPhoneNumber(currentUser.phone)}
+                                            {
+                                                currentUser && currentUser.phone
+                                                ?
+                                                formatPhoneNumber(currentUser.phone)
+                                                :
+                                                <></>
+                                            }
                                         </div>
                                     </div>
 
