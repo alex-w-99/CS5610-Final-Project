@@ -140,14 +140,20 @@ const ProfileOverview = () => {
 
                                         <div className="text-muted profile-subtitle">
 
-                                            { /* Printing if user is CRITIC */ }
+                                            { /* Printing if userType is CRITIC or RESTAURANT */ }
                                             <div>
                                                 {
-                                                    publicProfile.userType === "CRITIC"
+                                                    (publicProfile.userType === "CRITIC"
+                                                     || publicProfile.userType === "RESTAURANT")
                                                     &&
                                                     <div className="text-primary mb-1"
-                                                         title="This user is a trusted Chews Wisely critic.">
-                                                        Critic&nbsp;
+                                                         title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                        {
+                                                            publicProfile.userType.charAt(0).toUpperCase()
+                                                            +
+                                                            publicProfile.userType.toLowerCase().slice(1)
+                                                        }
+                                                        &nbsp;
                                                         <i className="bi bi-patch-check-fill"/>
                                                     </div>
                                                 }

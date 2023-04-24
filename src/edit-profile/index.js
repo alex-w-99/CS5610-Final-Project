@@ -115,14 +115,20 @@ const EditProfile = () => {
 
                                 <div className="text-muted profile-subtitle">
 
-                                    { /* Printing if user is CRITIC */ }
+                                    { /* Printing if userType is CRITIC or RESTAURANT */ }
                                     <div>
                                         {
-                                            currentUser.userType === "CRITIC"
+                                            (currentUser.userType === "CRITIC"
+                                             || currentUser.userType === "RESTAURANT")
                                             &&
                                             <div className="text-primary mb-1"
-                                                 title="This user is a trusted Chews Wisely critic.">
-                                                Critic&nbsp;
+                                                 title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                {
+                                                    currentUser.userType.charAt(0).toUpperCase()
+                                                    +
+                                                    currentUser.userType.toLowerCase().slice(1)
+                                                }
+                                                &nbsp;
                                                 <i className="bi bi-patch-check-fill"/>
                                             </div>
                                         }
