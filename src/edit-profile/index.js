@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
-import { deleteUserThunk, updateUserThunk } from "../services/users-thunks";
+import { deleteUserThunk, logoutThunk, updateUserThunk } from "../services/users-thunks";
 import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
@@ -56,6 +56,7 @@ const EditProfile = () => {
         const confirmDelete = window.confirm("Are you sure you want to delete your profile? This action cannot be undone.");
         if (confirmDelete) {
             dispatch(deleteUserThunk(currentUser._id));
+            dispatch(logoutThunk());
             nav("/login");
         }
     };
@@ -384,8 +385,6 @@ const EditProfile = () => {
 
                             </Card.Body>
                         </Card>
-
-
 
                     </Col>
                 </Row>

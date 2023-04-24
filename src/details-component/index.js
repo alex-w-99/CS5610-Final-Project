@@ -1,12 +1,11 @@
 import React from 'react';
 import Reviews from './reviews';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { findBusinessThunk } from
-    '../services/yelp/business-thunks.js';
-import { findRestaurantThunk, createRestaurantThunk }
+//import { findBusinessThunk } from '../services/yelp/business-thunks.js';
+import { findRestaurantThunk }
     from '../services/site-db-restaurants/site-restaurants-thunks';
 
 const DetailsComponent = () => {
@@ -25,11 +24,11 @@ const DetailsComponent = () => {
       <h1> Loading.. </h1>
     }
     {
-      status == 404 &&
+      status === 404 &&
       <h1> No businesses found with specified id </h1>
     }
     {
-      status == 200 &&
+      status === 200 &&
       !loading &&
        <>
           <img src={restaurant.image_url}
