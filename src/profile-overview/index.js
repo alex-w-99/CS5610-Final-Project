@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Image, Card, ListGroup } from 'react-bootstrap';
 import '../profile/Profile.css';
 import { useDispatch, useSelector } from "react-redux";

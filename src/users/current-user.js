@@ -6,8 +6,15 @@ const CurrentUser = ( { children } ) => {
     const currentUser = useSelector((state) => state.currentUser);
 
     const dispatch = useDispatch();
-    useEffect(() => { dispatch(profileThunk()); }, []);
-    //useEffect(() => { if (currentUser) { dispatch(profileThunk()); } }, [dispatch, currentUser]);
+    //useEffect(() => { dispatch(profileThunk()); }, []);
+    useEffect(
+        () => {
+            if (currentUser) {
+                dispatch(profileThunk());
+            }
+        },
+        [dispatch, currentUser]
+    );
 
     return(
         children
