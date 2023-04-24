@@ -82,6 +82,13 @@ const NavigationBar = () => {
                             </>
                             :
                             <>
+                                <li className="nav-item">
+                                    <Link className="nav-link"
+                                          to="/login">
+                                        Profile
+                                    </Link>
+                                </li>
+
                                 <li>
                                     <Link className="nav-link"
                                           to="/login">
