@@ -32,14 +32,16 @@ const ProfileOverview = () => {
         if (!currentUser) {  // i.e., if not already logged in
             nav("/login");
         }
-        else {  // i.e., if already logged in
+        else if (!followsUser) {
             await dispatch(followUserThunk( { followee: uid } ));
             await setFollowsUser(true);
         }
     }
     const unfollowButtonHandler = async () => {
-        await dispatch(unfollowUserThunk(followId));
-        await setFollowsUser(false);
+        if (followsUser) {
+            await dispatch(unfollowUserThunk(followId));
+            await setFollowsUser(false);
+        }
     }
 
     useEffect(
