@@ -14,7 +14,6 @@ const HomeComponent = () => {
     }, []);
 
     const businessesReady = () => {
-        console.log("Businesses are " + JSON.stringify(businesses));
         const activitiesArray = businesses
             .slice(0, 10)
             .map((business) => ({
@@ -23,7 +22,6 @@ const HomeComponent = () => {
                 category: business.categories && business.categories[0] && business.categories[0].title,
                 imageUrl: business.image_url,
             }));
-        console.log("activities are now " + JSON.stringify(activities));
         setActivities(activitiesArray);
     }
 
