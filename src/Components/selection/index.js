@@ -1,6 +1,7 @@
 import React from 'react';
 
 const CategoryActivitiesSelection = ({ activities }) => {
+    console.log("IN CATEGORY ACTIVITIES " + JSON.stringify(activities));
     const categories = [...new Set(activities.map(activity => activity.category))];
     return (
         <>
