@@ -29,16 +29,16 @@ const ProfileOverview = () => {
 
     // Follow/Unfollow button handlers:
     const followButtonHandler = async () => {
-        if (!currentUser) {  // i.e., if not already logged in
+        if (!currentUser) {  // if not already logged in
             nav("/login");
         }
-        else if (!followsUser) {
+        else if (!followsUser) {  // can only follow if not currently following
             await dispatch(followUserThunk( { followee: uid } ));
             await setFollowsUser(true);
         }
     }
     const unfollowButtonHandler = async () => {
-        if (followsUser) {
+        if (followsUser) {  // can only unfollow if currently following
             await dispatch(unfollowUserThunk(followId));
             await setFollowsUser(false);
         }

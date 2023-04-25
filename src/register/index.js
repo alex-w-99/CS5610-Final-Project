@@ -266,9 +266,9 @@ const Register = () => {
 
 
                                         { /* userType input box (required) */ }
-                                        <form className="form-floating mt-1">
+                                        <form className="form-floating mt-2">
                                             <div style={{ display: "flex", flexDirection: "column" }}>
-                                                <label className="col-form-label text-secondary fw-bold"
+                                                <label className="col-form-label fw-bold"
                                                        htmlFor="userType">
                                                     User Type*
                                                 </label>
@@ -293,7 +293,7 @@ const Register = () => {
                                             {
                                                 error &&
                                                 (
-                                                    <div className="alert alert-danger mt-3"
+                                                    <div className="alert alert-danger text-danger mt-3"
                                                          role="alert">
                                                         {error}
                                                     </div>
@@ -310,8 +310,8 @@ const Register = () => {
 
                                         { /* Login redirect link */ }
                                         <div className="mt-5 mb-4">
-                                            <Link to="/login" className="text-decoration-none">
-                                                Already have an account? Login here.
+                                            Already have an account? <Link to="/login" className="text-decoration-none">
+                                                 Login here.
                                             </Link>
                                         </div>
 
