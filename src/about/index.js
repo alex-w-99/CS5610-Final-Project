@@ -29,13 +29,13 @@ const About = () => {
 
                             <div className="d-flex justify-content-center">
                                 <div className="text-center mt-3 w-75">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget nisl eu enim feugiat malesuada cursus et nisl. Vivamus fringilla sapien et est egestas, at ullamcorper tellus ornare. Phasellus maximus, purus eu convallis scelerisque, velit nisi vehicula libero, sit amet euismod enim libero sit amet sapien. Morbi sodales iaculis turpis ut gravida. Proin a leo orci. Fusce commodo turpis a suscipit tincidunt. Ut varius scelerisque tellus eget efficitur. Pellentesque et ante quis arcu blandit venenatis in vitae dolor. Nulla facilisi.
+                                    Chews Wisely is a final project for Northeastern University Graduate Web Development, showcasing a platform that provides users with personalized food recommendations based on their dietary preferences and restrictions. Our mission is to help users make more informed food choices and live healthier lives.
                                 </div>
                             </div>
 
                             <div className="d-flex justify-content-center mb-5">
                                 <div className="text-center mt-3 w-75">
-                                    In hac habitasse platea dictumst. Mauris interdum dolor nulla, et semper metus iaculis sit amet. Integer molestie est est. Praesent volutpat porta odio nec tempus. Duis ante lacus, consequat ac diam sed, vulputate pulvinar enim. Donec velit velit, commodo at nisi id, varius pellentesque neque. In varius libero accumsan varius feugiat. Fusce aliquet ante eget purus placerat volutpat. Integer lacinia ipsum nec auctor facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec imperdiet, urna ac commodo cursus, orci purus semper augue, vitae aliquet turpis quam consectetur diam. Pellentesque a neque ligula. Morbi ac lacus odio. Phasellus pretium, nisi quis molestie euismod, nibh lectus tempor nunc, in auctor turpis ex nec lacus.
+                                    Our site stands out thanks to its user-friendly interface, reliable food data sources, and robust recommendation engine. We use state-of-the-art machine learning algorithms to analyze and classify thousands of food products, taking into account multiple factors such as nutritional value, ingredients, allergens, and certifications. Our goal is to make it easy for users to find foods that match their criteria and meet their individual needs, whether they are looking for gluten-free snacks, low-carb meals, or vegan options. We believe that everyone deserves to enjoy good food that is also good for them, and we strive to make this vision a reality through Chews Wisely.
                                 </div>
                             </div>
 

@@ -15,10 +15,10 @@ const NavigationBar = () => {
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <div className="container-fluid ms-3 mt-2">
+            <div className="container-fluid">
 
                 <Link to="/" className="navbar-brand fw-bold">
-                    Chews Wisely
+                    <img src="/images/chews-wisely.png" width="50" height="50" className="d-inline-block align-top rounded-3" alt="Chews Wisely logo" />
                 </Link>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

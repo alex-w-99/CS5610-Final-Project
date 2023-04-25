@@ -1,0 +1,90 @@
+.Container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.Logo {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.SearchBar {
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin-right: 20px;
+    font-size: 1rem;
+    width: 300px;
+}
+
+.CardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.Card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    height: 350px;
+    background-color: #f8f8f8;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.Card:hover {
+    transform: translateY(-10px);
+}
+
+.CardTitle {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.CardImage {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.CardText {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+    background-color: #f8f8f8;
+}
+
+.FooterLink {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    margin-right: 20px;
+}
