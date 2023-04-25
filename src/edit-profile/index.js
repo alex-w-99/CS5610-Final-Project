@@ -233,21 +233,21 @@ const EditProfile = () => {
 
                             <div className="col-2">
                                 <Link to="/profile">
-                                    <button className={'btn btn-dark w-100'}>
+                                    <button className={'btn btn-dark rounded-pill w-100'}>
                                         Cancel
                                     </button>
                                 </Link>
                             </div>
 
                             <div className="col-2">
-                                <button className={'btn btn-primary w-100'}
+                                <button className={'btn btn-primary rounded-pill w-100'}
                                         onClick={saveUpdateHandler}>
                                     Save
                                 </button>
                             </div>
 
                             <div className="col-8 d-flex justify-content-end">
-                                <button className={'btn btn-danger w-50'}
+                                <button className={'btn btn-danger rounded-pill w-50'}
                                         onClick={deleteProfileHandler}>
                                     Delete Profile
                                 </button>
