@@ -142,18 +142,14 @@ const ProfileOverview = () => {
                                             { /* Printing if userType is CRITIC or RESTAURANT */ }
                                             <div>
                                                 {
-                                                    (
-                                                        currentUser.userType
-                                                        &&
-                                                        currentUser.userType === "CRITIC"
-                                                    )
+                                                    (publicProfile.userType && publicProfile.userType === "CRITIC")
                                                     ?
                                                     <div className="text-primary mb-1"
                                                          title="This user is a trusted Chews Wisely Critic.">
                                                         {
-                                                            currentUser.userType.charAt(0).toUpperCase()
+                                                            publicProfile.userType.charAt(0).toUpperCase()
                                                             +
-                                                            currentUser.userType.toLowerCase().slice(1)
+                                                            publicProfile.userType.toLowerCase().slice(1)
                                                         }
                                                         &nbsp;
                                                         <i className="bi bi-patch-check-fill"/>
@@ -163,17 +159,13 @@ const ProfileOverview = () => {
                                                 }
 
                                                 {
-                                                    (
-                                                        currentUser.userType
-                                                        &&
-                                                        currentUser.userType === "RESTAURANT"
-                                                    )
+                                                    (publicProfile.userType && publicProfile.userType === "RESTAURANT")
                                                     ?
                                                     <div className="text-primary mb-1">
                                                         {
-                                                            currentUser.userType.charAt(0).toUpperCase()
+                                                            publicProfile.userType.charAt(0).toUpperCase()
                                                             +
-                                                            currentUser.userType.toLowerCase().slice(1)
+                                                            publicProfile.userType.toLowerCase().slice(1)
                                                         }
                                                     </div>
                                                     :

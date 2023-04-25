@@ -90,11 +90,7 @@ const Profile = () => {
                                         { /* Printing if userType is CRITIC or RESTAURANT */ }
                                         <div>
                                             {
-                                                (
-                                                    currentUser.userType
-                                                    &&
-                                                    currentUser.userType === "CRITIC"
-                                                )
+                                                (currentUser.userType && currentUser.userType === "CRITIC")
                                                 ?
                                                 <div className="text-primary mb-1"
                                                      title="This user is a trusted Chews Wisely Critic.">
@@ -111,11 +107,7 @@ const Profile = () => {
                                             }
 
                                             {
-                                                (
-                                                    currentUser.userType
-                                                    &&
-                                                    currentUser.userType === "RESTAURANT"
-                                                )
+                                                (currentUser.userType && currentUser.userType === "RESTAURANT")
                                                 ?
                                                 <div className="text-primary mb-1">
                                                     {
