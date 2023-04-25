@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerThunk } from "../services/users-thunks";
 
 const Register = () => {
-    const { currentUser, loading } = useSelector((state) => state.users);
+    const { currentUser } = useSelector((state) => state.users);
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [location, setLocation] = useState("");
-    const [profilePicture, setProfilePicture] = useState("");
-    const [bannerPicture, setBannerPicture] = useState("");
+    const [profilePicture, setProfilePicture] = useState("https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg");
+    const [bannerPicture, setBannerPicture] = useState("https://d2s0jlb9tovn77.cloudfront.net/colonnadehotel.com-696924584/cms/cache/v2/548c8aa107ab6.jpg/1600x720/fit/80/852befd37245e1fd09023ce9386a9914.jpg");
     const [aboutMe, setAboutMe] = useState("");
     const [website, setWebsite] = useState("");
     const [email, setEmail] = useState("");
@@ -37,7 +37,7 @@ const Register = () => {
             setError("Phone number must be 10 digits.");
         }
         else if (userType === "") {
-            setError("Please select a valid user type:\n\"PERSONAL\", \"CRITIC\", or \"RESTAURANT\".");
+            setError("Please select a valid user type: PERSONAL, CRITIC, or RESTAURANT.");
         }
         else {
             setError(null);
@@ -54,8 +54,6 @@ const Register = () => {
                 "userType": userType
             }
             dispatch(registerThunk(newUser));
-            if (error)
-            console.log("error"+error)
             nav("/profile");
         }
     };
@@ -278,11 +276,8 @@ const Register = () => {
                                                     id="userType"
                                                     className="form-select rounded-pill"
                                                     defaultValue=""
-                                                    onChange={(e) => {
-                                                        const accountType = e.target.value === "" ? "PERSONAL" : e.target.value;
-                                                        setUserType(accountType);
-                                                    }
-                                                    }>
+                                                    onChange={(e) =>
+                                                        setUserType(e.target.value)}>
                                                     <option value="" disabled>
                                                         Select a User Type
                                                     </option>
@@ -309,13 +304,12 @@ const Register = () => {
                                         { /* Register button */ }
                                         <button
                                             className="btn btn-primary mt-4 rounded-pill w-50"
-                                            onClick={registerHandler}
-                                        >
+                                            onClick={registerHandler}>
                                             Create Account
                                         </button>
 
                                         { /* Login redirect link */ }
-                                        <div className="mt-3 mb-3">
+                                        <div className="mt-5 mb-4">
                                             <Link to="/login" className="text-decoration-none">
                                                 Already have an account? Login here.
                                             </Link>
