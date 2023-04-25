@@ -61,6 +61,6 @@ export const findRating = async (restaurant, user) => {
 
 export const updateRating = async (rating) => {
   const response = await axios
-    .put(RATINGS_API, rating);
+    .put(`${RATINGS_API}/${rating._id}`, rating);
   return rating;
 }

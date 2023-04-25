@@ -24,7 +24,7 @@ const restaurantSlice = createSlice({
     [findRestaurantThunk.pending]:
       (state) => {
         state.loading = true;
-        state.restaurant = null;
+        state.restaurant = {};
         state.status = 201;
     },
     [findRestaurantThunk.fulfilled]:

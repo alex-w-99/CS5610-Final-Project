@@ -30,12 +30,12 @@ const ReviewStats = (
  const[disliked, setDisliked] = useState(
     review.dislikingUsers.includes(id));
  const requireLogin = () => {
-       if (!currentUser) {
-         navigate('/login');
-         return true;
-       }
-       return false;
+    if (!currentUser) {
+      navigate('/login');
+      return true;
     }
+    return false;
+  }
 
  const onDislike = () => {
     if (requireLogin()) {

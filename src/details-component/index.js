@@ -1,6 +1,7 @@
 import React from 'react';
 import './styles/styles.css';
 import Reviews from './reviews';
+import Rating from './ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
@@ -14,6 +15,8 @@ const DetailsComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { businessId } = useParams();
+  const { currentUser } =
+              useSelector(state => state.users)
   const goBack = () => {
       navigate(-1);
   }
@@ -23,6 +26,10 @@ const DetailsComponent = () => {
   let { restaurant, loading } = useSelector(state => state.siteRestaurant)
   const { status } = useSelector(state => state.oneBusiness);
   console.log("FROM DETAILS SCREEN: RESTAURANT IS " + JSON.stringify(restaurant));
+  let mode = "PERSONAL";
+  if (currentUser) {
+     mode = currentUser.userType;
+  }
  return(
     <>
     {
@@ -61,7 +68,7 @@ const DetailsComponent = () => {
                        == -1 ?
                        `N/A`
                        :
-                       `{restaurant.userRating} / 5`
+                       `${restaurant.userRating} / 5`
                        }
                      </div>
                    <div className="cw-rating-category mb-4">
@@ -69,7 +76,7 @@ const DetailsComponent = () => {
                       .criticRating == -1 ?
                       `N/A`
                       :
-                      `{restaurant.criticRating} / 5`
+                      `${restaurant.criticRating} / 5`
                       }
                    </div>
                  </div>
@@ -113,7 +120,11 @@ const DetailsComponent = () => {
                   </div>
 
               </div>
-          <Reviews/>
+         { /* don't let businesses rate other businesses */
+           mode != "RESTAURANT" &&
+           <Rating/>
+          }
+           <Reviews/>
        </>
     }
     </>

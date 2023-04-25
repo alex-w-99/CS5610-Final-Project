@@ -54,7 +54,7 @@ const ReviewItem = (
            {
              review.isCritic ?
              <>
-               <i className="bi bi-star-fill text-primary mb-1 me-1"></i>
+               <i className="bi bi-star-fill text-primary mb-1"></i>
                <span className="fw-bold text-primary"> Critic </span>
              </>
              :

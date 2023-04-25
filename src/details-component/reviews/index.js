@@ -40,24 +40,30 @@ const Reviews = () => {
       }
    }
    const reviewString = `Write a review for ${restaurant.name}...`
-
+   let mode = "PERSONAL";
+   if (currentUser) {
+       mode = currentUser.userType;
+   }
    return(
    <>
-    <form onSubmit={(event) => handleSubmit(event)}>
-       <div>
-        <textarea placeholder={reviewString}
-                  className="cw-text-box"
-                  rows={5}
-                  cols={50}
-                  value={review}
-                  onChange={(event) => setReview(event.target.value)}
-                  onClick={requireLogin}/>
-       </div>
-        <button onClick={(event) => handleSubmit(event)}
+     { /* businesses cannot review each other */
+        mode != "RESTAURANT" &&
+        <form onSubmit={(event) => handleSubmit(event)}>
+           <div>
+            <textarea placeholder={reviewString}
+                      className="cw-text-box"
+                      rows={5}
+                      cols={50}
+                      value={review}
+                      onChange={(event) => setReview(event.target.value)}
+                      onClick={requireLogin}/>
+           </div>
+           <button onClick={(event) => handleSubmit(event)}
                 className="btn btn-danger mt-1">
              Review
-       </button>
-    </form>
+           </button>
+         </form>
+     }
        <ul className="mt-3">
         {
           loading &&

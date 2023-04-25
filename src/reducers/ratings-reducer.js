@@ -4,7 +4,7 @@ import { findRatingThunk, createRatingThunk, updateRatingThunk }
 
 const initialState = {
   rating: {},
-  loading: true
+  updating: false
 }
 
 const ratingSlice = createSlice({
@@ -13,18 +13,23 @@ const ratingSlice = createSlice({
   extraReducers: {
     [updateRatingThunk.fulfilled]:
        (state, { meta }) => {
+          console.log("RATING THUNK GOT THIS " + JSON.stringify(meta));
           const payload = meta.arg;
-          state.loading = false;
+          state.updating = false;
           state.rating = payload;
+    },
+    [updateRatingThunk.pending]:
+       (state) => {
+          state.updating = true;
     },
     [findRatingThunk.pending]:
       (state) => {
-        state.loading = true;
+        state.updating = true;
         state.rating = {};
     },
     [findRatingThunk.fulfilled]:
       (state, { payload }) => {
-        state.loading = false;
+        state.updating = false;
         if (payload == '[]') {
           state.rating = {};
         } else {
@@ -33,13 +38,17 @@ const ratingSlice = createSlice({
       },
     [findRatingThunk.rejected]:
        (state, action) => {
-          state.loading = false
+          state.updating = false
           state.error = action.error
       },
     [createRatingThunk.fulfilled]:
       (state, { payload } ) => {
         state.rating = payload;
-        state.loading = false;
+        state.updating = false;
+      },
+    [createRatingThunk.pending]:
+      (state) => {
+        state.updating = true;
       },
   }
 });
