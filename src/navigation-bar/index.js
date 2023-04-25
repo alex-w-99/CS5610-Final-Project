@@ -18,7 +18,11 @@ const NavigationBar = () => {
             <div className="container-fluid">
 
                 <Link to="/" className="navbar-brand fw-bold">
-                    <img src="/images/chews-wisely.png" width="50" height="50" className="d-inline-block align-top rounded-3" alt="Chews Wisely logo" />
+                    <img src="/images/chews-wisely.png"
+                         width="50" height="50"
+                         className="d-inline-block align-top rounded-3"
+                         style={ { marginLeft: "50px" } }
+                         alt="Chews Wisely logo" />
                 </Link>
 
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"

@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { findBusinessesThunk } from '../services/yelp/business-thunks.js';
 
-
 const SearchComponent = () => {
  const { businesses, loading, status } = useSelector(state => state.businesses);
  const {query, location} = useParams();
@@ -17,24 +16,23 @@ const SearchComponent = () => {
   }, [query, location]);
  const apostrophe = '\u0027';
 
- if (query == undefined && location == undefined) {
-  return (
-    <>
-    </>
-  )
+ if (query === undefined && location === undefined) {
+     return (
+         <>
+         </>
+     );
  }
-
  return(
     <>
     {
-      status == 404 &&
+      status === 404 &&
       !loading &&
       <h1 className = 'cw-error-box'>
                 Yelp couldn{apostrophe}t find a location to match your search.
       </h1>
     }
     {
-      status != 404 &&
+      status !== 404 &&
       <>
         <h1 id="results-heading">Your Results</h1>
         <ul className="ps-0"
