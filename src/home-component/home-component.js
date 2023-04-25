@@ -1,4 +1,5 @@
-, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { findBusinessesThunk} from "../services/yelp/business-thunks";
 import CarouselImage from "../Components/carousel-image";
 import CategoryActivitiesSelection from "../Components/selection";
