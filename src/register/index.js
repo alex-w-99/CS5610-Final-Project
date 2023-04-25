@@ -8,25 +8,57 @@ import { registerThunk } from "../services/users-thunks";
 const Register = () => {
     const { currentUser, loading } = useSelector((state) => state.users);
     const [username, setUsername] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [location, setLocation] = useState("");
+    const [profilePicture, setProfilePicture] = useState("");
+    const [bannerPicture, setBannerPicture] = useState("");
+    const [aboutMe, setAboutMe] = useState("");
+    const [website, setWebsite] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
+    const [userType, setUserType] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
 
-    const dispatch = useDispatch();
-
     // Register button onClick handler:
+    const dispatch = useDispatch();
+    const nav = useNavigate();
     const registerHandler = () => {
         setError(null);
-        if (!username || !password || !confirmPassword) {
-            setError("Please enter a valid, non-empty username, password and confirm password.");
-        } else if (password !== confirmPassword) {
+        if (!username || !firstName || !lastName || !email || !password || !confirmPassword) {
+            setError("Username, first name, last name, email, password, and confirm password are all required.");
+        }
+        else if (password !== confirmPassword) {
             setError("Password and confirm password do not match.");
-        } else {
-            dispatch(registerThunk( { username, password } ));
-
+        }
+        else if (phone.length !== 10 && phone !== "") {
+            setError("Phone number must be 10 digits.");
+        }
+        else if (userType === "") {
+            setError("Please select a valid user type:\n\"PERSONAL\", \"CRITIC\", or \"RESTAURANT\".");
+        }
+        else {
+            setError(null);
+            const newUser = {
+                username,
+                firstName, lastName,
+                location,
+                profilePicture, bannerPicture,
+                aboutMe,
+                website,
+                email,
+                password,
+                phone,
+                "userType": userType
+            }
+            dispatch(registerThunk(newUser));
+            if (error)
+            console.log("error"+error)
+            nav("/profile");
         }
     };
-
 
     // DETERMINING RETURN VALUE:
     if (currentUser) {  // i.e., if already logged in
@@ -54,9 +86,9 @@ const Register = () => {
                                 <div className="d-flex justify-content-center">
                                     <div className="text-center mt-3 w-75">
 
-                                        { /* Username input box */ }
+                                        { /* username input box (required) */ }
                                         <form className="form-floating">
-                                            <input id="userName"
+                                            <input id="username"
                                                    type="text"
                                                    className="form-control rounded-pill"
                                                    placeholder="Enter username"
@@ -64,42 +96,226 @@ const Register = () => {
                                                        setUsername(e.target.value)
                                                    }
                                             />
-                                            <label className="text-secondary" htmlFor="userName">
-                                                Username
+                                            <label className="text-secondary" htmlFor="username">
+                                                Username*
                                             </label>
                                         </form>
 
-                                        { /* Confirm Password input box */ }
+                                        { /* firstName input box (required) */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="firstName"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter first name"
+                                                   onChange={(e) =>
+                                                       setFirstName(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="firstName">
+                                                First Name*
+                                            </label>
+                                        </form>
+
+                                        { /* lastName input box (required) */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="lastName"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter last name"
+                                                   onChange={(e) =>
+                                                       setLastName(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="lastName">
+                                                Last Name*
+                                            </label>
+                                        </form>
+
+                                        { /* location input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="location"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter location"
+                                                   onChange={(e) =>
+                                                       setLocation(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="location">
+                                                Location
+                                            </label>
+                                        </form>
+
+                                        { /* profilePicture input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="profilePicture"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter Profile Picture URL"
+                                                   onChange={(e) =>
+                                                       setProfilePicture(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="profilePicture">
+                                                Profile Picture URL
+                                            </label>
+                                        </form>
+
+                                        { /* bannerPicture input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="bannerPicture"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter Banner Picture URL"
+                                                   onChange={(e) =>
+                                                       setBannerPicture(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="bannerPicture">
+                                                Banner Picture URL
+                                            </label>
+                                        </form>
+
+                                        { /* aboutMe input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="aboutMe"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter About Me"
+                                                   onChange={(e) =>
+                                                       setAboutMe(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="aboutMe">
+                                                About Me
+                                            </label>
+                                        </form>
+
+                                        { /* website input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="website"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter Website"
+                                                   onChange={(e) =>
+                                                       setWebsite(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="website">
+                                                Website
+                                            </label>
+                                        </form>
+
+                                        { /* email input box (required) */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="email"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter Email"
+                                                   onChange={(e) =>
+                                                       setEmail(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="email">
+                                                Email*
+                                            </label>
+                                        </form>
+
+                                        { /* phone input box */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="phone"
+                                                   type="text"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Enter Phone"
+                                                   onChange={(e) =>
+                                                       setPhone(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="phone">
+                                                Phone Number
+                                            </label>
+                                        </form>
+
+                                        { /* password input box (required) */ }
+                                        <form className="form-floating mt-3">
+                                            <input id="password"
+                                                   type="password"
+                                                   className="form-control rounded-pill"
+                                                   placeholder="Password"
+                                                   onChange={(e) =>
+                                                       setPassword(e.target.value)
+                                                   }
+                                            />
+                                            <label className="text-secondary" htmlFor="password">
+                                                Password*
+                                            </label>
+                                        </form>
+
+                                        { /* confirmPassword input box (required) */ }
                                         <form className="form-floating mt-3">
                                             <input id="confirmPassword"
                                                    type="password"
                                                    className="form-control rounded-pill"
                                                    placeholder="Confirm password"
                                                    onChange={(e) =>
-                                                       setPassword(e.target.value)
+                                                       setConfirmPassword(e.target.value)
                                                    }
                                             />
                                             <label className="text-secondary" htmlFor="confirmPassword">
-                                                Confirm Password
+                                                Confirm Password*
                                             </label>
-                                            {error && (
-                                                <div className="alert alert-danger mt-3" role="alert">
-                                                    {error}
-                                                </div>
-                                            )}
                                         </form>
 
 
+                                        { /* userType input box (required) */ }
+                                        <form className="form-floating mt-1">
+                                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                                <label className="col-form-label text-secondary fw-bold"
+                                                       htmlFor="userType">
+                                                    User Type*
+                                                </label>
+                                                <select
+                                                    id="userType"
+                                                    className="form-select rounded-pill"
+                                                    defaultValue=""
+                                                    onChange={(e) => {
+                                                        const accountType = e.target.value === "" ? "PERSONAL" : e.target.value;
+                                                        setUserType(accountType);
+                                                    }
+                                                    }>
+                                                    <option value="" disabled>
+                                                        Select a User Type
+                                                    </option>
+                                                    <option value="PERSONAL">PERSONAL</option>
+                                                    <option value="CRITIC">CRITIC</option>
+                                                    <option value="RESTAURANT">RESTAURANT</option>
+                                                </select>
+                                            </div>
+                                        </form>
+
+                                        { /* Printing error upon error */ }
+                                        <div>
+                                            {
+                                                error &&
+                                                (
+                                                    <div className="alert alert-danger mt-3"
+                                                         role="alert">
+                                                        {error}
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
+
                                         { /* Register button */ }
                                         <button
-                                            className="btn btn-primary mt-3 rounded-pill"
+                                            className="btn btn-primary mt-4 rounded-pill w-50"
                                             onClick={registerHandler}
                                         >
-                                            Register
+                                            Create Account
                                         </button>
 
                                         { /* Login redirect link */ }
-                                        <div className="mt-3">
+                                        <div className="mt-3 mb-3">
                                             <Link to="/login" className="text-decoration-none">
                                                 Already have an account? Login here.
                                             </Link>

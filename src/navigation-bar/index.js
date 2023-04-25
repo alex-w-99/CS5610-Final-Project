@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { logoutThunk } from "../services/users-thunks";
-import {Image} from "react-bootstrap";
 
 const NavigationBar = () => {
     const { currentUser } = useSelector((state) => state.users);
@@ -10,7 +9,7 @@ const NavigationBar = () => {
     const dispatch = useDispatch();
     const nav = useNavigate();
     const logoutHandler = () => {
-        dispatch(logoutThunk());
+        dispatch( logoutThunk() );
         nav("/login");
     };
 
@@ -82,12 +81,21 @@ const NavigationBar = () => {
                                 </li>
                             </>
                             :
-                            <li>
-                                <Link className="nav-link"
-                                      to="/login">
-                                    Log In
-                                </Link>
-                            </li>
+                            <>
+                                <li className="nav-item">
+                                    <Link className="nav-link"
+                                          to="/login">
+                                        Profile
+                                    </Link>
+                                </li>
+
+                                <li>
+                                    <Link className="nav-link"
+                                          to="/login">
+                                        Log In
+                                    </Link>
+                                </li>
+                            </>
                         }
 
                         <li className="nav-item">

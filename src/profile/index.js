@@ -16,8 +16,10 @@ const Profile = () => {
     const dispatch = useDispatch();
     useEffect(
         () => {
-            dispatch(findFollowersThunk(currentUser._id))
-            dispatch(findFollowingThunk(currentUser._id))
+            if (currentUser) {  // defensive coding, in case currentUser is nul
+                dispatch(findFollowersThunk(currentUser._id))
+                dispatch(findFollowingThunk(currentUser._id))
+            }
         },
         [dispatch, currentUser]
     );
@@ -37,7 +39,7 @@ const Profile = () => {
     else {  // i.e., if logged in
         return (
             <div className="profile">
-                <Container className="my-2">
+                <Container className="my-1">
 
                     { /* Banner */ }
                     {
@@ -85,14 +87,20 @@ const Profile = () => {
 
                                     <div className="text-muted profile-subtitle">
 
-                                        { /* Printing if user is CRITIC */ }
+                                        { /* Printing if userType is CRITIC or RESTAURANT */ }
                                         <div>
                                             {
-                                                currentUser.userType === "CRITIC"
+                                                (currentUser.userType === "CRITIC"
+                                                 || currentUser.userType === "RESTAURANT")
                                                 &&
                                                 <div className="text-primary mb-1"
-                                                     title="This user is a trusted Chews Wisely critic.">
-                                                    Critic&nbsp;
+                                                     title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                    {
+                                                        currentUser.userType.charAt(0).toUpperCase()
+                                                        +
+                                                        currentUser.userType.toLowerCase().slice(1)
+                                                    }
+                                                    &nbsp;
                                                     <i className="bi bi-patch-check-fill"/>
                                                 </div>
                                             }
@@ -166,7 +174,13 @@ const Profile = () => {
                                         </div>
 
                                         <div>
-                                            {currentUser && formatPhoneNumber(currentUser.phone)}
+                                            {
+                                                currentUser && currentUser.phone
+                                                ?
+                                                formatPhoneNumber(currentUser.phone)
+                                                :
+                                                <></>
+                                            }
                                         </div>
                                     </div>
 

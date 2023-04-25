@@ -65,7 +65,7 @@ const usersReducer = createSlice({
             (state, action) => {
                 state.loading = false;
                 state.currentUser = action.payload;
-                state.error = null;  // state.error = "";
+                state.error = null;
             },
         [usersThunks.findAllUsersThunk.pending]:
             (state) => {

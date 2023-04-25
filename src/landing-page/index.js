@@ -34,26 +34,26 @@ function LandingPage() {
                 <ul>
 
                     <li>
-                        <Link to="/profile/643ef7c6a74ebfe121345d7d">
+                        <Link to="/profile/64455849bbae6627cae7c36e">
                             alex-w-99
                         </Link>
                     </li>
 
                     <li>
-                        <Link to="/profile/64403131a74ebfe121345d85">
+                        <Link to="/profile/6445594abbae6627cae7c371">
                             beckerMel
                         </Link>
                     </li>
 
                     <li>
-                        <Link to="/profile/64402fdba74ebfe121345d83">
+                        <Link to="/profile/64455927bbae6627cae7c370">
                             mjamilamer
                         </Link>
                     </li>
 
                     <li>
-                        <Link to="/profile/asdf1234">
-                            Bad user link/id
+                        <Link to="/profile/64458a12bbae6627cae7c376">
+                            Amelia's Taqueria
                         </Link>
                     </li>
 

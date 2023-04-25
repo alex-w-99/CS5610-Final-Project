@@ -1,7 +1,7 @@
-import {createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const activeUser = {
-    username: "usr123",
+    username: "user123",
     firstName: "First",
     lastName: "Last",
     location: "Boston",
@@ -10,8 +10,9 @@ const activeUser = {
     aboutMe: "About me 123",
     website: "www.bing.com",
     email: "student-123@northeastern.edu",
-    password: "password",
+    password: "pw123",
     userType: "PERSONAL",
+    phone: "12223334444",
 };
 
 const profileReducer = createSlice(

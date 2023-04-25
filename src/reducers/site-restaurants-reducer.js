@@ -30,7 +30,7 @@ const restaurantSlice = createSlice({
     [findRestaurantThunk.fulfilled]:
       (state, { payload }) => {
         console.log("RESTAURANT IS " + JSON.stringify(payload));
-        if (payload != undefined) {
+        if (payload !== undefined) {
             console.log("Wasn't undefined")
             state.loading = false;
             state.restaurant = payload;

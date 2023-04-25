@@ -1,38 +1,32 @@
 import { createSlice } from "@reduxjs/toolkit";
-import * as followThunks from "../services/follow-thunks";
+import {
+    followUserThunk, unfollowUserThunk, findFollowIdThunk, findFollowersThunk, findFollowingThunk
+} from "../services/follow-thunks";
+
 
 const followReducer = createSlice(
     {
         name: "follow",
-        initialState: {
-            following: [],
-            followers: [],
-            followId: null
-        },
+        initialState: { following: [], followers: [], followId: null },
+        reducers: { },
         extraReducers: {
-            [followThunks.followThunk.fulfilled]:
-                (state, action) => {
-                    state.following.push(action.payload);
-                },
-            [followThunks.unfollowThunk.fulfilled]:
-                (state, action) => {
-                    state.following = state.following.filter(
-                        (u) => {
-                            return u._id !== action.payload
-                        }
-                    );
-                },
-            [followThunks.findFollowIdThunk.fulfilled]: (state, action) => {
-                    state.followId = action.payload._id;
-                },
-            [followThunks.findFollowersThunk.fulfilled]:
-                (state, action) => {
-                    state.followers = action.payload;
-                },
-            [followThunks.findFollowingThunk.fulfilled]:
-                (state, action) => {
-                    state.following = action.payload;
-                }
+            [followUserThunk.fulfilled]: (state, { payload }) => {
+                state.following.push(payload)
+            },
+            [unfollowUserThunk.fulfilled]: (state, { payload }) => {
+                state.following = state.following.filter(user => {
+                    return user._id !== payload
+                })
+            },
+            [findFollowIdThunk.fulfilled]: (state, { payload }) => {
+                state.followId = payload._id ? payload._id : null;  // in case no such fid exists
+            },
+            [findFollowersThunk.fulfilled]: (state, { payload }) => {
+                state.followers = payload
+            },
+            [findFollowingThunk.fulfilled]: (state, { payload }) => {
+                state.following = payload
+            }
         }
     }
 );

@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import React, { useState } from "react";
-import { updateUserThunk } from "../services/users-thunks";
+import { deleteUserThunk, logoutThunk, updateUserThunk } from "../services/users-thunks";
 import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
 
 const EditProfile = () => {
-    const {currentUser} = useSelector(state => state.users);
+    const { currentUser } = useSelector(state => state.users);
     const { following, followers } = useSelector(state => state.follow);
+
     const dispatch = useDispatch();
     const nav = useNavigate();
 
@@ -32,6 +33,7 @@ const EditProfile = () => {
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
 
+    // Handle "Save" button click:
     const saveUpdateHandler = () => {
         const updatedUser = {
             ...currentUser,
@@ -42,10 +44,21 @@ const EditProfile = () => {
             website,
             profilePicture,
             bannerPicture,
-            aboutMe
+            aboutMe,
+            phone
         }
         dispatch(updateUserThunk(updatedUser));
-        nav("/profile")
+        nav("/login")
+    };
+
+    // Handle "Delete Profile" button click:
+    const deleteProfileHandler = () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete your profile? This action cannot be undone.");
+        if (confirmDelete) {
+            dispatch(deleteUserThunk(currentUser._id));
+            dispatch(logoutThunk());
+            nav("/login");
+        }
     };
 
     // In case "Following"/"Followers" is clicked, just navigate back to "/profile":
@@ -102,14 +115,20 @@ const EditProfile = () => {
 
                                 <div className="text-muted profile-subtitle">
 
-                                    { /* Printing if user is CRITIC */ }
+                                    { /* Printing if userType is CRITIC or RESTAURANT */ }
                                     <div>
                                         {
-                                            currentUser.userType === "CRITIC"
+                                            (currentUser.userType === "CRITIC"
+                                             || currentUser.userType === "RESTAURANT")
                                             &&
                                             <div className="text-primary mb-1"
-                                                 title="This user is a trusted Chews Wisely critic.">
-                                                Critic&nbsp;
+                                                 title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                {
+                                                    currentUser.userType.charAt(0).toUpperCase()
+                                                    +
+                                                    currentUser.userType.toLowerCase().slice(1)
+                                                }
+                                                &nbsp;
                                                 <i className="bi bi-patch-check-fill"/>
                                             </div>
                                         }
@@ -224,6 +243,13 @@ const EditProfile = () => {
                                 <button className={'btn btn-primary w-100'}
                                         onClick={saveUpdateHandler}>
                                     Save
+                                </button>
+                            </div>
+
+                            <div className="col-8 d-flex justify-content-end">
+                                <button className={'btn btn-danger w-50'}
+                                        onClick={deleteProfileHandler}>
+                                    Delete Profile
                                 </button>
                             </div>
 
@@ -365,8 +391,6 @@ const EditProfile = () => {
 
                             </Card.Body>
                         </Card>
-
-
 
                     </Col>
                 </Row>

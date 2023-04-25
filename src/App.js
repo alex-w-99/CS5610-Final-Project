@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Navigate } from "react-router-dom";
 import { Routes, Route } from "react-router";
 import NavigationBar from "./navigation-bar";
@@ -9,14 +10,12 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import EditProfile from "./edit-profile";
-import React from "react";
 import profileReducer from "./reducers/profile-reducer";
 import About from "./about";
 import Login from "./login";
 import Register from "./register";
 import PageNotFound from "./page-not-found";
 import followReducer from "./reducers/follow-reducer";
-//import CurrentUser from "./users/current-user";
 import SearchComponent from "./search-component";
 import DetailsComponent from "./details-component";
 import SearchBar from "./search-bar";
@@ -28,6 +27,7 @@ import reviewsReducer from "./reducers/reviews-reducer.js";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+import CurrentUser from "./users/current-user";
 
 library.add(faStar);
 
@@ -50,7 +50,7 @@ const store = configureStore(
 function App() {
     return (
         <Provider store={store}>
-
+            <CurrentUser>
                 <BrowserRouter>
                     <SearchBar/>
 
@@ -58,7 +58,6 @@ function App() {
                         <div>
                             <NavigationBar/>
                         </div>
-                        
                         <Routes>
                             <Route
                                 index
@@ -134,7 +133,7 @@ function App() {
                         </Routes>
                     </div>
                 </BrowserRouter>
-
+            </CurrentUser>
         </Provider>
     );
 }

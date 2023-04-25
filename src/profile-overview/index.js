@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Image, Card, ListGroup } from 'react-bootstrap';
 import '../profile/Profile.css';
 import { useDispatch, useSelector } from "react-redux";
@@ -9,16 +9,18 @@ import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
 import { useState } from "react";
 import {
-    findFollowersThunk, findFollowIdThunk, findFollowingThunk, followThunk, unfollowThunk }
+    findFollowersThunk, findFollowIdThunk, findFollowingThunk, followUserThunk, unfollowUserThunk }
     from "../services/follow-thunks";
 import { listFollowing, listFollower } from "../utils/list-follow";
+import {findFollowers} from "../services/follow-service";
 
 // Public profile page
 const ProfileOverview = () => {
     const { uid } = useParams();
     const { currentUser, publicProfile, users, loading } = useSelector((state) => state.users);
     //const publicUser = users.find( (u) => u._id === uid );
-    const { following, followers, followId } = useSelector((state) => state.follow);
+    const { following, followers } = useSelector((state) => state.follow);
+    const { followId } = useSelector((state) => state.follow);
 
     const [followsUser, setFollowsUser] = useState();
     const [userNotFound, setUserNotFound] = useState(false);
@@ -32,12 +34,12 @@ const ProfileOverview = () => {
             nav("/login");  //alert("Please log in to follow!");
         }
         else {  // i.e., if already logged in
-            await dispatch(followThunk( { followee: uid } ));
+            await dispatch(followUserThunk( { followee: uid } ));
             await setFollowsUser(true);
         }
     }
     const unfollowButtonHandler = async () => {
-        await dispatch(unfollowThunk(followId));
+        await dispatch(unfollowUserThunk(followId));
         await setFollowsUser(false);
     }
 
@@ -77,7 +79,7 @@ const ProfileOverview = () => {
 
     return(
         <div className="profile">
-            <Container className="my-2">
+            <Container className="my-1">
 
                 {
                     !publicProfile
@@ -138,14 +140,20 @@ const ProfileOverview = () => {
 
                                         <div className="text-muted profile-subtitle">
 
-                                            { /* Printing if user is CRITIC */ }
+                                            { /* Printing if userType is CRITIC or RESTAURANT */ }
                                             <div>
                                                 {
-                                                    publicProfile.userType === "CRITIC"
+                                                    (publicProfile.userType === "CRITIC"
+                                                     || publicProfile.userType === "RESTAURANT")
                                                     &&
                                                     <div className="text-primary mb-1"
-                                                         title="This user is a trusted Chews Wisely critic.">
-                                                        Critic&nbsp;
+                                                         title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                        {
+                                                            publicProfile.userType.charAt(0).toUpperCase()
+                                                            +
+                                                            publicProfile.userType.toLowerCase().slice(1)
+                                                        }
+                                                        &nbsp;
                                                         <i className="bi bi-patch-check-fill"/>
                                                     </div>
                                                 }
@@ -308,15 +316,15 @@ const ProfileOverview = () => {
                                                     <ul className="list-group">
                                                         {
                                                             following &&
-                                                            following
-                                                                .filter(f => f.followee !== null).length > 0
+                                                            following.filter(f => f.followee !== null).length > 0
                                                             ?
                                                             (
-                                                                following.
-                                                                filter(f => f.followee !== null)
+                                                                following.filter(f => f.followee !== null)
                                                                     .map(
-                                                                        follow => (
-                                                                            listFollower(follow)
+                                                                        (follow, index) => (
+                                                                            <div key={index}>
+                                                                                {listFollower(follow)}
+                                                                            </div>
                                                                         )
                                                                     )
                                                             )
@@ -348,15 +356,15 @@ const ProfileOverview = () => {
                                                     <ul className="list-group">
                                                         {
                                                             followers &&
-                                                            followers
-                                                                .filter(f => f.follower !== null).length > 0
+                                                            followers.filter(f => f.follower !== null).length > 0
                                                             ?
                                                             (
-                                                                followers.
-                                                                filter(f => f.follower !== null)
+                                                                followers.filter(f => f.follower !== null)
                                                                     .map(
-                                                                        follow => (
-                                                                            listFollowing(follow)
+                                                                        (follow, index) => (
+                                                                            <div key={index}>
+                                                                                {listFollowing(follow)}
+                                                                            </div>
                                                                         )
                                                                     )
                                                             )
