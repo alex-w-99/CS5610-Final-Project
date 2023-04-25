@@ -1,8 +1,11 @@
 import {Link} from "react-router-dom";
 import {Button, Card, Container, Nav, Navbar} from "react-bootstrap";
 import "./index.css"
+import {useSelector} from "react-redux";
 
 function LandingPage() {
+    const { currentUser } = useSelector(state => state.users);
+
     return (
         <>
             <Container className="my-5">
@@ -10,7 +13,7 @@ function LandingPage() {
                     <Card.Img variant="top" src="../images/1Foxby.jpg" />
                     <Card.Body>
                         <Card.Title className="display-4 text-center my-5">Welcome to Our Site</Card.Title>
-                        <Card.Text>
+                        <div>
                             <p>Welcome to Chews Wisely! Our site is a platform designed for food enthusiasts, whether you're a foodie or a restaurant owner. We are a Yelp clone that offers three different user types: Business, Critique, and Normal User.</p>
 
                             <p>As a business owner, you can take advantage of our site to showcase your menu, location, and reviews posted by other users. You can also connect with your customers by responding to reviews and addressing any concerns they might have.</p>
@@ -20,7 +23,7 @@ function LandingPage() {
                             <p>Lastly, our normal users have the ability to follow other users who share similar taste in food or visit the same restaurants. They can also post reviews occasionally and enjoy reading other users' reviews and ratings.</p>
 
                             <p>At Chews Wisely, we strive to create a community of food lovers who are passionate about sharing their experiences with others. So, come and join us on this gastronomic adventure and start exploring the best restaurants around!</p>
-                        </Card.Text>
+                        </div>
                     </Card.Body>
                 </Card>
                 <div className="container">
@@ -80,17 +83,37 @@ function LandingPage() {
                 </div>
                 </div>
             </Container>
+
             <Navbar bg="light" expand="lg" fixed="bottom">
                 <Container>
                     <Navbar.Brand>Chews Wisely</Navbar.Brand>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
+
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/about">About Us</Nav.Link>
                         </Nav>
+
                         <Nav>
-                            <Button variant="outline-success" as={Link} to="/register">Sign Up</Button>
-                            <Button variant="outline-primary" className="ms-3" as={Link} to="/login">Log In</Button>
+                            {
+                                currentUser
+                                ?
+                                <div>
+                                    <Button variant="outline-success" as={Link} to="/profile">
+                                        Profile
+                                    </Button>
+                                </div>
+                                :
+                                <div>
+                                    <Button variant="outline-success" as={Link} to="/register">
+                                        Sign Up
+                                    </Button>
+
+                                    <Button variant="outline-primary" className="ms-3" as={Link} to="/login">
+                                        Log In
+                                    </Button>
+                                </div>
+                            }
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

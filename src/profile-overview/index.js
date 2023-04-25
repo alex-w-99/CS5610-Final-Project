@@ -23,7 +23,6 @@ const ProfileOverview = () => {
     const { followId } = useSelector((state) => state.follow);
 
     const [followsUser, setFollowsUser] = useState();
-    const [userNotFound, setUserNotFound] = useState(false);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -31,7 +30,7 @@ const ProfileOverview = () => {
     // Follow/Unfollow button handlers:
     const followButtonHandler = async () => {
         if (!currentUser) {  // i.e., if not already logged in
-            nav("/login");  //alert("Please log in to follow!");
+            nav("/login");
         }
         else {  // i.e., if already logged in
             await dispatch(followUserThunk( { followee: uid } ));
