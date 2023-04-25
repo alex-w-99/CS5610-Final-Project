@@ -33,22 +33,30 @@ const EditProfile = () => {
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
 
+    const [error, setError] = useState("");
+
     // Handle "Save" button click:
     const saveUpdateHandler = () => {
-        const updatedUser = {
-            ...currentUser,
-            firstName,
-            lastName,
-            location,
-            email,
-            website,
-            profilePicture,
-            bannerPicture,
-            aboutMe,
-            phone
+        setError(null);
+        if (firstName === "" || lastName === "" || email === "") {
+            setError("First name, last name, and email cannot be empty.");
         }
-        dispatch(updateUserThunk(updatedUser));
-        nav("/login")
+        else {
+            const updatedUser = {
+                ...currentUser,
+                firstName,
+                lastName,
+                location,
+                email,
+                website,
+                profilePicture,
+                bannerPicture,
+                aboutMe,
+                phone
+            }
+            dispatch(updateUserThunk(updatedUser));
+            nav("/login")
+        }
     };
 
     // Handle "Delete Profile" button click:
@@ -271,6 +279,20 @@ const EditProfile = () => {
                                 </button>
                             </div>
 
+                        </div>
+
+                        { /* Printing error upon error */ }
+                        <div>
+                            {
+                                error
+                                &&
+                                (
+                                    <div className="alert alert-danger text-danger mt-3"
+                                         role="alert">
+                                        {error}
+                                    </div>
+                                )
+                            }
                         </div>
 
                         { /* Edit profile text entry */ }
