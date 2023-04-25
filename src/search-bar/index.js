@@ -44,9 +44,9 @@ const SearchBar = () => {
  }
 
  return(
-     <div className="mt-1">
+     <div className="container">
          <form onSubmit={(event) => handleSubmit(event)} className="form-group mb-2 row">
-             <div className="col-4 ps-0 pe-0">
+             <div className="col-6 ps-3 pe-0">
                  <input type="text"
                         id="restaurant-search"
                         placeholder="Restaurant"
@@ -60,7 +60,7 @@ const SearchBar = () => {
                         className="form-control"
                         onChange={(event) => setLocation(event.target.value)}/>
              </div>
-             <div className="col-4">
+             <div className="col-2">
                  <button type="submit"
                          className="btn btn-danger m"
                          onClick={(event) => handleSubmit(event)}>

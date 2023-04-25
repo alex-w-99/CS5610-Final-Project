@@ -52,6 +52,7 @@ function App() {
         <Provider store={store}>
             <CurrentUser>
                 <BrowserRouter>
+
                     <SearchBar/>
 
                     <div className="container">

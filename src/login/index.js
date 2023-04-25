@@ -97,14 +97,17 @@ const Login = () => {
                                 {
                                     error && !loading
                                     &&
-                                    <div className="text-center text-danger mt-2">
-                                        {error}
+                                    <div className="d-flex justify-content-center mt-4">
+                                        <div className="text-center text-danger w-75 alert alert-danger"
+                                             role="alert">
+                                            {error}
+                                        </div>
                                     </div>
                                 }
 
                                 { /* Login button */ }
                                 <div className="text-center mt-4 mb-5">
-                                    <button className="btn btn-dark rounded-pill mt-2 w-75"
+                                    <button className="btn btn-primary rounded-pill mt-2 w-50"
                                             id="login-button"
                                             type="button"
                                             onClick={loginHandler}>

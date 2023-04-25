@@ -33,22 +33,30 @@ const EditProfile = () => {
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
 
+    const [error, setError] = useState("");
+
     // Handle "Save" button click:
     const saveUpdateHandler = () => {
-        const updatedUser = {
-            ...currentUser,
-            firstName,
-            lastName,
-            location,
-            email,
-            website,
-            profilePicture,
-            bannerPicture,
-            aboutMe,
-            phone
+        setError(null);
+        if (firstName === "" || lastName === "" || email === "") {
+            setError("First name, last name, and email cannot be empty.");
         }
-        dispatch(updateUserThunk(updatedUser));
-        nav("/login")
+        else {
+            const updatedUser = {
+                ...currentUser,
+                firstName,
+                lastName,
+                location,
+                email,
+                website,
+                profilePicture,
+                bannerPicture,
+                aboutMe,
+                phone
+            }
+            dispatch(updateUserThunk(updatedUser));
+            nav("/login")
+        }
     };
 
     // Handle "Delete Profile" button click:
@@ -118,11 +126,10 @@ const EditProfile = () => {
                                     { /* Printing if userType is CRITIC or RESTAURANT */ }
                                     <div>
                                         {
-                                            (currentUser.userType === "CRITIC"
-                                             || currentUser.userType === "RESTAURANT")
-                                            &&
+                                            (currentUser.userType && currentUser.userType === "CRITIC")
+                                            ?
                                             <div className="text-primary mb-1"
-                                                 title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                 title="This user is a trusted Chews Wisely Critic.">
                                                 {
                                                     currentUser.userType.charAt(0).toUpperCase()
                                                     +
@@ -131,6 +138,22 @@ const EditProfile = () => {
                                                 &nbsp;
                                                 <i className="bi bi-patch-check-fill"/>
                                             </div>
+                                            :
+                                            <></>
+                                        }
+
+                                        {
+                                            (currentUser.userType && currentUser.userType === "RESTAURANT")
+                                            ?
+                                            <div className="text-primary mb-1">
+                                                {
+                                                    currentUser.userType.charAt(0).toUpperCase()
+                                                    +
+                                                    currentUser.userType.toLowerCase().slice(1)
+                                                }
+                                            </div>
+                                            :
+                                            <></>
                                         }
                                     </div>
 
@@ -181,7 +204,7 @@ const EditProfile = () => {
 
                                 <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
-                                <div className="mt-3 mb-2 text-muted"
+                                <div className="mt-3 mb-1 text-muted"
                                      style={ { fontSize: "0.925rem" } }>
 
                                     <div>
@@ -205,7 +228,10 @@ const EditProfile = () => {
                                 </div>
 
                             </Card.Body>
-                            <ListGroup variant="flush">
+
+                            <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                            <ListGroup variant="flush" className="mt-2">
 
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
@@ -233,26 +259,40 @@ const EditProfile = () => {
 
                             <div className="col-2">
                                 <Link to="/profile">
-                                    <button className={'btn btn-dark w-100'}>
+                                    <button className={'btn btn-dark rounded-pill w-100'}>
                                         Cancel
                                     </button>
                                 </Link>
                             </div>
 
                             <div className="col-2">
-                                <button className={'btn btn-primary w-100'}
+                                <button className={'btn btn-primary rounded-pill w-100'}
                                         onClick={saveUpdateHandler}>
                                     Save
                                 </button>
                             </div>
 
                             <div className="col-8 d-flex justify-content-end">
-                                <button className={'btn btn-danger w-50'}
+                                <button className={'btn btn-danger rounded-pill w-50'}
                                         onClick={deleteProfileHandler}>
                                     Delete Profile
                                 </button>
                             </div>
 
+                        </div>
+
+                        { /* Printing error upon error */ }
+                        <div>
+                            {
+                                error
+                                &&
+                                (
+                                    <div className="alert alert-danger text-danger mt-3"
+                                         role="alert">
+                                        {error}
+                                    </div>
+                                )
+                            }
                         </div>
 
                         { /* Edit profile text entry */ }

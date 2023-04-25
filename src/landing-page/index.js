@@ -1,66 +1,125 @@
-/**
- * Landing page:
- *  Considered the initial page of the website.
- *  All users start here not logged in
- */
-
 import {Link} from "react-router-dom";
+import {Button, Card, Container, Nav, Navbar} from "react-bootstrap";
+import "./index.css"
+import {useSelector} from "react-redux";
 
 function LandingPage() {
+    const { currentUser } = useSelector(state => state.users);
+
     return (
-        <div>
+        <>
+            <Container className="my-5">
+                <Card>
+                    <Card.Img variant="top" src="../images/1Foxby.jpg" />
+                    <Card.Body>
+                        <Card.Title className="display-4 text-center my-5">Welcome to Our Site</Card.Title>
+                        <div>
+                            <p>Welcome to Chews Wisely! Our site is a platform designed for food enthusiasts, whether you're a foodie or a restaurant owner. We are a Yelp clone that offers three different user types: Business, Critique, and Normal User.</p>
 
-            <div>
-                <h1>NAV BAR/TITLE BAR</h1>
-                <span>CONTAINS: search feature / login option / our page icon and logo -- maybe we create one</span>
-            </div>
-            <div>
-                <p>Container option main div holds the rows and utilize components to supplement the nav bar feature</p>
-                <p>This is where the container for the card- bootstrap ref - comes in</p>
-                <span>containing an image potentially scrolling and text underneath welcoming to the site</span>
-            </div>
-            <div>
-                <p>
-                    footnote - small container holding a similar functionality to the nav bar
-                    - ideal concept is that it holds a small contact page where we can have a messaging service
-                    - a meet the devs page where we can all have our small info for jobs etc.
-                    - any ideas here ...
+                            <p>As a business owner, you can take advantage of our site to showcase your menu, location, and reviews posted by other users. You can also connect with your customers by responding to reviews and addressing any concerns they might have.</p>
 
-                </p>
-            </div>
+                            <p>Critiques, on the other hand, have a unique feature where they can post verified reviews for businesses and earn a higher level of posting and verification status. This feature ensures that the reviews posted on our site are genuine, fair, and trustworthy.</p>
 
-            <div>
-                Profiles (links are dependent on MongoDB "users" collection object IDs):
-                <ul>
+                            <p>Lastly, our normal users have the ability to follow other users who share similar taste in food or visit the same restaurants. They can also post reviews occasionally and enjoy reading other users' reviews and ratings.</p>
 
-                    <li>
-                        <Link to="/profile/64455849bbae6627cae7c36e">
-                            alex-w-99
-                        </Link>
-                    </li>
+                            <p>At Chews Wisely, we strive to create a community of food lovers who are passionate about sharing their experiences with others. So, come and join us on this gastronomic adventure and start exploring the best restaurants around!</p>
+                        </div>
+                    </Card.Body>
+                </Card>
+                <div className="container">
+                    <h3 className="sticky-top bg-white py-4">Meet the Devs</h3>
+                <div className="row mt-3">
+                    <div className="col-md-3">
+                        <div className="card border-0 mb-4 shadow-sm">
+                            <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">Alex Wilcox</h5>
+                                <p className="card-text">Check out my profile</p>
+                            </div>
+                            <div className="card-footer bg-transparent d-grid">
+                                <a href="/profile/64455849bbae6627cae7c36e" className="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
 
-                    <li>
-                        <Link to="/profile/6445594abbae6627cae7c371">
-                            beckerMel
-                        </Link>
-                    </li>
+                    <div className="col-md-3">
+                        <div className="card border-0 mb-4 shadow-sm">
+                            <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">Melanie Becker</h5>
+                                <p className="card-text">Check out my profile</p>
+                            </div>
+                            <div className="card-footer bg-transparent d-grid">
+                                <a href="/profile/6445594abbae6627cae7c371" className="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
 
-                    <li>
-                        <Link to="/profile/64455927bbae6627cae7c370">
-                            mjamilamer
-                        </Link>
-                    </li>
+                    <div className="col-md-3">
+                        <div className="card border-0 mb-4 shadow-sm">
+                            <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">Mohammed Amer</h5>
+                                <p className="card-text">Check out my profile</p>
+                            </div>
+                            <div className="card-footer bg-transparent d-grid">
+                                <a href="/profile/64455927bbae6627cae7c370" className="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
 
-                    <li>
-                        <Link to="/profile/64458a12bbae6627cae7c376">
-                            Amelia's Taqueria
-                        </Link>
-                    </li>
+                    <div className="col-md-3">
+                        <div className="card border-0 mb-4 shadow-sm">
+                            <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
+                            <div className="card-body">
+                                <h5 className="card-title">Amelia's Taqueria</h5>
+                                <p className="card-text">Business profile example</p>
+                            </div>
+                            <div className="card-footer bg-transparent d-grid">
+                                <a href="/profile/64458a12bbae6627cae7c376" className="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </Container>
 
-                </ul>
-            </div>
+            <Navbar bg="light" expand="lg" fixed="bottom">
+                <Container>
+                    <Navbar.Brand>Chews Wisely</Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
 
-        </div>
-    )
+                        <Nav className="me-auto">
+                            <Nav.Link as={Link} to="/about">About Us</Nav.Link>
+                        </Nav>
+
+                        <Nav>
+                            {
+                                currentUser
+                                ?
+                                <div>
+                                    <Button variant="outline-success" as={Link} to="/profile">
+                                        Profile
+                                    </Button>
+                                </div>
+                                :
+                                <div>
+                                    <Button variant="outline-success" as={Link} to="/register">
+                                        Sign Up
+                                    </Button>
+
+                                    <Button variant="outline-primary" className="ms-3" as={Link} to="/login">
+                                        Log In
+                                    </Button>
+                                </div>
+                            }
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
+        </>
+    );
 }
 export default LandingPage;
+

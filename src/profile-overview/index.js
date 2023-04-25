@@ -23,24 +23,25 @@ const ProfileOverview = () => {
     const { followId } = useSelector((state) => state.follow);
 
     const [followsUser, setFollowsUser] = useState();
-    const [userNotFound, setUserNotFound] = useState(false);
 
     const nav = useNavigate();
     const dispatch = useDispatch();
 
     // Follow/Unfollow button handlers:
     const followButtonHandler = async () => {
-        if (!currentUser) {  // i.e., if not already logged in
-            nav("/login");  //alert("Please log in to follow!");
+        if (!currentUser) {  // if not already logged in
+            nav("/login");
         }
-        else {  // i.e., if already logged in
+        else if (!followsUser) {  // can only follow if not currently following
             await dispatch(followUserThunk( { followee: uid } ));
             await setFollowsUser(true);
         }
     }
     const unfollowButtonHandler = async () => {
-        await dispatch(unfollowUserThunk(followId));
-        await setFollowsUser(false);
+        if (followsUser) {  // can only unfollow if currently following
+            await dispatch(unfollowUserThunk(followId));
+            await setFollowsUser(false);
+        }
     }
 
     useEffect(
@@ -143,11 +144,10 @@ const ProfileOverview = () => {
                                             { /* Printing if userType is CRITIC or RESTAURANT */ }
                                             <div>
                                                 {
-                                                    (publicProfile.userType === "CRITIC"
-                                                     || publicProfile.userType === "RESTAURANT")
-                                                    &&
+                                                    (publicProfile.userType && publicProfile.userType === "CRITIC")
+                                                    ?
                                                     <div className="text-primary mb-1"
-                                                         title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                         title="This user is a trusted Chews Wisely Critic.">
                                                         {
                                                             publicProfile.userType.charAt(0).toUpperCase()
                                                             +
@@ -156,6 +156,22 @@ const ProfileOverview = () => {
                                                         &nbsp;
                                                         <i className="bi bi-patch-check-fill"/>
                                                     </div>
+                                                    :
+                                                    <></>
+                                                }
+
+                                                {
+                                                    (publicProfile.userType && publicProfile.userType === "RESTAURANT")
+                                                    ?
+                                                    <div className="text-primary mb-1">
+                                                        {
+                                                            publicProfile.userType.charAt(0).toUpperCase()
+                                                            +
+                                                            publicProfile.userType.toLowerCase().slice(1)
+                                                        }
+                                                    </div>
+                                                    :
+                                                    <></>
                                                 }
                                             </div>
 
@@ -227,7 +243,9 @@ const ProfileOverview = () => {
 
                                     </Card.Body>
 
-                                    <ListGroup variant="flush">
+                                    <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                    <ListGroup variant="flush" className="mt-2">
 
                                         <ListGroup.Item className="profile-nav-item text-center">
                                             <Link to={window.location.pathname}
