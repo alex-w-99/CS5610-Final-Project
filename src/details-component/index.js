@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 //import { findBusinessThunk } from '../services/yelp/business-thunks.js';
 import { findRestaurantThunk }
     from '../services/site-db-restaurants/site-restaurants-thunks';
+import "../utils/loading-spinner.css";
 
 const DetailsComponent = () => {
   const navigate = useNavigate();
@@ -34,7 +35,8 @@ const DetailsComponent = () => {
     <>
     {
       loading &&
-      <h1> Loading.. </h1>
+      <div className="spinner">
+      </div>
     }
     {
       status === 404 &&
@@ -65,7 +67,7 @@ const DetailsComponent = () => {
                        <i className="bi bi-person text-primary"/> User Rating: {restaurant
                        .userRating
 
-                       == -1 ?
+                       === -1 ?
                        `N/A`
                        :
                        `${restaurant.userRating} / 5`
@@ -73,7 +75,7 @@ const DetailsComponent = () => {
                      </div>
                    <div className="cw-rating-category mb-4">
                       <i className="bi bi-star-fill text-warning"/> Critic Rating: {restaurant
-                      .criticRating == -1 ?
+                      .criticRating === -1 ?
                       `N/A`
                       :
                       `${restaurant.criticRating} / 5`
@@ -99,11 +101,11 @@ const DetailsComponent = () => {
                   <div className="mt-3">
                       <span className="me-3"> {restaurant.address}</span>
                       <span className="me-3"><i className="bi bi-pin-map"></i> {restaurant
-                      .city}, {restaurant.state == undefined ? `` : `${restaurant.state}, `}
+                      .city}, {restaurant.state === undefined ? `` : `${restaurant.state}, `}
                       {restaurant
                       .country}</span>
                       {
-                          restaurant.website == "" ?
+                          restaurant.website === "" ?
                           ``
                           :
                           `
@@ -111,7 +113,7 @@ const DetailsComponent = () => {
                           {restaurant.website}</span>`
                       }
                       {
-                          restaurant.phone == "" ?
+                          restaurant.phone === "" ?
                           ``
                           :
                           `<div className="me-3"><i className="bi bi-telephone"></i> Phone:
@@ -121,7 +123,7 @@ const DetailsComponent = () => {
 
               </div>
          { /* don't let businesses rate other businesses */
-           mode != "RESTAURANT" &&
+           mode !== "RESTAURANT" &&
            <Rating/>
           }
            <Reviews/>

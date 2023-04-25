@@ -21,18 +21,21 @@ const Reviews = () => {
    useEffect(() => {
       dispatch(findReviewsThunk(restaurant));
       }, []);
+
    const handleSubmit = (event) => {
-      event.preventDefault();
-      const newReview = {
-        restaurantId: restaurant._id,
-        text: review,
-        userName: `${currentUser.firstName} ${currentUser.lastName}`,
-        userImage: currentUser.profilePicture,
-        userId: currentUser._id,
-        isCritic: currentUser.userType == "CRITIC"
-      }
-      dispatch(createReviewThunk(newReview));
-      setReview('');
+       if (currentUser) {  // only submit review if a currentUser is logged in
+           event.preventDefault();
+           const newReview = {
+               restaurantId: restaurant._id,
+               text: review,
+               userName: `${currentUser.firstName} ${currentUser.lastName}`,
+               userImage: currentUser.profilePicture,
+               userId: currentUser._id,
+               isCritic: currentUser.userType === "CRITIC"
+           }
+           dispatch(createReviewThunk(newReview));
+           setReview('');
+       }
    }
    const requireLogin = () => {
       if (!currentUser) {
@@ -47,7 +50,7 @@ const Reviews = () => {
    return(
    <>
      { /* businesses cannot review each other */
-        mode != "RESTAURANT" &&
+        mode !== "RESTAURANT" &&
         <form onSubmit={(event) => handleSubmit(event)}>
            <div>
             <textarea placeholder={reviewString}
