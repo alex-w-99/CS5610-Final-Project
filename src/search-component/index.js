@@ -49,6 +49,7 @@ const SearchComponent = () => {
                         }
                         {
                             !loading &&
+                            businesses &&
                             businesses.map(restaurant =>
                                                <li key={restaurant._id} className="list-group-item">
                                                    <ResultItem restaurant={restaurant}/>

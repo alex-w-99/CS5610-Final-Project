@@ -36,9 +36,7 @@ const Login = () => {
 
     // DETERMINING RETURN VALUE:
     if (currentUser) {  // i.e., if already logged in
-        return(
-            <Navigate to={"/profile"}/>
-        );
+        nav(-1);
     }
     else {  // i.e., not already logged in
         return(

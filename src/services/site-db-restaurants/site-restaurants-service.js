@@ -53,9 +53,10 @@ export const createRating = async (rating) => {
   return response.data;
 }
 
-export const findRating = async (restaurant, user) => {
+export const findRating = async (restaurantId, userId) => {
+  console.log("THUNK: restID: " + restaurantId + "uID: " + userId);
   const response = await axios
-    .get(`${REVIEWS_API}/${restaurant._id}/${user._id}`);
+    .get(`${RATINGS_API}/${restaurantId}/${userId}`);
   return response.data;
 }
 
