@@ -58,7 +58,7 @@ const EditProfile = () => {
                 userTypeField
             }
             dispatch(updateUserThunk(updatedUser));
-            nav("/login")
+            nav("/profile")
         }
     };
 
