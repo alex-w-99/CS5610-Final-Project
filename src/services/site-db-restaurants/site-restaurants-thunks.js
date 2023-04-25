@@ -67,8 +67,9 @@ export const createRatingThunk = createAsyncThunk(
 )
 
 export const findRatingThunk = createAsyncThunk(
-  'restaurants/reviews/findRating', async (restaurant, user) => {
-      const rating = await service.findRating(restaurant, user);
+  'restaurants/reviews/findRating', async ({restaurantId, userId}) => {
+      console.log("THUNK UID: " + userId);
+      const rating = await service.findRating(restaurantId, userId);
       return rating;
     }
 )

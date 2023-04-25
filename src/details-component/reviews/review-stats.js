@@ -83,7 +83,7 @@ const ReviewStats = (
      } else {
          /* the user is liking */
          let newDislikes = review.dislikes;
-         if (review.disliked) {
+         if (disliked) {
            newDislikes -= 1;
          }
          likers.push(id)

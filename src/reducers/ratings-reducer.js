@@ -30,7 +30,7 @@ const ratingSlice = createSlice({
     [findRatingThunk.fulfilled]:
       (state, { payload }) => {
         state.updating = false;
-        if (payload == '[]') {
+        if (payload == null) {
           state.rating = {};
         } else {
             state.rating = payload;
@@ -38,6 +38,7 @@ const ratingSlice = createSlice({
       },
     [findRatingThunk.rejected]:
        (state, action) => {
+          console.log("rating thunk, REJECTED");
           state.updating = false
           state.error = action.error
       },

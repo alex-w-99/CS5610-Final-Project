@@ -21,15 +21,18 @@ const Ratings = () => {
             useSelector(state => state.users)
    const { rating, updating } =
             useSelector(state => state.ratings);
-   let id = -1;
+   let userId = -1;
    if (currentUser) {
-       id = currentUser._id;
+       userId = currentUser._id;
    }
+   let restaurantId = restaurant._id;
    useEffect(() => {
-       dispatch(findRatingThunk(restaurant._id, id));
+       dispatch(findRatingThunk({restaurantId, userId}));
    }, [])
+
+   console.log("TOP OF INDEX: RATING IS " + JSON.stringify(rating));
    let score = 0;
-   if (rating != {}) {
+   if (rating.score != {}) {
        score = rating.score;
    }
    const [currRating, setCurrRating] = useState(score);
@@ -72,17 +75,16 @@ const Ratings = () => {
               restaurant.criticRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          criticRating: newScore.toFixed(1)
+          criticRating: newScore
         }))
      } else {
         let newScore = calcNewRating(rating.score, stars, restaurant.userRating,
               restaurant.userRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          userRating: newScore.toFixed(1)
-         }))
-       }
-
+          userRating: newScore
+        }))
+     }
    }
 
    const newScoreEntry = (stars) => {
