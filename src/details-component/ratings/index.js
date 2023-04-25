@@ -75,14 +75,14 @@ const Ratings = () => {
               restaurant.criticRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          criticRating: newScore
+          criticRating: newScore.toFixed(1)
         }))
      } else {
         let newScore = calcNewRating(rating.score, stars, restaurant.userRating,
               restaurant.userRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          userRating: newScore
+          userRating: newScore.toFixed(1)
         }))
      }
    }
