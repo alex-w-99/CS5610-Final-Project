@@ -28,6 +28,7 @@ const SearchComponent = () => {
     <>
     {
       status == 404 &&
+      !loading &&
       <h1 className = 'cw-error-box'>
                 Yelp couldn{apostrophe}t find a location to match your search.
       </h1>

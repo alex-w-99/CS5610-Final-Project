@@ -43,7 +43,7 @@ const ResultItem = (
                      Open now</div>
             }
                 <div className="pt-3 ps-5 fw-bold">
-                    {restaurant.price}
+                    {restaurant.location.address1}
                  </div>
             </div>
         </div>
