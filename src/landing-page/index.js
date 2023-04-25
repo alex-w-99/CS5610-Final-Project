@@ -33,7 +33,7 @@ function LandingPage() {
                         <div className="card border-0 mb-4 shadow-sm">
                             <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
                             <div className="card-body">
-                                <h5 className="card-title">Alex</h5>
+                                <h5 className="card-title">Alex Wilcox</h5>
                                 <p className="card-text">Check out my profile</p>
                             </div>
                             <div className="card-footer bg-transparent d-grid">
@@ -46,7 +46,7 @@ function LandingPage() {
                         <div className="card border-0 mb-4 shadow-sm">
                             <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
                             <div className="card-body">
-                                <h5 className="card-title">Melissa</h5>
+                                <h5 className="card-title">Melanie Becker</h5>
                                 <p className="card-text">Check out my profile</p>
                             </div>
                             <div className="card-footer bg-transparent d-grid">
@@ -72,11 +72,11 @@ function LandingPage() {
                         <div className="card border-0 mb-4 shadow-sm">
                             <img className="card-img-top" src="https://picsum.photos/200/150" alt="Card image cap" />
                             <div className="card-body">
-                                <h5 className="card-title">Sarah</h5>
-                                <p className="card-text">Business profile Example</p>
+                                <h5 className="card-title">Amelia's Taqueria</h5>
+                                <p className="card-text">Business profile example</p>
                             </div>
                             <div className="card-footer bg-transparent d-grid">
-                                <a href="/profile/64455979bbae6627cae7c372" className="btn btn-primary">View Profile</a>
+                                <a href="/profile/64458a12bbae6627cae7c376" className="btn btn-primary">View Profile</a>
                             </div>
                         </div>
                     </div>
