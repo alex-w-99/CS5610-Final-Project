@@ -53,13 +53,16 @@ function App() {
             <CurrentUser>
                 <BrowserRouter>
 
-                    <SearchBar/>
+                    <div className="container mt-2">
 
-                    <div className="container">
+                        <SearchBar/>
+
                         <div>
                             <NavigationBar/>
                         </div>
+
                         <Routes>
+
                             <Route
                                 index
                                 element={<LandingPage/>}
