@@ -18,6 +18,7 @@ const Register = () => {
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [userType, setUserType] = useState("");
+    const [userTypeField, setUserTypeField] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState("");
@@ -39,6 +40,9 @@ const Register = () => {
         else if (userType === "") {
             setError("Please select a valid user type: PERSONAL, CRITIC, or RESTAURANT.");
         }
+        else if (userTypeField === "") {
+            setError("User Type Field cannot be blank.");
+        }
         else {
             setError(null);
             const newUser = {
@@ -51,7 +55,8 @@ const Register = () => {
                 email,
                 password,
                 phone,
-                "userType": userType
+                "userType": userType,
+                userTypeField
             }
             dispatch(registerThunk(newUser));
             nav("/profile");
@@ -287,6 +292,65 @@ const Register = () => {
                                                 </select>
                                             </div>
                                         </form>
+
+                                        { /* userTypeField (required) */ }
+                                        {
+                                            userType === "PERSONAL"
+                                            &&
+                                            (
+                                                <form className="form-floating mt-3">
+                                                    <input id="userTypeField"
+                                                           type="text"
+                                                           className="form-control rounded-pill"
+                                                           placeholder="Enter user type field"
+                                                           onChange={(e) =>
+                                                               setUserTypeField(e.target.value)
+                                                           }
+                                                    />
+                                                    <label className="text-secondary" htmlFor="userTypeField">
+                                                        Favorite Food (User Type Field)*
+                                                    </label>
+                                                </form>
+                                            )
+                                        }
+                                        {
+                                            userType === "CRITIC"
+                                            &&
+                                            (
+                                                <form className="form-floating mt-3">
+                                                    <input id="userTypeField"
+                                                           type="text"
+                                                           className="form-control rounded-pill"
+                                                           placeholder="Enter user type field"
+                                                           onChange={(e) =>
+                                                               setUserTypeField(e.target.value)
+                                                           }
+                                                    />
+                                                    <label className="text-secondary" htmlFor="userTypeField">
+                                                        Specialty Cuisine (User Type Field)*
+                                                    </label>
+                                                </form>
+                                            )
+                                        }
+                                        {
+                                            userType === "RESTAURANT"
+                                            &&
+                                            (
+                                                <form className="form-floating mt-3">
+                                                    <input id="userTypeField"
+                                                           type="text"
+                                                           className="form-control rounded-pill"
+                                                           placeholder="Enter user type field"
+                                                           onChange={(e) =>
+                                                               setUserTypeField(e.target.value)
+                                                           }
+                                                    />
+                                                    <label className="text-secondary" htmlFor="userTypeField">
+                                                        Restaurant ID (User Type Field)*
+                                                    </label>
+                                                </form>
+                                            )
+                                        }
 
                                         { /* Printing error upon error */ }
                                         <div>

@@ -187,6 +187,39 @@ const ProfileOverview = () => {
 
                                         <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
+                                        { /* Printing userTypeField */ }
+                                        <div className="text-muted profile-subtitle mt-3">
+                                            {
+                                                publicProfile
+                                                &&
+                                                publicProfile.userType === "PERSONAL"
+                                                &&
+                                                <div>
+                                                    Favorite Food: {publicProfile.userTypeField}
+                                                </div>
+                                            }
+                                            {
+                                                publicProfile
+                                                &&
+                                                publicProfile.userType === "CRITIC"
+                                                &&
+                                                <div>
+                                                    Specialty Cuisine: {publicProfile.userTypeField}
+                                                </div>
+                                            }
+                                            {
+                                                publicProfile
+                                                &&
+                                                publicProfile.userType === "RESTAURANT"
+                                                &&
+                                                <div>
+                                                    Restaurant ID: {publicProfile.userTypeField}
+                                                </div>
+                                            }
+                                        </div>
+
+                                        <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
                                         <div className="mt-3 mb-1">
 
                                             { /* Following */ }

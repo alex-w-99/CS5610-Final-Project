@@ -11,8 +11,9 @@ const activeUser = {
     website: "www.bing.com",
     email: "student-123@northeastern.edu",
     password: "pw123",
-    userType: "PERSONAL",
     phone: "12223334444",
+    userType: "PERSONAL",
+    userTypeField: ""
 };
 
 const profileReducer = createSlice(
@@ -31,6 +32,8 @@ const profileReducer = createSlice(
                 const aboutMe = updatedProfile.aboutMe;
                 const website = updatedProfile.website;
                 const email = updatedProfile.email;
+                const phone = updatedProfile.phone;
+                const userTypeField = updatedProfile.userTypeField;
                 return {
                     ...state,
                     username,
@@ -39,7 +42,9 @@ const profileReducer = createSlice(
                     profilePicture, bannerPicture,
                     aboutMe,
                     website,
-                    email
+                    email,
+                    phone,
+                    userTypeField
                 }
             }
         },

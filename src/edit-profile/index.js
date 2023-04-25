@@ -22,6 +22,7 @@ const EditProfile = () => {
     const [profilePicture, setProfilePicture] = useState(currentUser.profilePicture);
     const [bannerPicture, setBannerPicture] = useState(currentUser.bannerPicture);
     const [aboutMe, setAboutMe] = useState(currentUser.aboutMe);
+    const [userTypeField, setUserTypeField] = useState(currentUser.userTypeField);
 
     const changeFirstName = (event) => { setFirstName(event.target.value); }
     const changeLastName = (event) => { setLastName(event.target.value); }
@@ -32,14 +33,15 @@ const EditProfile = () => {
     const changeProfilePicture = (event) => { setProfilePicture(event.target.value); }
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
+    const changeUserTypeField = (event) => { setUserTypeField(event.target.value); }
 
     const [error, setError] = useState("");
 
     // Handle "Save" button click:
     const saveUpdateHandler = () => {
         setError(null);
-        if (firstName === "" || lastName === "" || email === "") {
-            setError("First name, last name, and email cannot be empty.");
+        if (firstName === "" || lastName === "" || email === "" || userTypeField === "") {
+            setError("First name, last name, email, and user type field cannot be empty.");
         }
         else {
             const updatedUser = {
@@ -52,7 +54,8 @@ const EditProfile = () => {
                 profilePicture,
                 bannerPicture,
                 aboutMe,
-                phone
+                phone,
+                userTypeField
             }
             dispatch(updateUserThunk(updatedUser));
             nav("/login")
@@ -165,6 +168,39 @@ const EditProfile = () => {
                                         {currentUser && currentUser.location}
                                     </div>
 
+                                </div>
+
+                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                { /* Printing userTypeField */ }
+                                <div className="text-muted profile-subtitle mt-3">
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "PERSONAL"
+                                        &&
+                                        <div>
+                                            Favorite Food: {currentUser.userTypeField}
+                                        </div>
+                                    }
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "CRITIC"
+                                        &&
+                                        <div>
+                                            Specialty Cuisine: {currentUser.userTypeField}
+                                        </div>
+                                    }
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "RESTAURANT"
+                                        &&
+                                        <div>
+                                            Restaurant ID: {currentUser.userTypeField}
+                                        </div>
+                                    }
                                 </div>
 
                                 <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
@@ -313,7 +349,7 @@ const EditProfile = () => {
                                            onChange={changeFirstName}
                                     />
                                     <label className="text-secondary" htmlFor="firstName">
-                                        First Name
+                                        First Name*
                                     </label>
                                 </form>
 
@@ -327,7 +363,7 @@ const EditProfile = () => {
                                            onChange={changeLastName}
                                     />
                                     <label className="text-secondary" htmlFor="lastName">
-                                        Last Name
+                                        Last Name*
                                     </label>
                                 </form>
 
@@ -355,7 +391,7 @@ const EditProfile = () => {
                                            onChange={changeEmail}
                                     />
                                     <label className="text-secondary" htmlFor="email">
-                                        Email
+                                        Email*
                                     </label>
                                 </form>
 
@@ -427,6 +463,43 @@ const EditProfile = () => {
                                     <label className="text-secondary" htmlFor="aboutMe">
                                         About Me
                                     </label>
+                                </form>
+
+                                { /* Edit userTypeField */ }
+                                <form className="form-floating mt-4">
+                                    <input id="userTypeField"
+                                           type="text"
+                                           className="form-control"
+                                           value={userTypeField}
+                                           onChange={changeUserTypeField}
+                                    />
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "PERSONAL"
+                                        &&
+                                        <label className="text-secondary" htmlFor="userTypeField">
+                                            Favorite Food (User Type Field)*
+                                        </label>
+                                    }
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "CRITIC"
+                                        &&
+                                        <label className="text-secondary" htmlFor="userTypeField">
+                                            Specialty Cuisine (User Type Field)*
+                                        </label>
+                                    }
+                                    {
+                                        currentUser
+                                        &&
+                                        currentUser.userType === "RESTAURANT"
+                                        &&
+                                        <label className="text-secondary" htmlFor="userTypeField">
+                                            Restaurant ID (User Type Field)*
+                                        </label>
+                                    }
                                 </form>
 
                             </Card.Body>
