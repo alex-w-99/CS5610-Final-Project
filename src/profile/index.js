@@ -121,14 +121,49 @@ const Profile = () => {
                                             }
                                         </div>
 
+                                        { /* Username */ }
                                         <div>
                                             {currentUser && currentUser.username}
                                         </div>
 
+                                        { /* Location */ }
                                         <div>
                                             {currentUser && currentUser.location}
                                         </div>
 
+                                    </div>
+
+                                    <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                    { /* Printing userTypeField */ }
+                                    <div className="text-muted profile-subtitle mt-3">
+                                        {
+                                            currentUser
+                                            &&
+                                            currentUser.userType === "PERSONAL"
+                                            &&
+                                            <div>
+                                                Favorite Food: {currentUser.userTypeField}
+                                            </div>
+                                        }
+                                        {
+                                            currentUser
+                                            &&
+                                            currentUser.userType === "CRITIC"
+                                            &&
+                                            <div>
+                                                Specialty Cuisine: {currentUser.userTypeField}
+                                            </div>
+                                        }
+                                        {
+                                            currentUser
+                                            &&
+                                            currentUser.userType === "RESTAURANT"
+                                            &&
+                                            <div>
+                                                Restaurant ID: {currentUser.userTypeField}
+                                            </div>
+                                        }
                                     </div>
 
                                     <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
