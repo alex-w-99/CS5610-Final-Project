@@ -90,11 +90,10 @@ const Profile = () => {
                                         { /* Printing if userType is CRITIC or RESTAURANT */ }
                                         <div>
                                             {
-                                                (currentUser.userType === "CRITIC"
-                                                 || currentUser.userType === "RESTAURANT")
+                                                currentUser.userType === "CRITIC"
                                                 &&
                                                 <div className="text-primary mb-1"
-                                                     title="This user is a trusted Chews Wisely critic/restaurant.">
+                                                     title="This user is a trusted Chews Wisely Critic.">
                                                     {
                                                         currentUser.userType.charAt(0).toUpperCase()
                                                         +
@@ -102,6 +101,18 @@ const Profile = () => {
                                                     }
                                                     &nbsp;
                                                     <i className="bi bi-patch-check-fill"/>
+                                                </div>
+                                            }
+
+                                            {
+                                                currentUser.userType === "RESTAURANT"
+                                                &&
+                                                <div className="text-primary mb-1">
+                                                    {
+                                                        currentUser.userType.charAt(0).toUpperCase()
+                                                        +
+                                                        currentUser.userType.toLowerCase().slice(1)
+                                                    }
                                                 </div>
                                             }
                                         </div>
@@ -156,7 +167,7 @@ const Profile = () => {
                                     <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
 
                                     { /* Private information */ }
-                                    <div className="mt-3 mb-2 text-muted"
+                                    <div className="mt-3 mb-1 text-muted"
                                          style={ { fontSize: "0.925rem" } }>
 
                                         <div>
@@ -185,7 +196,10 @@ const Profile = () => {
                                     </div>
 
                                 </Card.Body>
-                                <ListGroup variant="flush">
+
+                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+
+                                <ListGroup variant="flush" className="mt-2">
 
                                     <ListGroup.Item className="profile-nav-item text-center">
                                         <Link to={"/profile/#"}
