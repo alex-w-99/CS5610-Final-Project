@@ -1,7 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CategoryActivitiesSelection = ({ activities }) => {
     const categories = [...new Set(activities.map(activity => activity.category))];
+    const nav = useNavigate();
+    const NavToSearch = (activity) => {
+        nav(`/search/${activity}`, true);
+    }
     return (
         <>
             <div className="container">
@@ -23,6 +28,7 @@ const CategoryActivitiesSelection = ({ activities }) => {
                                             <button
                                                 type="button"
                                                 className="btn btn-sm btn-outline-secondary"
+                                                onClick={() => NavToSearch(activity.category)}
                                             >
                                                 View
                                             </button>
