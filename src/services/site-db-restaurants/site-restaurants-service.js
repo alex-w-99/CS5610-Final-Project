@@ -2,6 +2,7 @@ import axios from 'axios';
 const API_BASE = process.env.REACT_APP_API_BASE
 const RESTAURANTS_API = `${API_BASE}/restaurants`;
 const REVIEWS_API = `${RESTAURANTS_API}/reviews`;
+const RATINGS_API = `${RESTAURANTS_API}/ratings`;
 
 export const findSiteRestaurant = async (yelpRestaurantId) => {
   const response = await axios.get(`${RESTAURANTS_API}/yelp/${yelpRestaurantId}`);
@@ -44,4 +45,22 @@ export const createReview = async (review) => {
     .post(REVIEWS_API, review);
   console.log("SERVICE GOT THIS FOR CREATED REVIEW: " + JSON.stringify(response));
   return response.data;
+}
+
+export const createRating = async (rating) => {
+  const response = await axios
+    .post(RATINGS_API, rating);
+  return response.data;
+}
+
+export const findRating = async (restaurant, user) => {
+  const response = await axios
+    .get(`${REVIEWS_API}/${restaurant._id}/${user._id}`);
+  return response.data;
+}
+
+export const updateRating = async (rating) => {
+  const response = await axios
+    .put(RATINGS_API, rating);
+  return rating;
 }

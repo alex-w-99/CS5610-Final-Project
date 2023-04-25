@@ -19,3 +19,17 @@
     background-color: rgb(255, 204, 203);
     margin-top: 80px;
 }
+
+#search-bar-container {
+    width: 100%;
+    position: relative;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#search-bar-component {
+    width: 80%;
+    left: 15%;
+    position: absolute;
+}

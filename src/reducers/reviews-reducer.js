@@ -7,8 +7,8 @@ const initialState = {
   loading: true
 }
 
-const restaurantSlice = createSlice({
-  name: 'siteRestaurants',
+const reviewsSlice = createSlice({
+  name: 'reviews',
   initialState,
   extraReducers: {
     [updateReviewThunk.fulfilled]:
@@ -52,4 +52,4 @@ const restaurantSlice = createSlice({
       },
   }
 });
-export default restaurantSlice.reducer
+export default reviewsSlice.reducer

@@ -35,7 +35,7 @@ const SearchComponent = () => {
     {
       status != 404 &&
       <>
-        <h1>Your Results</h1>
+        <h1 id="results-heading">Your Results</h1>
         <ul className="ps-0"
             id="result-item-list">
         {

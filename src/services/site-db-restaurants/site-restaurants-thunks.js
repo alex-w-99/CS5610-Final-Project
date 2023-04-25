@@ -58,3 +58,23 @@ export const updateReviewThunk = createAsyncThunk(
       await service.updateReview(review);
     }
 )
+
+export const createRatingThunk = createAsyncThunk(
+  'restaurants/reviews/createRating', async (rating) => {
+      const newRating = await service.createRating(rating);
+      return newRating;
+    }
+)
+
+export const findRatingThunk = createAsyncThunk(
+  'restaurants/reviews/findRating', async (restaurant, user) => {
+      const rating = await service.findRating(restaurant, user);
+      return rating;
+    }
+)
+
+export const updateRatingThunk = createAsyncThunk(
+  'restaurants/reviews/updateRating', async (rating) => {
+      await service.updateRating(rating);
+    }
+)

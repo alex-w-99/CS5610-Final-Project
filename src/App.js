@@ -21,10 +21,15 @@ import SearchComponent from "./search-component";
 import DetailsComponent from "./details-component";
 import SearchBar from "./search-bar";
 import restaurantReducer from "./reducers/site-restaurants-reducer.js";
+import ratingsReducer from "./reducers/ratings-reducer.js";
 import singleBusinessReducer from "./reducers/single-business-reducer.js"
 import businessReducer from "./reducers/business-reducer.js";
 import reviewsReducer from "./reducers/reviews-reducer.js";
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
+
+library.add(faStar);
 
 const store = configureStore(
     {
@@ -36,6 +41,7 @@ const store = configureStore(
                 businesses: businessReducer,
                 siteRestaurant: restaurantReducer,
                 reviews: reviewsReducer,
+                ratings: ratingsReducer,
                 oneBusiness: singleBusinessReducer
             }
     }
@@ -46,12 +52,12 @@ function App() {
         <Provider store={store}>
 
                 <BrowserRouter>
+                    <SearchBar/>
+
                     <div className="container">
                         <div>
                             <NavigationBar/>
                         </div>
-                        
-                        <SearchBar/>
                         
                         <Routes>
                             <Route

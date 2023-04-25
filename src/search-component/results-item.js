@@ -19,17 +19,17 @@ const ResultItem = (
  }
  return(
   <div>
-    <div className="row mb-2 p-2"
-        onClick={toDetails}
-        id="result-item-box">
-      <div className="col-4">
+    <div className="row mb-3 p-2"
+         id="result-item"
+        onClick={toDetails}>
+      <div className="col-5">
         <img width={150}
              height={150}
              height={150}
              src={restaurant.image_url}
              id="result-image"/>
       </div>
-      <div className="col-8">
+      <div className="col-7">
         <div className="fw-bold cw-restaurant-name ps-5 pt-3">
                      {restaurant.name}
         </div>
@@ -42,6 +42,9 @@ const ResultItem = (
                      fw-bold pt-3"> <i className= "bi bi-circle-fill me-2 ps-5"/>
                      Open now</div>
             }
+                <div className="pt-3 ps-5 fw-bold">
+                    {restaurant.price}
+                 </div>
             </div>
         </div>
     </div>
