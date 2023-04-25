@@ -142,8 +142,12 @@ const ProfileOverview = () => {
                                             { /* Printing if userType is CRITIC or RESTAURANT */ }
                                             <div>
                                                 {
-                                                    currentUser.userType === "CRITIC"
-                                                    &&
+                                                    (
+                                                        currentUser.userType
+                                                        &&
+                                                        currentUser.userType === "CRITIC"
+                                                    )
+                                                    ?
                                                     <div className="text-primary mb-1"
                                                          title="This user is a trusted Chews Wisely Critic.">
                                                         {
@@ -154,11 +158,17 @@ const ProfileOverview = () => {
                                                         &nbsp;
                                                         <i className="bi bi-patch-check-fill"/>
                                                     </div>
+                                                    :
+                                                    <></>
                                                 }
 
                                                 {
-                                                    currentUser.userType === "RESTAURANT"
-                                                    &&
+                                                    (
+                                                        currentUser.userType
+                                                        &&
+                                                        currentUser.userType === "RESTAURANT"
+                                                    )
+                                                    ?
                                                     <div className="text-primary mb-1">
                                                         {
                                                             currentUser.userType.charAt(0).toUpperCase()
@@ -166,6 +176,8 @@ const ProfileOverview = () => {
                                                             currentUser.userType.toLowerCase().slice(1)
                                                         }
                                                     </div>
+                                                    :
+                                                    <></>
                                                 }
                                             </div>
 
