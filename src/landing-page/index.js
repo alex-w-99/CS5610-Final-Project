@@ -10,9 +10,11 @@ function LandingPage() {
         <>
             <Container className="my-5">
                 <Card>
-                    <Card.Img variant="top" src="../images/1Foxby.jpg"/>
+                    <Card.Img variant="top" src="../images/1Foxby.jpg"
+                              style={{height: '500px', objectFit: 'cover'}}/>
                     <Card.Body>
-                        <Card.Title className="display-4 text-center my-5">Welcome to Our
+                        <Card.Title className="display-4 text-center my-5" style={{fontSize: 40}}>Welcome
+                            to Our
                             Site</Card.Title>
                         <div>
                             <p>Welcome to Chews Wisely! Our site is a platform designed for food
@@ -50,8 +52,12 @@ function LandingPage() {
                                 <img className="card-img-top" src="https://picsum.photos/200/150"
                                      alt="Card image cap"/>
                                 <div className="card-body">
-                                    <h5 className="card-title">Alex Wilcox</h5>
-                                    <p className="card-text">Check out my profile</p>
+                                    <h5 className="card-title fw-bold"
+                                        style={{fontFamily: "Arial", color: "#555"}}>Alex
+                                        Wilcox</h5>
+                                    <p className="card-text"
+                                       style={{fontFamily: "Arial", color: "#555"}}>Check out my
+                                        profile</p>
                                 </div>
                                 <div className="card-footer bg-transparent d-grid">
                                     <a href="/profile/64455849bbae6627cae7c36e"
@@ -65,8 +71,12 @@ function LandingPage() {
                                 <img className="card-img-top" src="https://picsum.photos/200/150"
                                      alt="Card image cap"/>
                                 <div className="card-body">
-                                    <h5 className="card-title">Melanie Becker</h5>
-                                    <p className="card-text">Check out my profile</p>
+                                    <h5 className="card-title fw-bold"
+                                        style={{fontFamily: "Arial", color: "#555"}}>Melanie
+                                        Becker</h5>
+                                    <p className="card-text"
+                                       style={{fontFamily: "Arial", color: "#555"}}>Check out my
+                                        profile</p>
                                 </div>
                                 <div className="card-footer bg-transparent d-grid">
                                     <a href="/profile/6445594abbae6627cae7c371"
@@ -80,8 +90,12 @@ function LandingPage() {
                                 <img className="card-img-top" src="https://picsum.photos/200/150"
                                      alt="Card image cap"/>
                                 <div className="card-body">
-                                    <h5 className="card-title">Mohammed Amer</h5>
-                                    <p className="card-text">Check out my profile</p>
+                                    <h5 className="card-title fw-bold"
+                                        style={{fontFamily: "Arial", color: "#555"}}>Mohammed
+                                        Amer</h5>
+                                    <p className="card-text"
+                                       style={{fontFamily: "Arial", color: "#555"}}>Check out my
+                                        profile</p>
                                 </div>
                                 <div className="card-footer bg-transparent d-grid">
                                     <a href="/profile/64455927bbae6627cae7c370"
@@ -95,8 +109,12 @@ function LandingPage() {
                                 <img className="card-img-top" src="https://picsum.photos/200/150"
                                      alt="Card image cap"/>
                                 <div className="card-body">
-                                    <h5 className="card-title">Amelia's Taqueria</h5>
-                                    <p className="card-text">Business profile example</p>
+                                    <h5 className="card-title fw-bold"
+                                        style={{fontFamily: "Arial", color: "#555"}}>Amelia's
+                                        Taqueria</h5>
+                                    <p className="card-text"
+                                       style={{fontFamily: "Arial", color: "#555"}}>Business profile
+                                        example</p>
                                 </div>
                                 <div className="card-footer bg-transparent d-grid">
                                     <a href="/profile/64458a12bbae6627cae7c376"
@@ -107,7 +125,7 @@ function LandingPage() {
                     </div>
                 </div>
             </Container>
-            <footer className="fixed-bottom">
+            <footer className="fixed-bottom ">
                 <Navbar bg="light" expand="lg" fixed="bottom">
                     <Container>
                         <Navbar.Brand>Chews Wisely</Navbar.Brand>
