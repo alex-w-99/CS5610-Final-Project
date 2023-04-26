@@ -34,3 +34,9 @@ const businessSlice = createSlice({
     }
 })
 export default businessSlice.reducer;
+
+/*
+  - two useSelector / dispatch things
+        - 1: validateBusiness() -> uses yelp API, site-db-restaurants-thunk
+        - 2: checkExistingUsers() -> get all users and search by that yelp id
+ */

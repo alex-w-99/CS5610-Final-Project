@@ -1,4 +1,4 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+ import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as usersService from "./users-service";
 
 // when is it important for each to return or not?
@@ -6,6 +6,11 @@ import * as usersService from "./users-service";
 export const createUserThunk = createAsyncThunk(
     "users/createUser",
     async (user) => await usersService.createUser(user)
+);
+export const createBookmarkThunk = createAsyncThunk(
+    "users/createBookmark",
+    async ({ userId, bookmark }) => await
+            usersService.createBookmark(userId, bookmark)
 );
 export const registerThunk = createAsyncThunk(
     "users/register",

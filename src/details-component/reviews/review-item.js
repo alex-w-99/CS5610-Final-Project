@@ -49,7 +49,8 @@ const ReviewItem = (
                    onClick={() => deleteReviewHandler(review._id)}></i>
      }
        <div>
-           <span className="fw-bold">{review.userName}</span> <span className="me-1">
+           <span className="fw-bold me-1" onClick={() => toProfile()}>
+              {review.userName}
            </span>
            {
              review.isCritic ?

@@ -6,10 +6,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from 'react-router-dom';
 //import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //import { findBusinessThunk } from '../services/yelp/business-thunks.js';
 import { findRestaurantThunk }
     from '../services/site-db-restaurants/site-restaurants-thunks';
+import { updateUserThunk }
+    from '../services/users-thunks.js';
 import "../utils/loading-spinner.css";
 
 const DetailsComponent = () => {
@@ -24,12 +26,49 @@ const DetailsComponent = () => {
   useEffect(() => {
           dispatch(findRestaurantThunk({dispatch, businessId}));
      }, []);
+  let bookmarkBool = false;
+  if (currentUser) {
+    bookmarkBool = currentUser.bookmarks.filter(
+        entry => entry.restaurantId == restaurant.yelpId);
+  }
+  const [bookmarked, setBookmarked] = useState(bookmarkBool);
   let { restaurant, loading } = useSelector(state => state.siteRestaurant)
   const { status } = useSelector(state => state.oneBusiness);
-  console.log("FROM DETAILS SCREEN: RESTAURANT IS " + JSON.stringify(restaurant));
+  const onBookmark = () => {
+    if (gatekeep()) {
+       return;
+    }
+    let userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    dispatch(updateUserThunk({
+        ...currentUser,
+        bookmarks: userBookmarks.push({
+            restaurantId: restaurant.yelpId,
+            restautantName: restaurant.name,
+            imageUrl: restaurant.image_url
+        })
+    }))
+    setBookmarked(false);
+  };
+
+  const onUnBookmark = () => {
+    let userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+        dispatch(updateUserThunk({
+            ...currentUser,
+            bookmarks: userBookmarks.filter(e =>
+              e.restaurantId != restaurant.yelpId)
+        }))
+        setBookmarked(true);
+  };
   let mode = "PERSONAL";
   if (currentUser) {
      mode = currentUser.userType;
+  }
+  const gatekeep = () => {
+      if (!currentUser) {
+        navigate('/login');
+        return true;
+     }
+     return false;
   }
  return(
     <>
@@ -95,6 +134,25 @@ const DetailsComponent = () => {
                   <div className="fw-bolder" id="restaurant-name">
                       {restaurant.name}
                   </div>
+
+                  <div className="mt-2 mb-2">
+                      {
+                          !bookmarked &&
+                          <button className="btn btn-lg btn-primary"
+                                  id="bookmark-button"
+                                  onClick={() => onBookmark()}>
+                                Bookmark
+                          </button>
+                      }
+                      {
+                          bookmarked &&
+                          <button className="btn btn-lg btn-success"
+                                 id="bookmark-button"
+                                 onClick={() => onBookmark()}>
+                               Un-Bookmark
+                         </button>
+                      }
+                   </div>
                   {/*
                   RATINGS
                   */}
@@ -120,7 +178,6 @@ const DetailsComponent = () => {
                           {restaurant.phone}</div>`
                       }
                   </div>
-
               </div>
          { /* don't let businesses rate other businesses */
            mode !== "RESTAURANT" &&
