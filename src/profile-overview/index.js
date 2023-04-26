@@ -15,6 +15,15 @@ import {
 import {listFollowing, listFollower} from "../utils/list-follow";
 import {findFollowers} from "../services/follow-service";
 
+const renderMenu = (text) => {
+    return text.split('\\n').map((line, index) => (
+        <li key={index} className="list-group-item">
+            {line}
+            <br />
+        </li>
+    ));
+};
+
 // Public profile page
 const ProfileOverview = () => {
     const {uid} = useParams();
@@ -362,7 +371,10 @@ const ProfileOverview = () => {
                                                 </Card.Title>
                                                 <Card.Text
                                                     className="profile-text text-muted">
-                                                    {publicProfile.menu}
+                                                    <ul className="list-group">
+                                                        {renderMenu(publicProfile.menu)}
+                                                    </ul>
+
                                                 </Card.Text>
                                             </Card.Body>
                                         </Card>
@@ -402,18 +414,6 @@ const ProfileOverview = () => {
                                                 <Card.Text
                                                     className="profile-text text-muted">
                                                     No recent activity to show
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-
-                                        { /* Photos card */}
-                                        <Card className="mt-4 profile-card">
-                                            <Card.Body>
-                                                <Card.Title>
-                                                    Photos
-                                                </Card.Title>
-                                                <Card.Text className="text-muted">
-                                                    No photos to show
                                                 </Card.Text>
                                             </Card.Body>
                                         </Card>
