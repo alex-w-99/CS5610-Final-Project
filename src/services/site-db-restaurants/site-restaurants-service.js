@@ -10,6 +10,12 @@ export const findSiteRestaurant = async (yelpRestaurantId) => {
   return restaurant;
 }
 
+export const findAllRestaurants = async () => {
+    const response = await axios.get(RESTAURANTS_API);
+    const restaurants = response.data;
+    return restaurants;
+}
+
 export const createSiteRestaurant = async (restaurant) => {
  const response = await axios.post(RESTAURANTS_API, restaurant);
  return response.data;

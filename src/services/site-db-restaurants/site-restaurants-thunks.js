@@ -79,3 +79,9 @@ export const updateRatingThunk = createAsyncThunk(
       await service.updateRating(rating);
     }
 )
+
+export const findAllRestaurantsThunk = createAsyncThunk(
+  'restaurants/findAll', async () => {
+      await service.findAllRestaurants();
+  }
+)

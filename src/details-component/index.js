@@ -25,39 +25,54 @@ const DetailsComponent = () => {
   }
   useEffect(() => {
           dispatch(findRestaurantThunk({dispatch, businessId}));
-     }, []);
-  let bookmarkBool = false;
-  if (currentUser) {
-    bookmarkBool = currentUser.bookmarks.filter(
-        entry => entry.restaurantId == restaurant.yelpId);
-  }
-  const [bookmarked, setBookmarked] = useState(bookmarkBool);
+  }, []);
   let { restaurant, loading } = useSelector(state => state.siteRestaurant)
+//  let bookmarkBool = false;
+//  if (currentUser) {
+//    if (Array.isArray(currentUser.bookmarks)) {
+//        bookmarkBool =
+//    }
+//  }
+  console.log("Restaurant id is " + restaurant.yelpId);
+  console.log(currentUser.bookmarks.filter(e => e == restaurant.yelpId).length > 0)
+  let bookmarkBool = (currentUser.bookmarks.filter(e => e == restaurant.yelpId).length > 0);
+  console.log(currentUser.bookmarks);
+  const [bookmarked, setBookmarked] = useState(bookmarkBool);
+  useEffect(() => {
+     setBookmarked(bookmarkBool);
+  }, [bookmarkBool])
+  console.log("BOOKMARKED IS " + bookmarked);
+
+  console.log(currentUser.bookmarks.filter(e => e== restaurant.yelpId).length);
+
+
   const { status } = useSelector(state => state.oneBusiness);
+//  console.log("User bookmarks is " + userBookmarks);
   const onBookmark = () => {
     if (gatekeep()) {
        return;
     }
-    let userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    let userBookmarks = [];
+    if (Array.isArray(currentUser.bookmarks)) {
+            userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    }
+    userBookmarks.push(restaurant.yelpId);
     dispatch(updateUserThunk({
         ...currentUser,
-        bookmarks: userBookmarks.push({
-            restaurantId: restaurant.yelpId,
-            restautantName: restaurant.name,
-            imageUrl: restaurant.image_url
-        })
+        bookmarks: userBookmarks
     }))
-    setBookmarked(false);
+    setBookmarked(true);
   };
 
   const onUnBookmark = () => {
+    console.log("UNBOOKMARK: CURRENT USER IS " + JSON.stringify(currentUser));
     let userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    userBookmarks = userBookmarks.filter(e => e != restaurant.yelpId);
         dispatch(updateUserThunk({
             ...currentUser,
-            bookmarks: userBookmarks.filter(e =>
-              e.restaurantId != restaurant.yelpId)
+            bookmarks: userBookmarks
         }))
-        setBookmarked(true);
+        setBookmarked(false);
   };
   let mode = "PERSONAL";
   if (currentUser) {
@@ -70,6 +85,8 @@ const DetailsComponent = () => {
      }
      return false;
   }
+    console.log("Omw to render with bookmarked = " + bookmarked);
+
  return(
     <>
     {
@@ -148,7 +165,7 @@ const DetailsComponent = () => {
                           bookmarked &&
                           <button className="btn btn-lg btn-success"
                                  id="bookmark-button"
-                                 onClick={() => onBookmark()}>
+                                 onClick={() => onUnBookmark()}>
                                Un-Bookmark
                          </button>
                       }

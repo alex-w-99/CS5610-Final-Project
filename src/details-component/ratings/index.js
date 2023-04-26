@@ -29,8 +29,6 @@ const Ratings = () => {
    useEffect(() => {
        dispatch(findRatingThunk({restaurantId, userId}));
    }, [])
-
-   console.log("TOP OF INDEX: RATING IS " + JSON.stringify(rating));
    let score = 0;
    if (rating.score != {}) {
        score = rating.score;

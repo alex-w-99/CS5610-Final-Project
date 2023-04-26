@@ -7,11 +7,6 @@ export const createUserThunk = createAsyncThunk(
     "users/createUser",
     async (user) => await usersService.createUser(user)
 );
-export const createBookmarkThunk = createAsyncThunk(
-    "users/createBookmark",
-    async ({ userId, bookmark }) => await
-            usersService.createBookmark(userId, bookmark)
-);
 export const registerThunk = createAsyncThunk(
     "users/register",
     async (user) => {

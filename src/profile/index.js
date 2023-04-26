@@ -7,6 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
 import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunks";
 import { listFollowing, listFollower } from "../utils/list-follow";
+import Reviews from './reviews'
 
 // Profile page
 const Profile = () => {
@@ -248,13 +249,6 @@ const Profile = () => {
                                     </ListGroup.Item>
 
                                     <ListGroup.Item className="profile-nav-item text-center">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
-                                            Reviews
-                                        </Link>
-                                    </ListGroup.Item>
-
-                                    <ListGroup.Item className="profile-nav-item text-center">
                                         <Link to={"/profile/edit-profile"}
                                               style={ { color: 'inherit', textDecoration: 'none' } }>
                                             Edit Profile
@@ -297,10 +291,10 @@ const Profile = () => {
                                         <Card className="mt-4 profile-card">
                                             <Card.Body>
                                                 <Card.Title className="profile-title">
-                                                    Recent Activity
+                                                    Recent Reviews
                                                 </Card.Title>
                                                 <Card.Text className="profile-text text-muted">
-                                                    No recent activity to show
+                                                    <Reviews/>
                                                 </Card.Text>
                                             </Card.Body>
                                         </Card>

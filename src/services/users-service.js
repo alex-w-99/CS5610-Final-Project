@@ -41,7 +41,3 @@ export const deleteUser = async (uid) => {
     const response = await api.delete(`${USERS_API}/${uid}`);
     return response.data;
 };
-export const createBookmark = async (uid, bookmark) => {
-    const response = await api.post(`${USERS_API}/bookmarks/${uid}`, bookmark);
-    return response.
-}
