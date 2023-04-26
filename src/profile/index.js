@@ -174,7 +174,13 @@ const Profile = () => {
                                             currentUser.userType === "RESTAURANT"
                                             &&
                                             <div>
-                                                Restaurant ID: {currentUser.userTypeField}
+                                                <div>
+                                                    Restaurant ID:
+                                                </div>
+
+                                                <Link to={`/details/${currentUser.userTypeField}`}>
+                                                    {currentUser.userTypeField}
+                                                </Link>
                                             </div>
                                         }
                                     </div>
