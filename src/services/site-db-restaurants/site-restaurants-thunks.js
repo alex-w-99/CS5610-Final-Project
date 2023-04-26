@@ -40,6 +40,13 @@ export const findReviewsThunk = createAsyncThunk(
   }
 )
 
+export const findReviewsByUserThunk = createAsyncThunk(
+  'restaurants/reviews/findReviewsUsers', async (user) => {
+    const reviews = await service.findReviewsByUser(user);
+    return reviews;
+  }
+)
+
 export const deleteReviewThunk = createAsyncThunk(
   'restaurants/reviews/deleteReview', async (id) => {
       await service.deleteReview(id);
@@ -82,6 +89,8 @@ export const updateRatingThunk = createAsyncThunk(
 
 export const findAllRestaurantsThunk = createAsyncThunk(
   'restaurants/findAll', async () => {
-      await service.findAllRestaurants();
+      const restaurants = await service.findAllRestaurants();
+      console.log("GOT BACK " + JSON.stringify(restaurants))
+      return restaurants;
   }
 )

@@ -13,6 +13,7 @@ export const findSiteRestaurant = async (yelpRestaurantId) => {
 export const findAllRestaurants = async () => {
     const response = await axios.get(RESTAURANTS_API);
     const restaurants = response.data;
+    console.log("SERVICE GOT BACK " + JSON.stringify(restaurants))
     return restaurants;
 }
 
@@ -30,6 +31,13 @@ export const updateSiteRestaurant = async (restaurant) => {
 export const findReviews = async (restaurant) => {
   const response = await axios
       .get(`${REVIEWS_API}/${restaurant._id}`);
+  const reviews = response.data;
+  return reviews;
+}
+
+export const findReviewsByUser = async (user) => {
+  const response = await axios
+      .get(`${REVIEWS_API}/users/${user._id}`);
   const reviews = response.data;
   return reviews;
 }

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Image, Card, ListGroup } from "react-bootstrap";
+import Bookmarks from "./bookmarks"
 import "./Profile.css";
 import "../utils/close-button.css";
+
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import formatPhoneNumber from "../utils/format-phone-number";
 import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunks";
 import { listFollowing, listFollower } from "../utils/list-follow";
@@ -27,6 +30,7 @@ const Profile = () => {
 
     // Setting up for showing and hiding following/follower information:
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
+    const [showBookMarks, setShowBookmarks] = useState(false);
     const toggleShowFollowingInfo = () => { setShowFollowingInfo(prevValue => !prevValue); }
     const [showFollowerInfo, setShowFollowerInfo] = useState(false);
     const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
@@ -241,11 +245,9 @@ const Profile = () => {
 
                                 <ListGroup variant="flush" className="mt-2">
 
-                                    <ListGroup.Item className="profile-nav-item text-center">
-                                        <Link to={"/profile/#"}
-                                              style={ { color: 'inherit', textDecoration: 'none' } }>
+                                    <ListGroup.Item className="profile-nav-item text-center"
+                                                    onClick={() => setShowBookmarks(!showBookMarks)}>
                                             Bookmarks
-                                        </Link>
                                     </ListGroup.Item>
 
                                     <ListGroup.Item className="profile-nav-item text-center">
@@ -263,6 +265,7 @@ const Profile = () => {
                         <Col md={9}>
                             {
                                 !showFollowingInfo && !showFollowerInfo &&
+                                !showBookMarks &&
                                 (
                                     <div>
                                         { /* About Me card */ }
@@ -388,6 +391,12 @@ const Profile = () => {
                                             </Card.Body>
                                         </Card>
                                     </div>
+                                )
+                            }
+                            {
+                                (
+                                    showBookMarks &&
+                                    <Bookmarks/>
                                 )
                             }
                         </Col>

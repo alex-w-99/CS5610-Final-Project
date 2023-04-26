@@ -2,13 +2,14 @@ import React from 'react';
 import './styles/styles.css'
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { createReviewThunk, findReviewsThunk }
     from '../../services/site-db-restaurants/site-restaurants-thunks';
 import ReviewItem from './review-item';
 import ReviewStats from './review-stats';
 
 const Reviews = () => {
+   const location = useLocation();
    const navigate = useNavigate();
    const { restaurant } =
             useSelector(state => state.siteRestaurant);
@@ -20,13 +21,15 @@ const Reviews = () => {
    const dispatch = useDispatch();
    useEffect(() => {
       dispatch(findReviewsThunk(restaurant));
-      }, []);
+   }, [location.pathname]);
 
    const handleSubmit = (event) => {
        if (currentUser) {  // only submit review if a currentUser is logged in
            event.preventDefault();
            const newReview = {
                restaurantId: restaurant._id,
+               restaurantYelp: restaurant.yelpId,
+               restaurantName: restaurant.name,
                text: review,
                userName: `${currentUser.firstName} ${currentUser.lastName}`,
                userImage: currentUser.profilePicture,

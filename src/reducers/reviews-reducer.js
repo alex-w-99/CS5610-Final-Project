@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { findReviewsThunk, createReviewThunk, deleteReviewThunk, updateReviewThunk }
+import { findReviewsThunk, createReviewThunk, deleteReviewThunk, updateReviewThunk,
+         findReviewsByUserThunk }
     from '../services/site-db-restaurants/site-restaurants-thunks.js';
 
 const initialState = {
@@ -25,7 +26,7 @@ const reviewsSlice = createSlice({
     [findReviewsThunk.pending]:
       (state) => {
         state.loading = true;
-        state.review = [];
+        state.reviews = [];
     },
     [findReviewsThunk.fulfilled]:
       (state, { payload }) => {
@@ -33,6 +34,21 @@ const reviewsSlice = createSlice({
         state.reviews = payload;
       },
     [findReviewsThunk.rejected]:
+       (state, action) => {
+          state.loading = false
+          state.error = action.error
+      },
+    [findReviewsByUserThunk.pending]:
+      (state) => {
+        state.loading = true;
+        state.reviews = [];
+    },
+    [findReviewsByUserThunk.fulfilled]:
+      (state, { payload }) => {
+        state.loading = false;
+        state.reviews = payload;
+      },
+    [findReviewsByUserThunk.rejected]:
        (state, action) => {
           state.loading = false
           state.error = action.error

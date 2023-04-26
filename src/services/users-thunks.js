@@ -40,6 +40,7 @@ export const findUserByIdThunk = createAsyncThunk(
 export const updateUserThunk = createAsyncThunk(
     "users/updateUser",
     async (user) => {
+        console.log("THUNK: got " + JSON.stringify(user));
         await usersService.updateUser(user);
         return user;
     }
