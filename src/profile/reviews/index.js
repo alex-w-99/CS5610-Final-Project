@@ -13,11 +13,23 @@ const Reviews = () => {
   useEffect(() => {
     dispatch(findReviewsByUserThunk(currentUser));
   }, [])
+  let getLast = 3;
+  if (reviews) {
+    if (reviews.length < getLast) {
+    getLast = reviews.length;
+    }
+  }
+  if (getLast == 0) {
+    return (
+    "You haven't reviewed any restaurants yet!"
+    )
+  }
+  let recentReviews = reviews.slice(getLast * -1);
   return(
       <>
        {
          !loading &&
-         reviews.map(r =>
+         recentReviews.reverse().map(r =>
          <div key={r._id} className="mt-1 mb-1">
             <ReviewItem review={r}/>
          </div>)
