@@ -15,7 +15,11 @@ const HomeComponent = () => {
     useEffect(() => {
         dispatch(findBusinessesThunk({ query: "restaurants"})).then(() => businessesReady());
     }, []);
-
+    let criticPersonal = false;
+    if (currentUser) {
+        criticPersonal = ((currentUser.userType == "PERSONAL") ||
+                                         (currentUser.userType == "CRITIC"))
+    }
     const businessesReady = () => {
         const activitiesArray = businesses
             .slice(0, 12)
@@ -39,8 +43,7 @@ const HomeComponent = () => {
             currentUser &&
             <>
             {
-                currentUser.userType == "PERSONAL" ||
-                currentUser.userType == "CRITIC" &&
+                criticPersonal &&
                 <h1 className="text-center display-4 py-4"> Welcome Back, {currentUser.firstName} </h1>
             }
           </>
@@ -50,8 +53,7 @@ const HomeComponent = () => {
              currentUser &&
              <>
              {
-             currentUser.userType == "PERSONAL" ||
-             currentUser.userType == "CRITIC" &&
+             criticPersonal &&
             <div className="d-flex justify-content-center mt-4 mb-4">
               <div className="cw-card mt-3">
                     <div className="text-center cw-card-title display-4 mb-3"> Recent Reviews </div>
