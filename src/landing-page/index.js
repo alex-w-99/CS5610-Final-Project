@@ -19,8 +19,8 @@ function LandingPage() {
                         <div>
                             <p>Welcome to Chews Wisely! Our site is a platform designed for food
                                 enthusiasts, whether you're a foodie or a restaurant owner. We are a
-                                Yelp clone that offers three different user types: Business,
-                                Critique, and Normal User.</p>
+                                Yelp clone that offers three different user types: Restaurant,
+                                Critic, and Personal (default).</p>
 
                             <p>As a business owner, you can take advantage of our site to showcase
                                 your menu, location, and reviews posted by other users. You can also

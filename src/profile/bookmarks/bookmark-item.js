@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const BookMarkItem = ({
    bookmark = {
       "id": "123",
@@ -17,6 +16,5 @@ const BookMarkItem = ({
      <span className="fw-bold"> {bookmark.name} </span>
     </>
   )
-
 }
 export default BookMarkItem;
