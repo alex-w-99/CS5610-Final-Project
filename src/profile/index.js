@@ -83,7 +83,7 @@ const Profile = () => {
                                         src={`${currentUser && currentUser.profilePicture}`}
                                         roundedCircle
                                         height="150px" width="150px"
-                                        className="mb-3"
+                                        className="mx-auto mb-3"
                                     />
 
                                     <Card.Title className="profile-title">
