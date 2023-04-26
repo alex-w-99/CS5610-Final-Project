@@ -16,11 +16,18 @@ const HomeComponentRestaurant = () => {
     const { reviews, loading } = useSelector(state => state.reviews);
 
     const dispatch = useDispatch();
+
+    // 1. get all restaurant objects
+    // 2. filter for restaurant with restaurant.yelpId === currentUser.userTypeField
+    // 3. pass that restaurant that passed the filter to dispatch(findReviewsThunk(...)...
+
+    // ONLY SHOW THEIR MENU ***OR*** TELL THEM THAT THEY NEED TO ADD THEIR MENU
+
     useEffect(
         () => {
             dispatch(findReviewsThunk(currentUser.userTypeField));
             },
-        []
+        [reviews]
     );
 
     let getLast = 8;
@@ -30,10 +37,11 @@ const HomeComponentRestaurant = () => {
         }
     }
 
-
-
-
     const getReviewsContent = () => {
+
+
+
+        // DETERMINE RETURN VALUE OF HELPER FUNCTION:
         if (getLast == 0) {
             return(
                 <Container className="my-4">
@@ -71,45 +79,7 @@ const HomeComponentRestaurant = () => {
         else {
             let recentReviews = reviews.slice(getLast * -1);
             return(
-                <Container className="my-4">
-                    <Row className="mx-auto" style={{width: "97.5%"}}>
 
-                        <Col className="col-2"></Col>
-
-                        <Col className="col-8">
-                            <Card className="profile-card">
-                                <Card.Body>
-
-                                    <Card.Title>
-                                        Recent Reviews of {currentUser.firstName} {currentUser.lastName}:
-                                    </Card.Title>
-
-                                    <ul className="list-group">
-                                        {
-                                            loading
-                                            ?
-                                            <div className="spinner">
-                                            </div>
-                                            :
-                                            <li className="list-group-item">
-                                                {
-                                                    recentReviews
-                                                        .reverse()
-                                                        .map(
-                                                            (r) =>
-                                                                <div key={r._id} className="mt-1 mb-1">
-                                                                    <ReviewItem review={r}/>
-                                                                </div>
-                                                        )
-                                                }
-                                            </li>
-                                        }
-                                    </ul>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
             );
         }
 
@@ -129,7 +99,38 @@ const HomeComponentRestaurant = () => {
             <CarouselImage />
 
             { /* Reviews of your restaurant */ }
-            {getReviewsContent()}
+            <Container className="my-4">
+                <Row className="mx-auto" style={{width: "97.5%"}}>
+
+                    <Col className="col-2"></Col>
+
+                    <Col className="col-8">
+                        <Card className="profile-card">
+                            <Card.Body>
+
+                                <Card.Title>
+                                    Welcome back {currentUser.firstName} {currentUser.lastName}!
+                                </Card.Title>
+
+                                {
+                                    (currentUser && currentUser.menu !== "")
+                                    ?
+                                    <Card.Text>
+                                        {currentUser.menu}
+                                    </Card.Text>
+                                    :
+                                    <Card.Text className="alert alert-danger text-danger mt-3"
+                                                role="alert">
+                                        Please add a menu!
+                                    </Card.Text>
+                                }
+
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+
 
         </div>
     );

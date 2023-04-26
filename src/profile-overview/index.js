@@ -406,18 +406,6 @@ const ProfileOverview = () => {
                                             </Card.Body>
                                         </Card>
 
-                                        { /* Photos card */}
-                                        <Card className="mt-4 profile-card">
-                                            <Card.Body>
-                                                <Card.Title>
-                                                    Photos
-                                                </Card.Title>
-                                                <Card.Text className="text-muted">
-                                                    No photos to show
-                                                </Card.Text>
-                                            </Card.Body>
-                                        </Card>
-
                                     </div>
                                     )
                                 }
