@@ -29,8 +29,6 @@ const Ratings = () => {
    useEffect(() => {
        dispatch(findRatingThunk({restaurantId, userId}));
    }, [])
-
-   console.log("TOP OF INDEX: RATING IS " + JSON.stringify(rating));
    let score = 0;
    if (rating.score != {}) {
        score = rating.score;
@@ -75,14 +73,14 @@ const Ratings = () => {
               restaurant.criticRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          criticRating: newScore
+          criticRating: newScore.toFixed(1)
         }))
      } else {
         let newScore = calcNewRating(rating.score, stars, restaurant.userRating,
               restaurant.userRatingCount);
         dispatch(updateRestaurantThunk({
           ...restaurant,
-          userRating: newScore
+          userRating: newScore.toFixed(1)
         }))
      }
    }

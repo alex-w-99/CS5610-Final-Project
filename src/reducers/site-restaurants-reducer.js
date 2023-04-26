@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { updateRestaurantThunk, createRestaurantThunk, findRestaurantThunk, }
+import { updateRestaurantThunk, createRestaurantThunk, findRestaurantThunk,
+         findAllRestaurantsThunk }
     from '../services/site-db-restaurants/site-restaurants-thunks.js';
 
 const initialState = {
@@ -41,12 +42,6 @@ const restaurantSlice = createSlice({
           state.loading = false
           state.error = action.error
           state.status = 404;
-      },
-    [createRestaurantThunk.fulfilled]:
-      (state, { payload }) => {
-        state.restaurant = payload;
-        state.reviews = [];
-        state.loading = false;
       },
     }
 });

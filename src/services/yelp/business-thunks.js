@@ -62,3 +62,9 @@ export const findBusinessThunk = createAsyncThunk(
     }
     return response;
 })
+
+/*
+- ask for their business's yelp id
+- check to make sure valid id (findBusiness shouldn't return null)
+
+*/

@@ -89,6 +89,7 @@ const usersReducer = createSlice({
         [usersThunks.updateUserThunk.fulfilled]:
             (state, action) => {
                 state.loading = false;
+                console.log("USERS THUNK: making user into " + JSON.stringify(action.payload))
                 state.currentUser = action.payload;
             },
         [usersThunks.deleteUserThunk.fulfilled]:

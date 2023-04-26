@@ -5,12 +5,14 @@ import Rating from './ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+
+import { useEffect, useState } from 'react';
 import { findRestaurantThunk } from '../services/site-db-restaurants/site-restaurants-thunks';
 import "../utils/loading-spinner.css";
 //import { Link } from 'react-router-dom';
 //import { findBusinessThunk } from '../services/yelp/business-thunks.js';
-
+import { updateUserThunk }
+    from '../services/users-thunks.js';
 
 const DetailsComponent = () => {
   const navigate = useNavigate();
@@ -18,19 +20,66 @@ const DetailsComponent = () => {
   const { businessId } = useParams();
   const { currentUser } =
               useSelector(state => state.users)
+  console.log("INDEX: currentUser is now " + JSON.stringify(currentUser))
   const goBack = () => {
       navigate(-1);
   }
   useEffect(() => {
           dispatch(findRestaurantThunk({dispatch, businessId}));
-     }, []);
+  }, []);
   let { restaurant, loading } = useSelector(state => state.siteRestaurant)
+  let bookmarkBool = false;
+  if (restaurant && currentUser) {
+       bookmarkBool = (currentUser.bookmarks.filter(e => e == restaurant.yelpId)
+      .length > 0);
+   }
+   console.log("Bookmarkbool set to " + bookmarkBool);
+   console.log(currentUser.bookmarks.filter(e => e == restaurant.yelpId)
+                     .length);
+  const [bookmarked, setBookmarked] = useState(bookmarkBool);
+  useEffect(() => {
+     setBookmarked(bookmarkBool);
+  }, [bookmarkBool])
+
   const { status } = useSelector(state => state.oneBusiness);
-  console.log("FROM DETAILS SCREEN: RESTAURANT IS " + JSON.stringify(restaurant));
+  const onBookmark = () => {
+    if (gatekeep()) {
+       return;
+    }
+    let userBookmarks = [];
+    if (Array.isArray(currentUser.bookmarks)) {
+            userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    }
+    userBookmarks.push(restaurant.yelpId);
+    dispatch(updateUserThunk({
+        ...currentUser,
+        bookmarks: userBookmarks
+    }))
+    console.log("Bookmarks are" + currentUser.bookmarks);
+    setBookmarked(true);
+  };
+
+  const onUnBookmark = () => {
+    let userBookmarks = JSON.parse(JSON.stringify(currentUser.bookmarks));
+    userBookmarks = userBookmarks.filter(e => e != restaurant.yelpId);
+        dispatch(updateUserThunk({
+            ...currentUser,
+            bookmarks: userBookmarks
+        }))
+        setBookmarked(false);
+  };
   let mode = "PERSONAL";
   if (currentUser) {
      mode = currentUser.userType;
   }
+  const gatekeep = () => {
+      if (!currentUser) {
+        navigate('/login');
+        return true;
+     }
+     return false;
+  }
+
  return(
     <>
     {
@@ -95,6 +144,25 @@ const DetailsComponent = () => {
                   <div className="fw-bolder" id="restaurant-name">
                       {restaurant.name}
                   </div>
+
+                  <div className="mt-2 mb-2">
+                      {
+                          !bookmarked &&
+                          <button className="btn btn-lg btn-primary"
+                                  id="bookmark-button"
+                                  onClick={() => onBookmark()}>
+                                Bookmark
+                          </button>
+                      }
+                      {
+                          bookmarked &&
+                          <button className="btn btn-lg btn-success"
+                                 id="bookmark-button"
+                                 onClick={() => onUnBookmark()}>
+                               Un-Bookmark
+                         </button>
+                      }
+                   </div>
                   {/*
                   RATINGS
                   */}
@@ -120,7 +188,6 @@ const DetailsComponent = () => {
                           {restaurant.phone}</div>`
                       }
                   </div>
-
               </div>
          { /* don't let businesses rate other businesses */
            mode !== "RESTAURANT" &&

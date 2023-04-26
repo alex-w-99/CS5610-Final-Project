@@ -20,6 +20,7 @@ import SearchComponent from "./search-component";
 import DetailsComponent from "./details-component";
 import SearchBar from "./search-bar";
 import restaurantReducer from "./reducers/site-restaurants-reducer.js";
+import allRestaurantsReducer from "./reducers/all-site-restaurants-reducer.js"
 import ratingsReducer from "./reducers/ratings-reducer.js";
 import singleBusinessReducer from "./reducers/single-business-reducer.js"
 import businessReducer from "./reducers/business-reducer.js";
@@ -40,6 +41,7 @@ const store = configureStore(
                 follow: followReducer,
                 businesses: businessReducer,
                 siteRestaurant: restaurantReducer,
+                allRestaurants: allRestaurantsReducer,
                 reviews: reviewsReducer,
                 ratings: ratingsReducer,
                 oneBusiness: singleBusinessReducer
