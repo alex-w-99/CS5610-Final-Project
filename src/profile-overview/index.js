@@ -215,7 +215,7 @@ const ProfileOverview = () => {
                                                 publicProfile.userType === "RESTAURANT"
                                                 &&
                                                 <div>
-                                                    Restaurant ID: {publicProfile.userTypeField}
+                                                    {publicProfile.userTypeField}
                                                 </div>
                                             }
                                         </div>
@@ -298,7 +298,7 @@ const ProfileOverview = () => {
                                 {
                                     !showFollowingInfo && !showFollowerInfo &&
                                     (
-                                        currentUser && currentUser.userType === "RESTAURANT"
+                                    publicProfile && publicProfile.userType === "RESTAURANT"
                                         ?
                                         <div>
                                             { /* About Me card */}
@@ -309,15 +309,15 @@ const ProfileOverview = () => {
                                                     </Card.Title>
                                                     <Card.Text>
                                                         {
-                                                            currentUser && currentUser.aboutMe
+                                                            publicProfile && publicProfile.aboutMe
                                                             ?
                                                             <span>
-                                                            {currentUser.aboutMe}
-                                                        </span>
+                                                                {publicProfile.aboutMe}
+                                                            </span>
                                                             :
                                                             <span className="text-muted">
-                                                                    This section is empty
-                                                                </span>
+                                                                This section is empty
+                                                            </span>
                                                         }
                                                     </Card.Text>
 
@@ -331,7 +331,7 @@ const ProfileOverview = () => {
                                                         Menu
                                                     </Card.Title>
                                                     <Card.Text className="profile-text text-muted">
-                                                        {currentUser.menu}
+                                                        {publicProfile.menu}
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
