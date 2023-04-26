@@ -1,6 +1,31 @@
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 import "./index.css"
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {
+    faPizzaSlice,
+    faFish,
+    faCocktail,
+    faWineBottle,
+    faHamburger,
+    faBeer,
+    faDrumstickBite,
+    faUtensils
+} from '@fortawesome/free-solid-svg-icons';
+import {
+    DinnerDining,
+    LocalBar,
+    LocalCafe,
+    LocalDining,
+    LocalPizza,
+    SetMeal,
+    Restaurant,
+    TakeoutDining,
+    RamenDining,
+    Tapas,
+    KebabDining,
+    BrunchDining
+} from '@mui/icons-material/';
 
 const CategoryActivitiesSelection = ({activities}) => {
     const categories = [...new Set(activities.map(activity => activity.category))];
@@ -11,11 +36,49 @@ const CategoryActivitiesSelection = ({activities}) => {
     const ResToSearch = (activity) => {
         nav(`/details/${activity}`, true);
     }
+    const getIcon = (alias) => {
+        switch (alias) {
+            case 'Italian':
+                return <LocalPizza/>;
+            case 'Seafood':
+                return <SetMeal/>;
+            case 'Cocktail Bars':
 
+                return <LocalBar/>;
+            case 'Mediterranean':
+            case 'Greek':
+                return <KebabDining/>;
+            case 'Tapas Bars':
+            case 'Tapas/Small Plates':
+            case 'Spanish':
+                return <Tapas/>;
+            case 'American (New)':
+                return <Restaurant/>;
+            case 'Japanese':
+            case 'Sushi Bars':
+            case 'Asian Fusion':
+            case 'Korean':
+                return <RamenDining/>;
+            case 'Bars':
+            case 'Pubs':
+                return <LocalBar/>;
+            case 'Southern':
+                return <TakeoutDining/>;
+            case 'Chinese':
+                return <LocalDining/>;
+            default:
+                return <BrunchDining/>;
+
+        }
+    };
 
     return (
         <div className="container">
-            <h2 className="text-center my-4">Recent Activities</h2>
+            <div className="row">
+                <div className="col-12">
+                    <h2 className="text-center display-4 py-4">Discover Local Food</h2>
+                </div>
+            </div>
             <div className="row">
                 {activities.map((activity) => (
                     <div className="col-lg-4 col-md-6 mb-4" key={activity.title}>
@@ -54,13 +117,17 @@ const CategoryActivitiesSelection = ({activities}) => {
 
                 ))}
             </div>
-            <h2 className="text-center my-4">Activity Categories</h2>
+            <div className="row">
+                <div className="col-12">
+                    <h2 className="text-center display-4 py-4">Restaurant Categories</h2>
+                </div>
+            </div>
             <div className="row">
                 {categories.map((category) => (
-                    <div className="col-lg-4 col-md-6 mb-4" key={category}>
+                    <div className="col-lg-4 col-md-6 mb-4 " key={category}>
                         <div className="card h-100">
                             <div className="card-body">
-                                <h4 className="card-title">{category}</h4>
+                                <h4 className="card-title">{getIcon(category)} {category}</h4>
                                 <p className="card-text">Lorem ipsum dolor sit amet, consectetur
                                     adipiscing elit. Phasellus blandit arcu in erat tincidunt, nec
                                     rutrum risus sagittis. Nunc accumsan massa sed nisi tincidunt
