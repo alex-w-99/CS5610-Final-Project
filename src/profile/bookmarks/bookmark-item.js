@@ -8,13 +8,13 @@ const BookMarkItem = ({
    }
 }) => {
    return(
-    <>
-     <img src={bookmark.image}
-                 className="rounded-circle me-2"
-                 width={50}
-                 height={50}/>
-     <span className="fw-bold"> {bookmark.name} </span>
-    </>
+       <>
+           <img src={bookmark.image}
+                className="rounded-circle me-2"
+                width={45}
+                height={45}/>
+           <span className="fw-bold"> {bookmark.name} </span>
+       </>
   )
 }
 export default BookMarkItem;
