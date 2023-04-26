@@ -34,6 +34,11 @@
     padding: 30px;
 }
 
+.cw-card-d {
+    width: 50%;
+    padding: 30px;
+}
+
 .cw-card-title {
     font-size: 2em;
 }
