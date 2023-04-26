@@ -80,7 +80,8 @@ const Register = () => {
                     password,
                     phone,
                     "userType": userType,
-                    "userTypeField": userTypeField
+                    "userTypeField": userTypeField,
+                    "bookmarks": []
                 }
                 dispatch(registerThunk(newUser));
                 nav("/profile");
