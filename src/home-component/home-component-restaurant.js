@@ -11,6 +11,15 @@ import {
 import ReviewItem from "./recent-reviews/review-item";
 import "../utils/loading-spinner.css";
 
+const renderMenu = (text) => {
+    return text.split('\\n').map((line, index) => (
+        <li key={index} className="list-group-item">
+            {line}
+            <br />
+        </li>
+    ));
+};
+
 const HomeComponentRestaurant = () => {
     const { currentUser } = useSelector(state => state.users);
 
@@ -40,18 +49,26 @@ const HomeComponentRestaurant = () => {
                                     Welcome back {currentUser.firstName} {currentUser.lastName}!
                                 </Card.Title>
 
-                                {
-                                    (currentUser && currentUser.menu !== "")
-                                    ?
-                                    <Card.Text>
-                                        {currentUser.menu}
-                                    </Card.Text>
-                                    :
-                                    <Card.Text className="alert alert-danger text-danger mt-3"
-                                                role="alert">
-                                        Please add a menu!
-                                    </Card.Text>
-                                }
+                                <Card.Title className="mt-5">
+                                    Menu:
+                                </Card.Title>
+
+                                <div className="mt-2">
+                                    {
+                                        (currentUser && currentUser.menu !== "")
+                                        ?
+                                        <div>
+                                            <ul className="list-group">
+                                                {renderMenu(currentUser.menu)}
+                                            </ul>
+                                        </div>
+                                        :
+                                        <div className="alert alert-danger text-danger mt-3"
+                                                    role="alert">
+                                            Please add a menu!
+                                        </div>
+                                    }
+                                </div>
 
                             </Card.Body>
                         </Card>

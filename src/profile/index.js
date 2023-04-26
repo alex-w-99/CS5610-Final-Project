@@ -11,6 +11,15 @@ import { findFollowersThunk, findFollowingThunk } from "../services/follow-thunk
 import { listFollowing, listFollower } from "../utils/list-follow";
 import Reviews from './reviews'
 
+const renderMenu = (text) => {
+    return text.split('\\n').map((line, index) => (
+        <li key={index} className="list-group-item">
+            {line}
+            <br />
+        </li>
+    ));
+};
+
 // Profile page
 const Profile = () => {
     const {currentUser} = useSelector(state => state.users);
@@ -326,7 +335,9 @@ const Profile = () => {
                                                         Menu
                                                     </Card.Title>
                                                     <Card.Text className="profile-text text-muted">
-                                                        {currentUser.menu}
+                                                        <ul className="list-group">
+                                                            {renderMenu(currentUser.menu)}
+                                                        </ul>
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
