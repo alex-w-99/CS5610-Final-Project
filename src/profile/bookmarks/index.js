@@ -7,6 +7,7 @@ import { findAllRestaurantsThunk }
     from '../../services/site-db-restaurants/site-restaurants-thunks.js';
 import BookMarkItem from './bookmark-item.js'
 import "../../utils/loading-spinner.css";
+import {Card} from "react-bootstrap";
 
 const Bookmarks = () => {
   const location = useLocation();
@@ -47,13 +48,26 @@ const Bookmarks = () => {
               <div className="spinner">
               </div>
               :
-              bookmarksArray.map((ele) =>
-                                     <div key={ele.id}
-                                          onClick={() => navigate(`/details/${ele.id}`)}
-                                          className="profile-card mb-1 mt-1">
-                                         <BookMarkItem bookmark={ele}/>
-                                     </div>
-              )
+              <div className="mb-4">
+                  <Card className="profile-card">
+                      <Card.Body>
+                          <Card.Title>
+                              Bookmarks:
+                          </Card.Title>
+                          <ul className="list-group">
+                              {
+                                  bookmarksArray.map((ele) =>
+                                                         <li key={ele.id}
+                                                             onClick={() => navigate(`/details/${ele.id}`)}
+                                                             className="list-group-item">
+                                                             <BookMarkItem bookmark={ele}/>
+                                                         </li>
+                                  )
+                              }
+                          </ul>
+                      </Card.Body>
+                  </Card>
+              </div>
           }
       </>
   )

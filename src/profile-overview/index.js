@@ -285,13 +285,6 @@ const ProfileOverview = () => {
                                         <ListGroup.Item className="profile-nav-item text-center">
                                             <Link to={window.location.pathname}
                                                   style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Bookmarks
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={window.location.pathname}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
                                                 Reviews
                                             </Link>
                                         </ListGroup.Item>
