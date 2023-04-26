@@ -7,28 +7,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { findRestaurantThunk } from '../services/site-db-restaurants/site-restaurants-thunks';
 import "../utils/loading-spinner.css";
-import { updateUserThunk } from '../services/users-thunks.js';
-//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { Link } from 'react-router-dom';
-//import { findBusinessThunk } from '../services/yelp/business-thunks.js';
+import { updateUserThunk, findAllUsersThunk } from '../services/users-thunks.js';
+
 
 const DetailsComponent = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { businessId } = useParams();
-    const { currentUser } = useSelector(state => state.users);
-
+    const { currentUser, users } = useSelector(state => state.users);
     //console.log("INDEX: currentUser is now " + JSON.stringify(currentUser))
     const goBack = () => { navigate(-1); }
 
     useEffect(
         () => {
             dispatch(findRestaurantThunk({dispatch, businessId}));
-            },
-        []
-    );
-
+            dispatch(findAllUsersThunk());
+        }, []);
     let { restaurant, loading } = useSelector(state => state.siteRestaurant)
+
+    let businessAccount = null;
+    if (restaurant && users != []) {
+        businessAccount = users.find(u =>
+        u.userTypeField == restaurant.yelpId)
+    }
+
+
     let bookmarkBool = false;
     if (restaurant && currentUser) {
         bookmarkBool = (currentUser.bookmarks.filter(e => e == restaurant.yelpId)
@@ -206,6 +209,13 @@ const DetailsComponent = () => {
                             }
                         </div>
                     </div>
+                        { businessAccount &&
+                          <div className="fw-bold">
+                           <span> Want to learn more? Check out their </span>
+                           <span onClick={() => navigate(`/profile/${businessAccount._id}`)}
+                                 className="text-primary"> ChewsWisely Profile.</span>
+                          </div>
+                       }
                     { /* don't let businesses rate other businesses */
                         currentUser &&
                         mode !== "RESTAURANT" &&
