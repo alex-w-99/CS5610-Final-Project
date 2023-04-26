@@ -1,5 +1,7 @@
 import HomeComponent from "./home-component";
 import { useSelector } from 'react-redux';
+import CarouselImage from "../Components/carousel-image";
+import HomeComponentRestaurant from "./home-component-restaurant";
 
 /**
  * *******POST LOGIN*******
@@ -18,9 +20,23 @@ import { useSelector } from 'react-redux';
  *          * unsure however we can implement a design
  */
 function HomeScreen() {
-    return (
-       <HomeComponent/>
-    )
+    const { currentUser } = useSelector(state => state.users);
+
+    if (!currentUser) {
+        return(
+            <CarouselImage/>
+        );
+    }
+    else if (currentUser.userType === "RESTAURANT") {
+        return(
+            <HomeComponentRestaurant/>
+        );
+    }
+    else {  // i.e., CRITIC or PERSONAL user
+        return (
+            <HomeComponent/>
+        );
+    }
 }
 
 export default HomeScreen;

@@ -1,26 +1,27 @@
-import React, { useEffect } from 'react';
-import { Container, Row, Col, Image, Card, ListGroup } from 'react-bootstrap';
+import React, {useEffect} from 'react';
+import {Container, Row, Col, Image, Card, ListGroup} from 'react-bootstrap';
 import '../profile/Profile.css';
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useNavigate, useParams } from "react-router";
-import { findAllUsersThunk, findUserByIdThunk } from "../services/users-thunks";
+import {useDispatch, useSelector} from "react-redux";
+import {Link} from "react-router-dom";
+import {useNavigate, useParams} from "react-router";
+import {findAllUsersThunk, findUserByIdThunk} from "../services/users-thunks";
 import PageNotFound from "../page-not-found";
 import "../utils/loading-spinner.css";
-import { useState } from "react";
+import {useState} from "react";
 import {
-    findFollowersThunk, findFollowIdThunk, findFollowingThunk, followUserThunk, unfollowUserThunk }
+    findFollowersThunk, findFollowIdThunk, findFollowingThunk, followUserThunk, unfollowUserThunk
+}
     from "../services/follow-thunks";
-import { listFollowing, listFollower } from "../utils/list-follow";
+import {listFollowing, listFollower} from "../utils/list-follow";
 import {findFollowers} from "../services/follow-service";
 
 // Public profile page
 const ProfileOverview = () => {
-    const { uid } = useParams();
-    const { currentUser, publicProfile, users, loading } = useSelector((state) => state.users);
+    const {uid} = useParams();
+    const {currentUser, publicProfile, users, loading} = useSelector((state) => state.users);
     //const publicUser = users.find( (u) => u._id === uid );
-    const { following, followers } = useSelector((state) => state.follow);
-    const { followId } = useSelector((state) => state.follow);
+    const {following, followers} = useSelector((state) => state.follow);
+    const {followId} = useSelector((state) => state.follow);
 
     const [followsUser, setFollowsUser] = useState();
 
@@ -31,9 +32,8 @@ const ProfileOverview = () => {
     const followButtonHandler = async () => {
         if (!currentUser) {  // if not already logged in
             nav("/login");
-        }
-        else if (!followsUser) {  // can only follow if not currently following
-            await dispatch(followUserThunk( { followee: uid } ));
+        } else if (!followsUser) {  // can only follow if not currently following
+            await dispatch(followUserThunk({followee: uid}));
             await setFollowsUser(true);
         }
     }
@@ -48,18 +48,16 @@ const ProfileOverview = () => {
         () => {
             if (currentUser && currentUser._id === uid) {  // i.e., if viewing own profile
                 nav("/profile");
-            }
-            else if (currentUser === null) {  // i.e., if viewing public profile while not signed in
-                (async function() {
+            } else if (currentUser === null) {  // i.e., if viewing public profile while not signed in
+                (async function () {
                     await dispatch(findUserByIdThunk(uid))
                     await dispatch(findFollowersThunk(uid))
                     await dispatch(findFollowingThunk(uid))
                     await setFollowsUser(false)  // not logged in -> not following
                 })()
                 //dispatch(findAllUsersThunk())
-            }
-            else {  // i.e., if viewing public profile while signed in
-                (async function() {
+            } else {  // i.e., if viewing public profile while signed in
+                (async function () {
                     await dispatch(findUserByIdThunk(uid))
                     await dispatch(findFollowersThunk(uid))
                     await dispatch(findFollowingThunk(uid))
@@ -74,13 +72,19 @@ const ProfileOverview = () => {
 
     // Setting up for showing and hiding following/follower, bookmarks information:
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
-    const toggleShowFollowingInfo = () => { setShowFollowingInfo(prevValue => !prevValue); }
+    const toggleShowFollowingInfo = () => {
+        setShowFollowingInfo(prevValue => !prevValue);
+    }
     const [showFollowerInfo, setShowFollowerInfo] = useState(false);
-    const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
+    const toggleShowFollowerInfo = () => {
+        setShowFollowerInfo(prevValue => !prevValue);
+    }
     const [showBookMarks, setShowBookmarks] = useState(false);
-    const toggleBookmarksInfo = () => { setShowBookmarks(prevValue => !prevValue); }
+    const toggleBookmarksInfo = () => {
+        setShowBookmarks(prevValue => !prevValue);
+    }
 
-    return(
+    return (
         <div className="profile">
             <Container className="my-1">
 
@@ -97,7 +101,7 @@ const ProfileOverview = () => {
                     )
                     :
                     <div>
-                        { /* Banner */ }
+                        { /* Banner */}
                         {
                             publicProfile
                             &&
@@ -107,27 +111,28 @@ const ProfileOverview = () => {
                                 <Image
                                     src={`${publicProfile && publicProfile.bannerPicture}`}
                                     height="225px" width="100%"
-                                    style={ {
+                                    style={{
                                         borderRadius: "20px",
                                         objectFit: "cover",
                                         objectPosition: "center 10%"
-                                    } }
+                                    }}
+                                    className="img-fluid"
                                 />
                             </Row>
                         }
 
-                        { /* Rest of profile */ }
+                        { /* Rest of profile */}
                         <Row className="mx-auto"
-                             style={ {
+                             style={{
                                  width: "97.5%",
                                  marginTop: publicProfile.bannerPicture ? "-20px" : "0px"
-                             } }>
-                            { /* First column */ }
+                             }}>
+                            { /* First column */}
                             <Col md={3}>
                                 <Card className="profile-card">
                                     <Card.Body className="text-center">
 
-                                        { /* Public information */ }
+                                        { /* Public information */}
                                         <Image
                                             src={`${publicProfile && publicProfile.profilePicture}`}
                                             roundedCircle
@@ -143,7 +148,7 @@ const ProfileOverview = () => {
 
                                         <div className="text-muted profile-subtitle">
 
-                                            { /* Printing if userType is CRITIC or RESTAURANT */ }
+                                            { /* Printing if userType is CRITIC or RESTAURANT */}
                                             <div>
                                                 {
                                                     (publicProfile.userType && publicProfile.userType === "CRITIC")
@@ -187,9 +192,13 @@ const ProfileOverview = () => {
 
                                         </div>
 
-                                        <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                        <hr style={{
+                                            borderTop: '1px solid grey',
+                                            width: '80%',
+                                            margin: '0 auto'
+                                        }}/>
 
-                                        { /* Printing userTypeField */ }
+                                        { /* Printing userTypeField */}
                                         <div className="text-muted profile-subtitle mt-3">
                                             {
                                                 publicProfile
@@ -206,7 +215,8 @@ const ProfileOverview = () => {
                                                 publicProfile.userType === "CRITIC"
                                                 &&
                                                 <div>
-                                                    Specialty Cuisine: {publicProfile.userTypeField}
+                                                    Specialty
+                                                    Cuisine: {publicProfile.userTypeField}
                                                 </div>
                                             }
                                             {
@@ -219,19 +229,24 @@ const ProfileOverview = () => {
                                                         Restaurant ID:
                                                     </div>
 
-                                                    <Link to={`/details/${publicProfile.userTypeField}`}>
+                                                    <Link
+                                                        to={`/details/${publicProfile.userTypeField}`}>
                                                         {publicProfile.userTypeField}
                                                     </Link>
                                                 </div>
                                             }
                                         </div>
 
-                                        <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                        <hr style={{
+                                            borderTop: '1px solid grey',
+                                            width: '80%',
+                                            margin: '0 auto'
+                                        }}/>
 
                                         <div className="mt-3 mb-1">
 
-                                            { /* Following */ }
-                                            <div style={{ cursor: 'pointer', border: 'none' }}
+                                            { /* Following */}
+                                            <div style={{cursor: 'pointer', border: 'none'}}
                                                  onClick={toggleShowFollowingInfo}>
 
                                             <span className="fw-bold">
@@ -245,8 +260,8 @@ const ProfileOverview = () => {
                                                 </span>
                                             </div>
 
-                                            { /* Followers */ }
-                                            <div style={ { cursor: 'pointer', border: 'none' } }
+                                            { /* Followers */}
+                                            <div style={{cursor: 'pointer', border: 'none'}}
                                                  className="mt-1"
                                                  onClick={toggleShowFollowerInfo}>
 
@@ -261,21 +276,21 @@ const ProfileOverview = () => {
                                                 </span>
                                             </div>
 
-                                            { /* Follow/Unfollow button */ }
+                                            { /* Follow/Unfollow button */}
                                             {
                                                 followsUser
                                                 ?
                                                 <button type="button"
                                                         className="btn rounded-pill mt-2 btn-danger"
                                                         onClick={unfollowButtonHandler}
-                                                        style={ { width: "175px" } }>
+                                                        style={{width: "175px"}}>
                                                     Unfollow
                                                 </button>
                                                 :
                                                 <button type="button"
                                                         className="btn rounded-pill mt-2 btn-primary"
                                                         onClick={followButtonHandler}
-                                                        style={ { width: "175px" } }>
+                                                        style={{width: "175px"}}>
                                                     Follow
                                                 </button>
                                             }
@@ -284,13 +299,21 @@ const ProfileOverview = () => {
 
                                     </Card.Body>
 
-                                    <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                    <hr style={{
+                                        borderTop: '1px solid grey',
+                                        width: '80%',
+                                        margin: '0 auto'
+                                    }}/>
 
                                     <ListGroup variant="flush" className="mt-2">
 
-                                        <ListGroup.Item className="profile-nav-item text-center">
+                                        <ListGroup.Item
+                                            className="profile-nav-item text-center">
                                             <Link to={window.location.pathname}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
+                                                  style={{
+                                                      color: 'inherit',
+                                                      textDecoration: 'none'
+                                                  }}>
                                                 Reviews
                                             </Link>
                                         </ListGroup.Item>
@@ -299,99 +322,103 @@ const ProfileOverview = () => {
                                 </Card>
                             </Col>
 
-                            { /* Second column */ }
+                            { /* Second column */}
                             <Col md={9}>
                                 {
                                     !showFollowingInfo && !showFollowerInfo &&
                                     (
                                     publicProfile && publicProfile.userType === "RESTAURANT"
-                                        ?
-                                        <div>
-                                            { /* About Me card */}
-                                            <Card className="profile-card">
-                                                <Card.Body>
-                                                    <Card.Title>
-                                                        About
-                                                    </Card.Title>
-                                                    <Card.Text>
-                                                        {
-                                                            publicProfile && publicProfile.aboutMe
-                                                            ?
-                                                            <span>
+                                    ?
+                                    <div>
+                                        { /* About Me card */}
+                                        <Card className="profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    About
+                                                </Card.Title>
+                                                <Card.Text>
+                                                    {
+                                                        publicProfile && publicProfile.aboutMe
+                                                        ?
+                                                        <span>
                                                                 {publicProfile.aboutMe}
                                                             </span>
-                                                            :
-                                                            <span className="text-muted">
+                                                        :
+                                                        <span
+                                                            className="text-muted">
                                                                 This section is empty
                                                             </span>
-                                                        }
-                                                    </Card.Text>
+                                                    }
+                                                </Card.Text>
 
-                                                </Card.Body>
-                                            </Card>
+                                            </Card.Body>
+                                        </Card>
 
-                                            { /* Menu card */}
-                                            <Card className="mt-4 profile-card">
-                                                <Card.Body>
-                                                    <Card.Title className="profile-title">
-                                                        Menu
-                                                    </Card.Title>
-                                                    <Card.Text className="profile-text text-muted">
-                                                        {publicProfile.menu}
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
+                                        { /* Menu card */}
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title className="profile-title">
+                                                    Menu
+                                                </Card.Title>
+                                                <Card.Text
+                                                    className="profile-text text-muted">
+                                                    {publicProfile.menu}
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                                        </div>
-                                        :
-                                        <div>
-                                            { /* About Me card */ }
-                                            <Card className="profile-card">
-                                                <Card.Body>
-                                                    <Card.Title>
-                                                        About Me
-                                                    </Card.Title>
-                                                    <Card.Text>
-                                                        {
-                                                            publicProfile && publicProfile.aboutMe
-                                                            ?
-                                                            <span>
+                                    </div>
+                                    :
+                                    <div>
+                                        { /* About Me card */}
+                                        <Card className="profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    About Me
+                                                </Card.Title>
+                                                <Card.Text>
+                                                    {
+                                                        publicProfile && publicProfile.aboutMe
+                                                        ?
+                                                        <span>
                                                                 {publicProfile.aboutMe}
                                                             </span>
-                                                            :
-                                                            <span className="text-muted">
+                                                        :
+                                                        <span
+                                                            className="text-muted">
                                                                 This section is empty
                                                             </span>
-                                                        }
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
+                                                    }
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                                            { /* Recent Activity card */ }
-                                            <Card className="mt-4 profile-card">
-                                                <Card.Body>
-                                                    <Card.Title className="profile-title">
-                                                        Recent Activity
-                                                    </Card.Title>
-                                                    <Card.Text className="profile-text text-muted">
-                                                        No recent activity to show
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
+                                        { /* Recent Activity card */}
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title className="profile-title">
+                                                    Recent Activity
+                                                </Card.Title>
+                                                <Card.Text
+                                                    className="profile-text text-muted">
+                                                    No recent activity to show
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                                            { /* Photos card */ }
-                                            <Card className="mt-4 profile-card">
-                                                <Card.Body>
-                                                    <Card.Title>
-                                                        Photos
-                                                    </Card.Title>
-                                                    <Card.Text className="text-muted">
-                                                        No photos to show
-                                                    </Card.Text>
-                                                </Card.Body>
-                                            </Card>
+                                        { /* Photos card */}
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    Photos
+                                                </Card.Title>
+                                                <Card.Text className="text-muted">
+                                                    No photos to show
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
 
-                                        </div>
+                                    </div>
                                     )
                                 }
                                 {
@@ -399,7 +426,8 @@ const ProfileOverview = () => {
                                     (
                                         <div className="mb-4">
                                             <Card className="profile-card">
-                                                <div className="close-button" onClick={toggleShowFollowingInfo}>
+                                                <div className="close-button"
+                                                     onClick={toggleShowFollowingInfo}>
                                                     <i className="bi-x-lg"/>
                                                 </div>
                                                 <Card.Body>
@@ -415,7 +443,8 @@ const ProfileOverview = () => {
                                                                 following.filter(f => f.followee !== null)
                                                                     .map(
                                                                         (follow, index) => (
-                                                                            <div key={index}>
+                                                                            <div
+                                                                                key={index}>
                                                                                 {listFollower(follow)}
                                                                             </div>
                                                                         )
@@ -424,7 +453,8 @@ const ProfileOverview = () => {
                                                             :
                                                             (
                                                                 <li className="list-group-item">
-                                                                    Not following anyone yet!
+                                                                    Not following anyone
+                                                                    yet!
                                                                 </li>
                                                             )
                                                         }
@@ -439,7 +469,8 @@ const ProfileOverview = () => {
                                     (
                                         <div className="mb-4">
                                             <Card className="profile-card">
-                                                <div className="close-button" onClick={toggleShowFollowerInfo}>
+                                                <div className="close-button"
+                                                     onClick={toggleShowFollowerInfo}>
                                                     <i className="bi-x-lg"/>
                                                 </div>
                                                 <Card.Body>
@@ -455,7 +486,8 @@ const ProfileOverview = () => {
                                                                 followers.filter(f => f.follower !== null)
                                                                     .map(
                                                                         (follow, index) => (
-                                                                            <div key={index}>
+                                                                            <div
+                                                                                key={index}>
                                                                                 {listFollowing(follow)}
                                                                             </div>
                                                                         )
