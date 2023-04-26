@@ -15,12 +15,17 @@ const HomeComponent = () => {
 
     const businessesReady = () => {
         const activitiesArray = businesses
-            .slice(0, 10)
+            .slice(0, 12)
             .map((business) => ({
                 title: business.name,
                 description: business.categories && business.categories[0] && business.categories[0].title,
                 category: business.categories && business.categories[0] && business.categories[0].title,
                 imageUrl: business.image_url,
+                price: business.price,
+                review_count: business.review_count,
+                rating: business.rating,
+                distance: business.distance,
+                id: business.id
             }));
         setActivities(activitiesArray);
     }
@@ -31,7 +36,7 @@ const HomeComponent = () => {
             {activities.length > 0 && (
             <>
             {
-                status == 200 &&
+                status === 200 &&
                 <CategoryActivitiesSelection
                     activities={activities}
 

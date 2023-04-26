@@ -22,21 +22,18 @@ const Bookmarks = () => {
     for (const bookmark of currentUser.bookmarks) {
         restaurants.map(rest => {
             if (rest.yelpId == bookmark) {
-                if (!bookmarksArray.includes({
-                         id: bookmark,
-                         image: rest.image_url,
-                         name: rest.name
-                     }
-                )) {
+                if (bookmarksArray.findIndex(b =>
+                b.id == rest.yelpId
+                ) == -1) {
                 bookmarksArray.push({
                     id: bookmark,
                     image: rest.image_url,
                     name: rest.name
                 })
-              }
             }
-        })
-    }
+        }
+    })
+  }
   }
   return(
   <>

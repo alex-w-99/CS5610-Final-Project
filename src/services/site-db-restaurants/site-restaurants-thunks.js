@@ -9,7 +9,7 @@ export const findRestaurantThunk = createAsyncThunk(
   'restaurants/findRestaurants', async ({dispatch, businessId}) => {
     console.log("Find restaurant thunk was called with " + businessId);
     const restaurant =  await service.findSiteRestaurant(businessId);
-    if (JSON.stringify(restaurant) == '[]') {
+    if (JSON.stringify(restaurant) === '[]') {
       const create = true;
       dispatch(findBusinessThunk({ dispatch, businessId, create }));
     } else {

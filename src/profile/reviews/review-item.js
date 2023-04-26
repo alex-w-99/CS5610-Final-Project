@@ -18,11 +18,10 @@ const ReviewItem = ({
  }
  console.log("the nav link would be " + `details/${review.restaurantId}`)
  return(
-    <>
+    <div onClick={() => (navigate(`/details/${review.restaurantYelp}`))}>
         <div className="fw-bold"> {review.restaurantName} </div>
-         <div onClick={() => (navigate(`/details/${review.restaurantYelp}`))}>
-            "{print}"</div>
-    </>
+         <div> "{print}"</div>
+    </div>
  )
 }
 export default ReviewItem;

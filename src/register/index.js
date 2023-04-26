@@ -4,6 +4,8 @@ import "../profile/Profile.css";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerThunk } from "../services/users-thunks";
+import { findRestaurantThunk } from '../services/site-db-restaurants/site-restaurants-thunks';
+import {findBusinessThunk} from "../services/yelp/business-thunks";
 
 const Register = () => {
     const { currentUser } = useSelector((state) => state.users);
@@ -45,6 +47,33 @@ const Register = () => {
         }
         else {
             setError(null);
+
+            //let yelpId = "none"
+            //if (userType === "RESTAURANT") {  // if restaurant, see if userTypeField is valid yelpId
+            //    dispatch(findBusinessThunk(
+            //        {
+            //            dispatch,
+            //            businessId: userTypeField,
+            //            "create": false
+            //        }
+            //    ));
+
+            //    const { businesses } = useSelector(state => state.businesses);
+            //    console.log("BUSINESSES:");
+            //    console.log(businesses);
+
+
+
+            //    if (yelpId == []) {
+            //        setError("Please enter a valid Yelp ID.");
+            //        return;
+            //    }
+            //}
+
+            console.log(">info:")
+            console.log(userType)
+            console.log(userTypeField)
+
             const newUser = {
                 username,
                 firstName, lastName,
@@ -56,8 +85,11 @@ const Register = () => {
                 password,
                 phone,
                 "userType": userType,
-                userTypeField
+                "userTypeField": userTypeField
             }
+
+            //console.log("yelpId="+yelpId);
+
             dispatch(registerThunk(newUser));
             nav("/profile");
         }

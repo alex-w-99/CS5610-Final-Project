@@ -4,15 +4,15 @@ import Reviews from './reviews';
 import Rating from './ratings';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useParams, useNavigate } from 'react-router-dom';
-//import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { useEffect, useState } from 'react';
+import { findRestaurantThunk } from '../services/site-db-restaurants/site-restaurants-thunks';
+import "../utils/loading-spinner.css";
+//import { Link } from 'react-router-dom';
 //import { findBusinessThunk } from '../services/yelp/business-thunks.js';
-import { findRestaurantThunk }
-    from '../services/site-db-restaurants/site-restaurants-thunks';
 import { updateUserThunk }
     from '../services/users-thunks.js';
-import "../utils/loading-spinner.css";
 
 const DetailsComponent = () => {
   const navigate = useNavigate();
