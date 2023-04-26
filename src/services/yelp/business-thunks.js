@@ -19,6 +19,7 @@ export const findBusinessesThunk = createAsyncThunk(
         location = "Boston";
         if (longitude != null) {
             businesses = await service.getByCoordinates(query, longitude, latitude);
+            console.log(" RETURNING WITH COORDINATES: " + JSON.stringify(businesses));
             return businesses;
         } else {
              if (navigator.geolocation) {
@@ -37,6 +38,7 @@ export const findBusinessesThunk = createAsyncThunk(
         }
     }
     businesses = await service.getByLocation(query, location)
+    console.log(" RETURNING WITH LOCATION: " + JSON.stringify(businesses));
     return businesses;
 })
 

@@ -22,9 +22,9 @@ import HomeComponentRestaurant from "./home-component-restaurant";
 function HomeScreen() {
     const { currentUser } = useSelector(state => state.users);
 
-    if (!currentUser) {  // only show carousel image for loggout out user
+    if (!currentUser) {
         return(
-            <CarouselImage/>
+            <HomeComponent/>
         );
     }
     else if (currentUser.userType === "RESTAURANT") {
