@@ -67,7 +67,7 @@ function App() {
 
                             <Route
                                 index
-                                element={<LandingPage/>}
+                                element={<HomeScreen/>}
                             />
                             <Route
                                 path="/home"

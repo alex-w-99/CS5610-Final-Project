@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { findBusinessesThunk} from "../services/yelp/business-thunks";
 import CarouselImage from "../Components/carousel-image";
 import CategoryActivitiesSelection from "../Components/selection";
+import RecentReviews from './recent-reviews';
+import './index.css'
 
 
 const HomeComponent = () => {
     const dispatch = useDispatch();
+    const { currentUser } = useSelector(state => state.users)
     const { businesses, status } =  useSelector(state => state.businesses);
     const[activities, setActivities] = useState([]);
     useEffect(() => {
@@ -32,7 +35,32 @@ const HomeComponent = () => {
 
     return (
         <div>
+          {
+            currentUser &&
+            <>
+            {
+                currentUser.userType == "PERSONAL" ||
+                currentUser.userType == "CRITIC" &&
+                <h1 className="text-center display-4 py-4"> Welcome Back, {currentUser.firstName} </h1>
+            }
+          </>
+          }
             <CarouselImage />
+          {
+             currentUser &&
+             <>
+             {
+             currentUser.userType == "PERSONAL" ||
+             currentUser.userType == "CRITIC" &&
+            <div className="d-flex justify-content-center mt-4 mb-4">
+              <div className="cw-card mt-3">
+                    <div className="text-center cw-card-title display-4 mb-3"> Recent Reviews </div>
+                     <RecentReviews/>
+              </div>
+            </div>
+              }
+              </>
+          }
             {activities.length > 0 && (
             <>
             {

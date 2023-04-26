@@ -14,8 +14,7 @@ const SearchComponent = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(findBusinessesThunk({query, location}));
-        },
-              [query, location]);
+        }, [query, location]);
     const apostrophe = '\u0027';
 
     if (query === undefined && location === undefined) {

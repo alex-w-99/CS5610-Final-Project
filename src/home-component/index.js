@@ -1,4 +1,5 @@
 import HomeComponent from "./home-component";
+import { useSelector } from 'react-redux';
 
 /**
  * *******POST LOGIN*******
@@ -18,7 +19,6 @@ import HomeComponent from "./home-component";
  */
 function HomeScreen() {
     return (
-
        <HomeComponent/>
     )
 }
