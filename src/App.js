@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter, Navigate } from "react-router-dom";
-import { Routes, Route } from "react-router";
+import {BrowserRouter, Navigate} from "react-router-dom";
+import {Routes, Route} from "react-router";
 import NavigationBar from "./navigation-bar";
 import LandingPage from "./landing-page";
 import HomeScreen from "./home-component";
 import Profile from "./profile";
 import ProfileOverview from "./profile-overview";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
+import {Provider} from "react-redux";
+import {configureStore} from "@reduxjs/toolkit";
 import usersReducer from "./reducers/users-reducer";
 import EditProfile from "./edit-profile";
 import profileReducer from "./reducers/profile-reducer";
@@ -25,8 +25,8 @@ import ratingsReducer from "./reducers/ratings-reducer.js";
 import singleBusinessReducer from "./reducers/single-business-reducer.js"
 import businessReducer from "./reducers/business-reducer.js";
 import reviewsReducer from "./reducers/reviews-reducer.js";
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faStar } from '@fortawesome/free-solid-svg-icons';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 import CurrentUser from "./users/current-user";
 
@@ -66,6 +66,10 @@ function App() {
                         <Routes>
 
                             <Route
+                                path="/meetdevs"
+                                element={<LandingPage/>}
+                            />
+                            <Route
                                 index
                                 element={<HomeScreen/>}
                             />
@@ -89,29 +93,29 @@ function App() {
                                     <EditProfile/>
                                 }
                             />
-                             <Route 
-                                 path="/search/"
-                                 element={
-                                      <SearchComponent/>
-                                 }
-                             />
-                             <Route 
-                                 path="/search/:query"
+                            <Route
+                                path="/search/"
                                 element={
-                                     <SearchComponent/>
-                                 }
-                             />
-                            <Route 
-                                 path="/search/:query/:location"
-                                 element={
-                                      <SearchComponent/>
-                                 }
+                                    <SearchComponent/>
+                                }
                             />
                             <Route
-                                  path="/details/:businessId"
-                                  element={
-                                      <DetailsComponent/>
-                                  }
+                                path="/search/:query"
+                                element={
+                                    <SearchComponent/>
+                                }
+                            />
+                            <Route
+                                path="/search/:query/:location"
+                                element={
+                                    <SearchComponent/>
+                                }
+                            />
+                            <Route
+                                path="/details/:businessId"
+                                element={
+                                    <DetailsComponent/>
+                                }
                             />
                             <Route
                                 path="/login"
@@ -127,13 +131,13 @@ function App() {
                                 element={<About/>}
                             />
 
-                            { /* Route for all other non-defined routes */ }
+                            { /* Route for all other non-defined routes */}
                             <Route
                                 path="*"
                                 element={<Navigate to="/404"/>}
                             />
                             <Route path="/404"
-                                element={<PageNotFound/>}
+                                   element={<PageNotFound/>}
                             />
 
                         </Routes>

@@ -8,7 +8,7 @@ function LandingPage() {
 
     return (
         <>
-            <Container className="my-5">
+            <Container className="my-4">
                 <Card>
                     <Card.Img variant="top" src="../images/1Foxby.jpg"
                               style={{height: '500px', objectFit: 'cover'}}/>

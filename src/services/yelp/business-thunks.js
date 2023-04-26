@@ -10,15 +10,11 @@ var latitude = null;
 
 export const findBusinessesThunk = createAsyncThunk(
     'yelp/findBusinesses', async ({ query, location }) => {
-        console.log("IN FIND BUSINESSES THUNK???");
-    console.log("TIME TO FIND SOME BUSINESSES");
     var businesses;
     if (location == undefined) {
         if (query == undefined) {
-          console.log("Made it in here")
           return [];
         }
-        console.log("Made it out of here?");
         /* default location */
         location = "Boston";
         if (longitude != null) {
@@ -40,7 +36,6 @@ export const findBusinessesThunk = createAsyncThunk(
             }
         }
     }
-    console.log("Going to call get by location now");
     businesses = await service.getByLocation(query, location)
     return businesses;
 })
@@ -54,7 +49,6 @@ export const findBusinessThunk = createAsyncThunk(
      *  businessId: ID of target business
      */
     'yelp/findBusinesses', async ({ dispatch, businessId, create }) => {
-    console.log("Going to get business with id " + businessId);
     const response = await service.getById(businessId);
     if (create) {
       const business = JSON.parse(JSON.parse(JSON.stringify(response)));
