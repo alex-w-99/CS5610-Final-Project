@@ -7,13 +7,15 @@ const activeUser = {
     location: "Boston",
     profilePicture: "",
     bannerPicture: "",
-    aboutMe: "About me 123",
-    website: "www.bing.com",
+    aboutMe: "",
+    website: "",
     email: "student-123@northeastern.edu",
     password: "pw123",
-    phone: "12223334444",
+    phone: "",
+    bookmarks: [],
     userType: "PERSONAL",
-    userTypeField: ""
+    userTypeField: "",
+    menu: ""
 };
 
 const profileReducer = createSlice(
@@ -34,6 +36,8 @@ const profileReducer = createSlice(
                 const email = updatedProfile.email;
                 const phone = updatedProfile.phone;
                 const userTypeField = updatedProfile.userTypeField;
+                const menu = updatedProfile.menu;
+                const bookmarks = updatedProfile.bookmarks;
                 return {
                     ...state,
                     username,
@@ -44,7 +48,9 @@ const profileReducer = createSlice(
                     website,
                     email,
                     phone,
-                    userTypeField
+                    userTypeField,
+                    menu,
+                    bookmarks
                 }
             }
         },

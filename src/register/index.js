@@ -5,10 +5,11 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerThunk } from "../services/users-thunks";
 import { findRestaurantThunk } from '../services/site-db-restaurants/site-restaurants-thunks';
-import {findBusinessThunk} from "../services/yelp/business-thunks";
+import { findBusinessThunk } from "../services/yelp/business-thunks";
 
 const Register = () => {
-    const { currentUser } = useSelector((state) => state.users);
+    const { currentUser, users } = useSelector((state) => state.users);
+
     const [username, setUsername] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -28,72 +29,69 @@ const Register = () => {
     // Register button onClick handler:
     const dispatch = useDispatch();
     const nav = useNavigate();
-    const registerHandler = () => {
-        setError(null);
-        if (!username || !firstName || !lastName || !email || !password || !confirmPassword) {
-            setError("Username, first name, last name, email, password, and confirm password are all required.");
-        }
-        else if (password !== confirmPassword) {
-            setError("Password and confirm password do not match.");
-        }
-        else if (phone.length !== 10 && phone !== "") {
-            setError("Phone number must be 10 digits.");
-        }
-        else if (userType === "") {
-            setError("Please select a valid user type: PERSONAL, CRITIC, or RESTAURANT.");
-        }
-        else if (userTypeField === "") {
-            setError("User Type Field cannot be blank.");
-        }
-        else {
+    const registerHandler = async () => {
+        try {  // throw new Error if a bad restaurantId (Yelp ID) is requested
             setError(null);
-
-            //let yelpId = "none"
-            //if (userType === "RESTAURANT") {  // if restaurant, see if userTypeField is valid yelpId
-            //    dispatch(findBusinessThunk(
-            //        {
-            //            dispatch,
-            //            businessId: userTypeField,
-            //            "create": false
-            //        }
-            //    ));
-
-            //    const { businesses } = useSelector(state => state.businesses);
-            //    console.log("BUSINESSES:");
-            //    console.log(businesses);
-
-
-
-            //    if (yelpId == []) {
-            //        setError("Please enter a valid Yelp ID.");
-            //        return;
-            //    }
-            //}
-
-            console.log(">info:")
-            console.log(userType)
-            console.log(userTypeField)
-
-            const newUser = {
-                username,
-                firstName, lastName,
-                location,
-                profilePicture, bannerPicture,
-                aboutMe,
-                website,
-                email,
-                password,
-                phone,
-                "userType": userType,
-                "userTypeField": userTypeField
+            if (!username || !firstName || !lastName || !email || !password || !confirmPassword) {
+                setError(
+                    "Username, first name, last name, email, password, and confirm password are all required.");
             }
-
-            //console.log("yelpId="+yelpId);
-
-            dispatch(registerThunk(newUser));
-            nav("/profile");
+            else if (password !== confirmPassword) {
+                setError("Password and confirm password do not match.");
+            }
+            else if (phone !== "" && phone.length < 10) {  // phone.length !== 10
+                setError("Phone number must be between 10 and 15 digits.");
+            }
+            else if (userType === "") {
+                setError("Please select a valid user type: PERSONAL, CRITIC, or RESTAURANT.");
+            }
+            else if (userTypeField === "") {
+                setError("User Type Field cannot be blank.");
+            }
+            else {  // create newUser
+                if (userType === "RESTAURANT") {  // validate userTypeField if RESTAURANT
+                    // 1. See if userTypeField is already assigned to another user:
+                    const restaurantWithSameBusinessId = users.find(
+                        (u) => (u.userType === "RESTAURANT" && u.userTypeField === userTypeField)
+                    );
+                    if (restaurantWithSameBusinessId === undefined) {
+                        setError("Restaurant ID entered has already been claimed by another user.");
+                        return;
+                    }
+                    // 2. See if userTypeField is valid yelpId:
+                    await dispatch(
+                        findBusinessThunk({dispatch, businessId: userTypeField, create: false}))
+                        .then(
+                            (result) => {
+                                if (result.type !== "yelp/findBusinesses/fulfilled") {
+                                    throw new Error("Could not confirm validity of restaurantId.");
+                                }
+                            }
+                        );
+                }
+                const newUser = {
+                    username,
+                    firstName, lastName,
+                    location,
+                    profilePicture, bannerPicture,
+                    aboutMe,
+                    website,
+                    email,
+                    password,
+                    phone,
+                    "userType": userType,
+                    "userTypeField": userTypeField,
+                    "bookmarks": []
+                }
+                dispatch(registerThunk(newUser));
+                nav("/profile");
+            }
         }
-    };
+        catch (error) {
+            setError("Bad restaurantId/userTypeField; " + error)
+            return;
+        }
+    }
 
     // DETERMINING RETURN VALUE:
     if (currentUser) {  // i.e., if already logged in

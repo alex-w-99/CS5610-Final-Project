@@ -72,11 +72,13 @@ const ProfileOverview = () => {
         [dispatch, currentUser, nav, uid, followsUser, followId]
     );
 
-    // Setting up for showing and hiding following/follower information:
+    // Setting up for showing and hiding following/follower, bookmarks information:
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
     const toggleShowFollowingInfo = () => { setShowFollowingInfo(prevValue => !prevValue); }
     const [showFollowerInfo, setShowFollowerInfo] = useState(false);
     const toggleShowFollowerInfo = () => { setShowFollowerInfo(prevValue => !prevValue); }
+    const [showBookMarks, setShowBookmarks] = useState(false);
+    const toggleBookmarksInfo = () => { setShowBookmarks(prevValue => !prevValue); }
 
     return(
         <div className="profile">
@@ -130,7 +132,7 @@ const ProfileOverview = () => {
                                             src={`${publicProfile && publicProfile.profilePicture}`}
                                             roundedCircle
                                             height="150px" width="150px"
-                                            className="mb-3"
+                                            className="mx-auto mb-3"
                                         />
 
                                         <Card.Title className="profile-title">
@@ -283,13 +285,6 @@ const ProfileOverview = () => {
                                         <ListGroup.Item className="profile-nav-item text-center">
                                             <Link to={window.location.pathname}
                                                   style={ { color: 'inherit', textDecoration: 'none' } }>
-                                                Bookmarks
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                        <ListGroup.Item className="profile-nav-item text-center">
-                                            <Link to={window.location.pathname}
-                                                  style={ { color: 'inherit', textDecoration: 'none' } }>
                                                 Reviews
                                             </Link>
                                         </ListGroup.Item>
@@ -303,6 +298,46 @@ const ProfileOverview = () => {
                                 {
                                     !showFollowingInfo && !showFollowerInfo &&
                                     (
+                                        currentUser && currentUser.userType === "RESTAURANT"
+                                        ?
+                                        <div>
+                                            { /* About Me card */}
+                                            <Card className="profile-card">
+                                                <Card.Body>
+                                                    <Card.Title>
+                                                        About
+                                                    </Card.Title>
+                                                    <Card.Text>
+                                                        {
+                                                            currentUser && currentUser.aboutMe
+                                                            ?
+                                                            <span>
+                                                            {currentUser.aboutMe}
+                                                        </span>
+                                                            :
+                                                            <span className="text-muted">
+                                                                    This section is empty
+                                                                </span>
+                                                        }
+                                                    </Card.Text>
+
+                                                </Card.Body>
+                                            </Card>
+
+                                            { /* Menu card */}
+                                            <Card className="mt-4 profile-card">
+                                                <Card.Body>
+                                                    <Card.Title className="profile-title">
+                                                        Menu
+                                                    </Card.Title>
+                                                    <Card.Text className="profile-text text-muted">
+                                                        {currentUser.menu}
+                                                    </Card.Text>
+                                                </Card.Body>
+                                            </Card>
+
+                                        </div>
+                                        :
                                         <div>
                                             { /* About Me card */ }
                                             <Card className="profile-card">
@@ -349,6 +384,7 @@ const ProfileOverview = () => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
+
                                         </div>
                                     )
                                 }

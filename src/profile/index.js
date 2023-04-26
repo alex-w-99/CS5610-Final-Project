@@ -27,7 +27,7 @@ const Profile = () => {
         [dispatch, currentUser]
     );
 
-    // Setting up for showing and hiding following/follower information:
+    // Setting up for showing and hiding following/follower, bookmarks information:
     const [showBookMarks, setShowBookmarks] = useState(false);
     const [showFollowingInfo, setShowFollowingInfo] = useState(false);
     const toggleShowFollowingInfo = () => {
@@ -83,7 +83,7 @@ const Profile = () => {
                                         src={`${currentUser && currentUser.profilePicture}`}
                                         roundedCircle
                                         height="150px" width="150px"
-                                        className="mb-3"
+                                        className="mx-auto mb-3"
                                     />
 
                                     <Card.Title className="profile-title">
@@ -305,8 +305,8 @@ const Profile = () => {
                                                         </span>
                                                                 :
                                                                 <span className="text-muted">
-                                                            This section is empty
-                                                        </span>
+                                                                    This section is empty
+                                                                </span>
                                                         }
                                                     </Card.Text>
 
@@ -324,6 +324,7 @@ const Profile = () => {
                                                     </Card.Text>
                                                 </Card.Body>
                                             </Card>
+
                                         </div>
                                         :
                                         <div>
