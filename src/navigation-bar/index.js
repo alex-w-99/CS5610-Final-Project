@@ -96,23 +96,20 @@ const NavigationBar = () => {
                             </>
                         )}
 
-                        <li className="nav-item col-lg">
-                            <button className="btn btn-dark btn-sm mt-1" type="submit">
-                                Write a Review
-                            </button>
-                        </li>
                     </ul>
                 </div>
 
                 {/* Mobile View */}
                 <div className="container-fluid d-lg-none">
-                    <ul className="navbar-nav ms-auto justify-content-between w-100">
-                        <li className="nav-item col-12 mt-2">
-                            <button className="btn btn-dark btn-sm w-100" type="submit">
-                                Write a Review
-                            </button>
-                        </li>
-                    </ul>
+                    <Link className="nav-link" to="/search/food">
+                        <ul className="navbar-nav ms-auto justify-content-between w-100">
+                            <li className="nav-item col-12 mt-2">
+                                <button className="btn btn-dark btn-sm w-100" type="submit">
+                                    Write a Review
+                                </button>
+                            </li>
+                        </ul>
+                    </Link>
                 </div>
             </div>
         </nav>
