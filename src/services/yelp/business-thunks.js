@@ -11,6 +11,7 @@ var latitude = null;
 export const findBusinessesThunk = createAsyncThunk(
     'yelp/findBusinesses', async ({ query, location }) => {
         console.log("IN FIND BUSINESSES THUNK???");
+        console.log("location is " + location);
     console.log("TIME TO FIND SOME BUSINESSES");
     var businesses;
     if (location == undefined) {

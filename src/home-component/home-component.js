@@ -11,16 +11,17 @@ const HomeComponent = () => {
     const dispatch = useDispatch();
     const { currentUser } = useSelector(state => state.users)
     const { businesses, status } =  useSelector(state => state.businesses);
-    const[activities, setActivities] = useState([]);
+    let activities = [];
     useEffect(() => {
-        dispatch(findBusinessesThunk({ query: "restaurants"})).then(() => businessesReady());
+        dispatch(findBusinessesThunk({ query: "restaurants"}));
     }, []);
     let criticPersonal = false;
     if (currentUser) {
         criticPersonal = ((currentUser.userType == "PERSONAL") ||
                                          (currentUser.userType == "CRITIC"))
     }
-    const businessesReady = () => {
+    if (businesses != '[]') {
+        console.log("In businesses ready, businesses are " + JSON.stringify(businesses));
         const activitiesArray = businesses
             .slice(0, 12)
             .map((business) => ({
@@ -34,7 +35,7 @@ const HomeComponent = () => {
                 distance: business.distance,
                 id: business.id
             }));
-        setActivities(activitiesArray);
+        activities = activitiesArray;
     }
 
     return (
