@@ -17,7 +17,7 @@ const NavigationBar = () => {
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
                 <div className="d-flex align-items-center">
-                    <Link to="/" className="navbar-brand">
+                    <Link to="/meetdevs" className="navbar-brand">
                         <img
                             src="/images/chews-wisely.png"
                             width="50"
