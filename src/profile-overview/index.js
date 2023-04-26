@@ -215,7 +215,13 @@ const ProfileOverview = () => {
                                                 publicProfile.userType === "RESTAURANT"
                                                 &&
                                                 <div>
-                                                    {publicProfile.userTypeField}
+                                                    <div>
+                                                        Restaurant ID:
+                                                    </div>
+
+                                                    <Link to={`/details/${publicProfile.userTypeField}`}>
+                                                        {publicProfile.userTypeField}
+                                                    </Link>
                                                 </div>
                                             }
                                         </div>
