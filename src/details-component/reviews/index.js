@@ -54,6 +54,7 @@ const Reviews = () => {
    <>
      { /* businesses cannot review each other */
         mode !== "RESTAURANT" &&
+        currentUser &&
         <form onSubmit={(event) => handleSubmit(event)}>
            <div>
             <textarea placeholder={reviewString}

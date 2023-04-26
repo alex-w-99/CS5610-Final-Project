@@ -158,7 +158,8 @@ const DetailsComponent = () => {
                         <div className="fw-bolder" id="restaurant-name">
                             {restaurant.name}
                         </div>
-
+                    <>
+                    { currentUser &&
                         <div className="mt-2 mb-2">
                             {
                                 !bookmarked &&
@@ -177,6 +178,8 @@ const DetailsComponent = () => {
                                 </button>
                             }
                         </div>
+                      }
+                      </>
                         {/*
                   RATINGS
                   */}
@@ -204,6 +207,7 @@ const DetailsComponent = () => {
                         </div>
                     </div>
                     { /* don't let businesses rate other businesses */
+                        currentUser &&
                         mode !== "RESTAURANT" &&
                         <Rating/>
                     }
