@@ -21,7 +21,6 @@ const HomeComponent = () => {
                                          (currentUser.userType == "CRITIC"))
     }
     if (businesses != '[]') {
-        console.log("In businesses ready, businesses are " + JSON.stringify(businesses));
         const activitiesArray = businesses
             .slice(0, 12)
             .map((business) => ({
