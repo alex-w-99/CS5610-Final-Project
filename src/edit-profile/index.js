@@ -1,14 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router";
-import React, { useState } from "react";
-import { deleteUserThunk, logoutThunk, updateUserThunk } from "../services/users-thunks";
-import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router";
+import React, {useState} from "react";
+import {deleteUserThunk, logoutThunk, updateUserThunk} from "../services/users-thunks";
+import {Card, Col, Container, Image, ListGroup, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
 import formatPhoneNumber from "../utils/format-phone-number";
 
 const EditProfile = () => {
-    const { currentUser } = useSelector(state => state.users);
-    const { following, followers } = useSelector(state => state.follow);
+    const {currentUser} = useSelector(state => state.users);
+    const {following, followers} = useSelector(state => state.follow);
 
     const dispatch = useDispatch();
     const nav = useNavigate();
@@ -25,17 +25,39 @@ const EditProfile = () => {
     const [userTypeField, setUserTypeField] = useState(currentUser.userTypeField);
     const [menu, setMenu] = useState(currentUser.menu);
 
-    const changeFirstName = (event) => { setFirstName(event.target.value); }
-    const changeLastName = (event) => { setLastName(event.target.value); }
-    const changeLocation = (event) => { setLocation(event.target.value); }
-    const changeEmail = (event) => { setEmail(event.target.value); }
-    const changePhone = (event) => { setPhone(event.target.value); }
-    const changeWebsite = (event) => { setWebsite(event.target.value); }
-    const changeProfilePicture = (event) => { setProfilePicture(event.target.value); }
-    const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
-    const changeAboutMe = (event) => { setAboutMe(event.target.value); }
-    const changeUserTypeField = (event) => { setUserTypeField(event.target.value); }
-    const changeMenu = (event) => { setMenu(event.target.value); }
+    const changeFirstName = (event) => {
+        setFirstName(event.target.value);
+    }
+    const changeLastName = (event) => {
+        setLastName(event.target.value);
+    }
+    const changeLocation = (event) => {
+        setLocation(event.target.value);
+    }
+    const changeEmail = (event) => {
+        setEmail(event.target.value);
+    }
+    const changePhone = (event) => {
+        setPhone(event.target.value);
+    }
+    const changeWebsite = (event) => {
+        setWebsite(event.target.value);
+    }
+    const changeProfilePicture = (event) => {
+        setProfilePicture(event.target.value);
+    }
+    const changeBannerPicture = (event) => {
+        setBannerPicture(event.target.value);
+    }
+    const changeAboutMe = (event) => {
+        setAboutMe(event.target.value);
+    }
+    const changeUserTypeField = (event) => {
+        setUserTypeField(event.target.value);
+    }
+    const changeMenu = (event) => {
+        setMenu(event.target.value);
+    }
 
     const [error, setError] = useState("");
 
@@ -44,8 +66,7 @@ const EditProfile = () => {
         setError(null);
         if (firstName === "" || lastName === "" || email === "" || userTypeField === "") {
             setError("First name, last name, email, and user type field cannot be empty.");
-        }
-        else {
+        } else {
             const updatedUser = {
                 ...currentUser,
                 firstName,
@@ -80,11 +101,11 @@ const EditProfile = () => {
         nav("/profile")
     }
 
-    return(
+    return (
         <div className="profile">
             <Container className="my-2">
 
-                { /* Banner */ }
+                { /* Banner */}
                 {
                     currentUser
                     &&
@@ -94,22 +115,22 @@ const EditProfile = () => {
                         <Image
                             src={`${currentUser && currentUser.bannerPicture}`}
                             height="225px" width="100%"
-                            style={ {
+                            style={{
                                 borderRadius: "20px",
                                 objectFit: "cover",
                                 objectPosition: "center 10%"
-                            } }
+                            }}
                         />
                     </Row>
                 }
 
-                { /* Rest of profile */ }
+                { /* Rest of profile */}
                 <Row className="mx-auto"
-                     style={ {
+                     style={{
                          width: "97.5%",
                          marginTop: currentUser.bannerPicture ? "-20px" : "0px"
-                     } }>
-                    { /* First column */ }
+                     }}>
+                    { /* First column */}
                     <Col md={3}>
                         <Card className="profile-card">
                             <Card.Body className="text-center">
@@ -129,37 +150,37 @@ const EditProfile = () => {
 
                                 <div className="text-muted profile-subtitle">
 
-                                    { /* Printing if userType is CRITIC or RESTAURANT */ }
+                                    { /* Printing if userType is CRITIC or RESTAURANT */}
                                     <div>
                                         {
                                             (currentUser.userType && currentUser.userType === "CRITIC")
-                                            ?
-                                            <div className="text-primary mb-1"
-                                                 title="This user is a trusted Chews Wisely Critic.">
-                                                {
-                                                    currentUser.userType.charAt(0).toUpperCase()
-                                                    +
-                                                    currentUser.userType.toLowerCase().slice(1)
-                                                }
-                                                &nbsp;
-                                                <i className="bi bi-patch-check-fill"/>
-                                            </div>
-                                            :
-                                            <></>
+                                                ?
+                                                <div className="text-primary mb-1"
+                                                     title="This user is a trusted Chews Wisely Critic.">
+                                                    {
+                                                        currentUser.userType.charAt(0).toUpperCase()
+                                                        +
+                                                        currentUser.userType.toLowerCase().slice(1)
+                                                    }
+                                                    &nbsp;
+                                                    <i className="bi bi-patch-check-fill"/>
+                                                </div>
+                                                :
+                                                <></>
                                         }
 
                                         {
                                             (currentUser.userType && currentUser.userType === "RESTAURANT")
-                                            ?
-                                            <div className="text-primary mb-1">
-                                                {
-                                                    currentUser.userType.charAt(0).toUpperCase()
-                                                    +
-                                                    currentUser.userType.toLowerCase().slice(1)
-                                                }
-                                            </div>
-                                            :
-                                            <></>
+                                                ?
+                                                <div className="text-primary mb-1">
+                                                    {
+                                                        currentUser.userType.charAt(0).toUpperCase()
+                                                        +
+                                                        currentUser.userType.toLowerCase().slice(1)
+                                                    }
+                                                </div>
+                                                :
+                                                <></>
                                         }
                                     </div>
 
@@ -173,9 +194,13 @@ const EditProfile = () => {
 
                                 </div>
 
-                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                <hr style={{
+                                    borderTop: '1px solid grey',
+                                    width: '80%',
+                                    margin: '0 auto'
+                                }}/>
 
-                                { /* Printing userTypeField */ }
+                                { /* Printing userTypeField */}
                                 <div className="text-muted profile-subtitle mt-3">
                                     {
                                         currentUser
@@ -212,13 +237,17 @@ const EditProfile = () => {
                                     }
                                 </div>
 
-                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                <hr style={{
+                                    borderTop: '1px solid grey',
+                                    width: '80%',
+                                    margin: '0 auto'
+                                }}/>
 
                                 <div className="mt-3 mb-3">
 
-                                    { /* Following */ }
+                                    { /* Following */}
                                     <div onClick={handleEditPageFollowClick}
-                                         style={{ cursor: 'pointer', border: 'none' }}>
+                                         style={{cursor: 'pointer', border: 'none'}}>
                                             <span className="fw-bold">
                                                 {
                                                     following && following.length
@@ -230,9 +259,9 @@ const EditProfile = () => {
                                             </span>
                                     </div>
 
-                                    { /* Followers */ }
+                                    { /* Followers */}
                                     <div onClick={handleEditPageFollowClick}
-                                        style={ { cursor: 'pointer', border: 'none' } }
+                                         style={{cursor: 'pointer', border: 'none'}}
                                          className="mt-1">
                                             <span className="fw-bold">
                                                 {
@@ -247,10 +276,14 @@ const EditProfile = () => {
 
                                 </div>
 
-                                <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                                <hr style={{
+                                    borderTop: '1px solid grey',
+                                    width: '80%',
+                                    margin: '0 auto'
+                                }}/>
 
                                 <div className="mt-3 mb-1 text-muted"
-                                     style={ { fontSize: "0.925rem" } }>
+                                     style={{fontSize: "0.925rem"}}>
 
                                     <div>
                                         {currentUser && currentUser.email}
@@ -274,20 +307,24 @@ const EditProfile = () => {
 
                             </Card.Body>
 
-                            <hr style={ { borderTop: '1px solid grey', width: '80%', margin: '0 auto' } } />
+                            <hr style={{
+                                borderTop: '1px solid grey',
+                                width: '80%',
+                                margin: '0 auto'
+                            }}/>
 
                             <ListGroup variant="flush" className="mt-2">
 
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
-                                          style={ { color: 'inherit', textDecoration: 'none' } }>
+                                          style={{color: 'inherit', textDecoration: 'none'}}>
                                         Bookmarks
                                     </Link>
                                 </ListGroup.Item>
 
                                 <ListGroup.Item className="profile-nav-item text-center">
                                     <Link to={"/profile/#"}
-                                          style={ { color: 'inherit', textDecoration: 'none' } }>
+                                          style={{color: 'inherit', textDecoration: 'none'}}>
                                         Reviews
                                     </Link>
                                 </ListGroup.Item>
@@ -296,21 +333,21 @@ const EditProfile = () => {
                         </Card>
                     </Col>
 
-                    { /* Second column */ }
+                    { /* Second column */}
                     <Col md={9}>
 
-                        { /* Save and cancel buttons */ }
+                        { /* Save and cancel buttons */}
                         <div className={'text-center row'}>
 
-                            <div className="col-2">
+                            <div className="col-sm-2 mb-3 mb-sm-0">
                                 <Link to="/profile">
-                                    <button className={'btn btn-dark rounded-pill w-100'}>
+                                    <button className={'btn btn-dark rounded-pill  text-wrap'}>
                                         Cancel
                                     </button>
                                 </Link>
                             </div>
 
-                            <div className="col-2">
+                            <div className="col-sm-2 mb-3 mb-sm-0">
                                 <button className={'btn btn-primary rounded-pill w-100'}
                                         onClick={saveUpdateHandler}>
                                     Save
@@ -326,7 +363,7 @@ const EditProfile = () => {
 
                         </div>
 
-                        { /* Printing error upon error */ }
+                        { /* Printing error upon error */}
                         <div>
                             {
                                 error
@@ -340,7 +377,7 @@ const EditProfile = () => {
                             }
                         </div>
 
-                        { /* Edit profile text entry */ }
+                        { /* Edit profile text entry */}
                         <Card className="profile-card my-4">
                             <Card.Body>
 
@@ -348,7 +385,7 @@ const EditProfile = () => {
                                     Edit Profile:
                                 </Card.Title>
 
-                                { /* Edit firstName */ }
+                                { /* Edit firstName */}
                                 <form className="form-floating mt-4">
                                     <input id="firstName"
                                            type="text"
@@ -362,7 +399,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit lastName */ }
+                                { /* Edit lastName */}
                                 <form className="form-floating mt-4">
                                     <input id="lastName"
                                            type="text"
@@ -376,7 +413,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit location */ }
+                                { /* Edit location */}
                                 <form className="form-floating mt-4">
                                     <input id="location"
                                            type="text"
@@ -390,7 +427,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit email */ }
+                                { /* Edit email */}
                                 <form className="form-floating mt-4">
                                     <input id="email"
                                            type="text"
@@ -404,7 +441,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit phone */ }
+                                { /* Edit phone */}
                                 <form className="form-floating mt-4">
                                     <input id="phone"
                                            type="text"
@@ -418,7 +455,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit website */ }
+                                { /* Edit website */}
                                 <form className="form-floating mt-4">
                                     <input id="website"
                                            type="text"
@@ -432,7 +469,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit profilePicture URL */ }
+                                { /* Edit profilePicture URL */}
                                 <form className="form-floating mt-4">
                                     <input id="profilePicture"
                                            type="text"
@@ -446,7 +483,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit bannerPicture URL */ }
+                                { /* Edit bannerPicture URL */}
                                 <form className="form-floating mt-4">
                                     <input id="bannerPicture"
                                            type="text"
@@ -460,7 +497,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit aboutMe */ }
+                                { /* Edit aboutMe */}
                                 <form className="form-floating mt-4">
                                     <input id="aboutMe"
                                            type="text"
@@ -474,7 +511,7 @@ const EditProfile = () => {
                                     </label>
                                 </form>
 
-                                { /* Edit userTypeField */ }
+                                { /* Edit userTypeField */}
                                 <form className="form-floating mt-4">
                                     <input id="userTypeField"
                                            type="text"
@@ -511,24 +548,24 @@ const EditProfile = () => {
                                     }
                                 </form>
 
-                                { /* Edit menu (if restaurant) */ }
+                                { /* Edit menu (if restaurant) */}
                                 {
                                     currentUser && currentUser.userType === "RESTAURANT"
-                                    ?
-                                    <form className="form-floating mt-4">
-                                        <input id="menu"
-                                               type="text"
-                                               className="form-control"
-                                               placeholder="Enter menu"
-                                               value={menu}
-                                               onChange={changeMenu}
-                                        />
-                                        <label className="text-secondary" htmlFor="menu">
-                                            Menu
-                                        </label>
-                                    </form>
-                                    :
-                                    <></>
+                                        ?
+                                        <form className="form-floating mt-4">
+                                            <input id="menu"
+                                                   type="text"
+                                                   className="form-control"
+                                                   placeholder="Enter menu"
+                                                   value={menu}
+                                                   onChange={changeMenu}
+                                            />
+                                            <label className="text-secondary" htmlFor="menu">
+                                                Menu
+                                            </label>
+                                        </form>
+                                        :
+                                        <></>
                                 }
 
                             </Card.Body>

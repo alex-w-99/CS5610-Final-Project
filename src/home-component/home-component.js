@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { findBusinessesThunk} from "../services/yelp/business-thunks";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {findBusinessesThunk} from "../services/yelp/business-thunks";
 import CarouselImage from "../Components/carousel-image";
 import CategoryActivitiesSelection from "../Components/selection";
 import RecentReviews from './recent-reviews';
@@ -18,7 +18,7 @@ const HomeComponent = () => {
     let criticPersonal = false;
     if (currentUser) {
         criticPersonal = ((currentUser.userType == "PERSONAL") ||
-                                         (currentUser.userType == "CRITIC"))
+            (currentUser.userType == "CRITIC"))
     }
     if (businesses != '[]') {
         const activitiesArray = businesses
@@ -38,41 +38,44 @@ const HomeComponent = () => {
     }
 
     return (
-        <div>
-          {
-            currentUser &&
-            <>
+        <div className="my-4">
             {
-                criticPersonal &&
-                <h1 className="text-center display-4 py-4"> Welcome Back, {currentUser.firstName} </h1>
+                currentUser &&
+                <>
+                    {
+                        criticPersonal &&
+                        <h1 className="text-center display-4 py-4"> Welcome
+                            Back, {currentUser.firstName} </h1>
+                    }
+                </>
             }
-          </>
-          }
-            <CarouselImage />
-          {
-             currentUser &&
-             <>
-             {
-             criticPersonal &&
-            <div className="d-flex justify-content-center mt-4 mb-4">
-              <div className="cw-card mt-3">
-                    <div className="text-center cw-card-title display-4 mb-3"> Recent Reviews </div>
-                     <RecentReviews/>
-              </div>
-            </div>
-              }
-              </>
-          }
+            <CarouselImage/>
+            {
+                currentUser &&
+                <>
+                    {
+                        criticPersonal &&
+                        <div className="d-flex justify-content-center mt-4 mb-4">
+                            <div className="cw-card mt-3">
+                                <div className="text-center cw-card-title display-4 mb-3"> Recent
+                                    Reviews
+                                </div>
+                                <RecentReviews/>
+                            </div>
+                        </div>
+                    }
+                </>
+            }
             {activities.length > 0 && (
-            <>
-            {
-                status === 200 &&
-                <CategoryActivitiesSelection
-                    activities={activities}
+                <>
+                    {
+                        status === 200 &&
+                        <CategoryActivitiesSelection
+                            activities={activities}
 
-                />
-            }
-            </>
+                        />
+                    }
+                </>
             )}
         </div>
     );
