@@ -23,6 +23,7 @@ const EditProfile = () => {
     const [bannerPicture, setBannerPicture] = useState(currentUser.bannerPicture);
     const [aboutMe, setAboutMe] = useState(currentUser.aboutMe);
     const [userTypeField, setUserTypeField] = useState(currentUser.userTypeField);
+    const [menu, setMenu] = useState(currentUser.menu);
 
     const changeFirstName = (event) => { setFirstName(event.target.value); }
     const changeLastName = (event) => { setLastName(event.target.value); }
@@ -34,6 +35,7 @@ const EditProfile = () => {
     const changeBannerPicture = (event) => { setBannerPicture(event.target.value); }
     const changeAboutMe = (event) => { setAboutMe(event.target.value); }
     const changeUserTypeField = (event) => { setUserTypeField(event.target.value); }
+    const changeMenu = (event) => { setMenu(event.target.value); }
 
     const [error, setError] = useState("");
 
@@ -55,7 +57,8 @@ const EditProfile = () => {
                 bannerPicture,
                 aboutMe,
                 phone,
-                userTypeField
+                userTypeField,
+                menu
             }
             dispatch(updateUserThunk(updatedUser));
             nav("/profile")
@@ -461,7 +464,7 @@ const EditProfile = () => {
                                            onChange={changeAboutMe}
                                     />
                                     <label className="text-secondary" htmlFor="aboutMe">
-                                        About Me
+                                        About
                                     </label>
                                 </form>
 
@@ -501,6 +504,26 @@ const EditProfile = () => {
                                         </label>
                                     }
                                 </form>
+
+                                { /* Edit menu (if restaurant) */ }
+                                {
+                                    currentUser && currentUser.userType === "RESTAURANT"
+                                    ?
+                                    <form className="form-floating mt-4">
+                                        <input id="menu"
+                                               type="text"
+                                               className="form-control"
+                                               placeholder="Enter menu"
+                                               value={menu}
+                                               onChange={changeMenu}
+                                        />
+                                        <label className="text-secondary" htmlFor="menu">
+                                            Menu
+                                        </label>
+                                    </form>
+                                    :
+                                    <></>
+                                }
 
                             </Card.Body>
                         </Card>

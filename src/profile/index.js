@@ -270,6 +270,46 @@ const Profile = () => {
                             {
                                 !showFollowingInfo && !showFollowerInfo &&
                                 (
+                                    currentUser && currentUser.userType === "RESTAURANT"
+                                    ?
+                                    <div>
+                                        { /* About Me card */ }
+                                        <Card className="profile-card">
+                                            <Card.Body>
+                                                <Card.Title>
+                                                    About
+                                                </Card.Title>
+
+                                                <Card.Text>
+                                                    {
+                                                        currentUser && currentUser.aboutMe
+                                                        ?
+                                                        <span>
+                                                            {currentUser.aboutMe}
+                                                        </span>
+                                                        :
+                                                        <span className="text-muted">
+                                                            This section is empty
+                                                        </span>
+                                                    }
+                                                </Card.Text>
+
+                                            </Card.Body>
+                                        </Card>
+
+                                        { /* Menu card */ }
+                                        <Card className="mt-4 profile-card">
+                                            <Card.Body>
+                                                <Card.Title className="profile-title">
+                                                    Menu
+                                                </Card.Title>
+                                                <Card.Text className="profile-text text-muted">
+                                                    {currentUser.menu}
+                                                </Card.Text>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                    :
                                     <div>
                                         { /* About Me card */ }
                                         <Card className="profile-card">
@@ -282,12 +322,12 @@ const Profile = () => {
                                                         currentUser && currentUser.aboutMe
                                                         ?
                                                         <span>
-                                            {currentUser.aboutMe}
-                                        </span>
+                                                            {currentUser.aboutMe}
+                                                        </span>
                                                         :
                                                         <span className="text-muted">
-                                            This section is empty
-                                        </span>
+                                                            This section is empty
+                                                        </span>
                                                     }
                                                 </Card.Text>
                                             </Card.Body>
