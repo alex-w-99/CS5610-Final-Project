@@ -54,7 +54,9 @@ const Register = () => {
                     const restaurantWithSameBusinessId = users.find(
                         (u) => (u.userType === "RESTAURANT" && u.userTypeField === userTypeField)
                     );
-                    if (restaurantWithSameBusinessId === undefined) {
+                    console.log(">>>restaurantWithSameBusinessId:")
+                    console.log(restaurantWithSameBusinessId)
+                    if (restaurantWithSameBusinessId !== undefined) {
                         setError("Restaurant ID entered has already been claimed by another user.");
                         return;
                     }

@@ -307,27 +307,6 @@ const ProfileOverview = () => {
                                         </div>
 
                                     </Card.Body>
-
-                                    <hr style={{
-                                        borderTop: '1px solid grey',
-                                        width: '80%',
-                                        margin: '0 auto'
-                                    }}/>
-
-                                    <ListGroup variant="flush" className="mt-2">
-
-                                        <ListGroup.Item
-                                            className="profile-nav-item text-center">
-                                            <Link to={window.location.pathname}
-                                                  style={{
-                                                      color: 'inherit',
-                                                      textDecoration: 'none'
-                                                  }}>
-                                                Reviews
-                                            </Link>
-                                        </ListGroup.Item>
-
-                                    </ListGroup>
                                 </Card>
                             </Col>
 
