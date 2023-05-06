@@ -1,79 +1,38 @@
 # final-project-react-web-app
 
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## UML 
-![React UML](/public/images/ReactUML.png)
-![Server UML](/public/images/ServerUML.png)
-
-## Available Scripts
 
 
+The corresponding back-end code can be found at the GitHub repository [linked here](https://github.com/alex-w-99/final-project-node-server-app/).
 
-In the project directory, you can run:
+Please see a visual overview of the project's overarching structure below:
 
-### `npm start`
+<p align="center">
+  <img src="https://github.com/alex-w-99/final-project-react-web-app/blob/main/public/images/Overarching_Project_Structure.png" width="800">
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In the project directory, running `npm start` will run the app in development mode on `http://localhost:3000`, viewable in a browser. The page will reload when changes are made, and you may also see lint errors printed to the console.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Pages
 
-### `npm test`
+### Home page
+The landing page of the web application, the home page, is the first page when visiting the website. It displays generic content for anonymous users and specific content for the logged-in user. The content is dynamic and based on the latest data entered by the user. The home page looks polished and finished and is mapped to either the root context `/` or `/home`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Profile page
+The profile page is accessible to all users and displays personal information, links to related content, and groups similar data into distinguishable categories. The profile page allows users to change their personal information if they are logged in, but hides sensitive information from others visiting the profile. The profile page is mapped to `/profile` for displaying the profile of the currently logged-in user and to `/profile/{profileId}` for displaying someone else's profile.
 
-### `npm run build`
+### Search/Search Results page
+The web application provides users the capability to search content from a remote service and display a summary of the results. The search and results page includes a form to search a remote API and a summarized list of results matching the search criteria. The results come from the remote API and can be augmented with related data in the local databases. The search and results page is mapped to `/search` when no search has been executed and no results exist and to `/search/{search criteria}` or `/search?criteria={search criteria}` when a search has been executed and the corresponding results shown.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Details page
+The details page allows users to view a detailed view of the search result, including additional related data from the local database and links to related data/users. The details page is mapped to `/details/{unique identifier}` or `/details?identifier={unique identifier}`, where the unique identifier uniquely identifies the item being displayed.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Login/Register page
+The login and register page allow users to register with the website and then login later on. Users can choose a role when signing up or select an admin role later. The login and register page disallows access one web page (namely, `/profile`) unless logged in and adapts content based on whether the user is logged in or not. The login and register pages are mapped to `/login` and `/register` respectively.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Netlify URL:
+- https://starlit-gecko-3b4549.netlify.app/
 
-### `npm run eject`
+## Acknowledgements
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> a863ae8 (Initialize project using Create React App)
+- Melanie Becker and Mohammed Amer, my partners for this project.
+- Professor Jose Annunziato, my Web Development professor.
