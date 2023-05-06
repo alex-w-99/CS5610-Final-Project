@@ -1,8 +1,8 @@
 # final-project-react-web-app
 
-This repository contains the React.js front-end code for a Yelp-like social media and restaurant reviews web application. The web application with 6 distinct screens: Login/Register, Home, Profile, Search/results, Details.
+This repository contains the React.js front-end code for a Yelp-like social media and restaurant reviews web application. The web application with 6 distinct screens: Login/Register, Home, Profile, Search/results, Details. The corresponding back-end code can be found at the GitHub repository [linked here](https://github.com/alex-w-99/final-project-node-server-app/).
 
-The corresponding back-end code can be found at the GitHub repository [linked here](https://github.com/alex-w-99/final-project-node-server-app/).
+Please see a demo video of this web application [linked here](https://youtu.be/ZXjzzTKO9wc).
 
 Please see a visual overview of the project's overarching structure below:
 
