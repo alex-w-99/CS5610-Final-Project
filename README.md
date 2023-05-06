@@ -1,4 +1,4 @@
-# final-project-react-web-app
+# Chews-Wisely-React-Web-App
 
 This repository contains the React.js front-end code for a Yelp-like social media and restaurant reviews web application. The web application with 6 distinct screens: Login/Register, Home, Profile, Search/results, Details. The corresponding back-end code can be found at the GitHub repository [linked here](https://github.com/alex-w-99/final-project-node-server-app/).
 
