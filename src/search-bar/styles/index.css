@@ -1,0 +1,35 @@
+#restaurant-search {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#location-search {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.cw-error-box {
+    border: 1px solid red;
+    font-size: 18px;
+    text-align: center;
+    text-align: center;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: rgb(255, 204, 203);
+    margin-top: 80px;
+}
+
+#search-bar-container {
+    width: 100%;
+    position: relative;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+#search-bar-component {
+    width: 80%;
+    left: 15%;
+    position: absolute;
+}

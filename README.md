@@ -1,11 +1,16 @@
-<<<<<<< HEAD
 # final-project-react-web-app
-=======
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## UML 
+![React UML](/public/images/ReactUML.png)
+![Server UML](/public/images/ServerUML.png)
+
 ## Available Scripts
+
+
 
 In the project directory, you can run:
 

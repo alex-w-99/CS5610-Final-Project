@@ -1,0 +1,30 @@
+#result-item-list {
+   width: 80%;
+}
+
+#result-item {
+    border-bottom: 1px solid rgb(210, 210, 210);
+    transition: box-shadow .3s;
+    box-shadow: 0px rgba(12, 0, 0, 0.3);
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+#result-item:hover {
+    box-shadow: 0 5px 15px rgba(33,33,33,0.2);
+}
+
+#result-image {
+    border-radius: 5px;
+}
+
+#results-heading {
+    font-size: 30px;
+}
+
+.cw-restaurant-name {
+    font-size: 24px;
+}
+
+#cw-review-item {
+}

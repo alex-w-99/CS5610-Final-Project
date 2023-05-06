@@ -1,0 +1,44 @@
+body {
+    font-size: 20px;
+}
+
+.cw-banner-box {
+    position: relative;
+    z-index: 0;
+}
+
+#top-bar {
+    font-weight: bold;
+    width: 100%;
+    height: 80px;
+    background: white;
+    padding-top: 20px;
+    z-index: 100;
+    border: none;
+    color: black;
+    font-size: 1.3em;
+}
+
+#ratings-summary-banner {
+    width: auto;
+    position: relative;
+
+}
+
+#restaurant-name {
+    font-size: 35px;
+}
+
+#restaurant-pic {
+    width: 100%;
+}
+
+.cw-rating-category {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 110px;
+}
+
+#bookmark-button {
+    font-size: 20 px;
+}

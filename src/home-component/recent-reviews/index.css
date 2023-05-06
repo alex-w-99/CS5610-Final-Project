@@ -1,0 +1,22 @@
+@media (max-width: 576px) {
+    .mt-1 {
+        margin-top: 0.5rem !important;
+    }
+
+    .mb-1 {
+        margin-bottom: 0.5rem !important;
+    }
+}
+
+.cw-review-item {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cw-review-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
